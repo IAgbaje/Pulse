@@ -18,6 +18,7 @@ const karla = Karla({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://pulse-wheat-six.vercel.app"),
   title: "Pulse | Nigerian Tech Compensation Index",
   description:
     "Anonymous compensation data for Nigerian tech professionals. See what engineers, PMs, designers, and other roles actually earn by level, industry, and location.",
