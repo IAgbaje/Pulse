@@ -74,7 +74,7 @@ export default function Contribute() {
         >
           {loaded && (
             <iframe
-              data-tally-src="data-tally-src="https://tally.so/embed/44PlyB?alignLeft=1&hideTitle=1&dynamicHeight=1"
+              data-tally-src="https://tally.so/embed/44PlyB?alignLeft=1&hideTitle=1&dynamicHeight=1"
               loading="lazy"
               width="100%"
               height="800"
