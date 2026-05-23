@@ -15,7 +15,7 @@ export default function Hero({ insights }: HeroProps) {
     <section
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center pt-16 pb-16"
-      style={{ background: "#081C0F" }}
+      style={{ background: "#0B1120" }}
     >
       {/* Background subtle grid */}
       <div
@@ -114,7 +114,7 @@ export default function Hero({ insights }: HeroProps) {
               fontSize: "13px",
               letterSpacing: "0.15em",
               background: "#C8962A",
-              color: "#081C0F",
+              color: "#0B1120",
               border: "none",
               borderRadius: "4px",
               cursor: "pointer",

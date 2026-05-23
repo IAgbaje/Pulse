@@ -15,7 +15,7 @@ export default function Home() {
   const insights = getInsights(data);
 
   return (
-    <main className="min-h-screen bg-[#081C0F]">
+    <main className="min-h-screen bg-[#0B1120]">
       <Navbar />
       <Hero insights={insights} />
       <SalaryByLevel insights={insights} />

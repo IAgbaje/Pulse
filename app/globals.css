@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --bg-primary: #081C0F;
+  --bg-primary: #0B1120;
   --accent: #C8962A;
   --text-primary: #F0EBE1;
   --text-secondary: rgba(240, 235, 225, 0.46);

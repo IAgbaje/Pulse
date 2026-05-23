@@ -51,7 +51,7 @@ export default function RootLayout({
           strategy="lazyOnload"
         />
       </head>
-      <body className="antialiased bg-[#081C0F] text-[#F0EBE1]">
+      <body className="antialiased bg-[#0B1120] text-[#F0EBE1]">
         {children}
       </body>
     </html>

@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "pulse-bg": "#081C0F",
+        "pulse-bg": "#0B1120",
         "pulse-gold": "#C8962A",
         "pulse-cream": "#F0EBE1",
         "pulse-tooltip": "#0A2614",
