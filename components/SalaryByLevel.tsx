@@ -24,7 +24,13 @@ const LEVEL_SHORT: Record<string, string> = {
   Director: "Director",
 };
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+interface TooltipProps {
+  active?: boolean;
+  payload?: { value: number }[];
+  label?: string;
+}
+
+const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
   if (active && payload && payload.length) {
     return (
       <div

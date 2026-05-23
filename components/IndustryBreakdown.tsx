@@ -16,7 +16,18 @@ interface IndustryBreakdownProps {
   insights: InsightSet;
 }
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+interface TooltipEntry {
+  value: number;
+  payload: { count: number };
+}
+
+interface TooltipProps {
+  active?: boolean;
+  payload?: TooltipEntry[];
+  label?: string;
+}
+
+const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
   if (active && payload && payload.length) {
     const entry = payload[0];
     return (
@@ -66,31 +77,6 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-interface CustomLabelProps {
-  x?: number;
-  y?: number;
-  width?: number;
-  value?: number;
-  count?: number;
-}
-
-const CustomLabel = ({ x = 0, y = 0, width = 0, value = 0, count }: CustomLabelProps) => {
-  return (
-    <text
-      x={x + width / 2}
-      y={y - 8}
-      fill="#C8962A"
-      textAnchor="middle"
-      style={{
-        fontFamily: "var(--font-karla)",
-        fontWeight: 700,
-        fontSize: "11px",
-      }}
-    >
-      {formatCurrency(value)} (n={count})
-    </text>
-  );
-};
 
 export default function IndustryBreakdown({ insights }: IndustryBreakdownProps) {
   const chartData = insights.byIndustry.map((i) => ({
@@ -193,12 +179,15 @@ export default function IndustryBreakdown({ insights }: IndustryBreakdownProps) 
                   />
                 ))}
                 <LabelList
-                  content={(props) => (
-                    <CustomLabel
-                      {...props}
-                      count={chartData[props.index as number]?.count}
-                    />
-                  )}
+                  dataKey="median"
+                  position="top"
+                  formatter={(v: number) => formatCurrency(v)}
+                  style={{
+                    fill: "#C8962A",
+                    fontSize: "11px",
+                    fontFamily: "var(--font-karla)",
+                    fontWeight: 700,
+                  }}
                 />
               </Bar>
             </BarChart>
