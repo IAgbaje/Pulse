@@ -1,6 +1,12 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
+declare global {
+  interface Window {
+    Tally?: { loadEmbeds: () => void };
+  }
+}
+
 export default function Contribute() {
   const sectionRef = useRef<HTMLElement>(null);
   const [loaded, setLoaded] = useState(false);
@@ -18,6 +24,14 @@ export default function Contribute() {
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (loaded) {
+      if (window.Tally) {
+        window.Tally.loadEmbeds();
+      }
+    }
+  }, [loaded]);
 
   return (
     <section
@@ -74,7 +88,7 @@ export default function Contribute() {
         >
           {loaded && (
             <iframe
-              data-tally-src="https://tally.so/embed/44PlyB?alignLeft=1&hideTitle=1&dynamicHeight=1"
+              src="https://tally.so/embed/44PlyB?alignLeft=1&hideTitle=1&dynamicHeight=1"
               loading="lazy"
               width="100%"
               height="800"
