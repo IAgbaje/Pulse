@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #081C0F;
+  --accent: #C8962A;
+  --text-primary: #F0EBE1;
+  --text-secondary: rgba(240, 235, 225, 0.46);
+  --text-muted: rgba(240, 235, 225, 0.26);
+  --surface: rgba(200, 150, 42, 0.06);
+  --surface-border: rgba(200, 150, 42, 0.16);
+  --divider: rgba(200, 150, 42, 0.22);
+  --success: #4CAF50;
+  --warning: #E57373;
+  --chart-grid: rgba(240, 235, 225, 0.08);
+  --chart-axis: rgba(240, 235, 225, 0.4);
+  --tooltip-bg: #0A2614;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-karla), sans-serif;
+}
+
+/* EKG / Heartbeat animation */
+.ekg-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: ekg-draw 2.5s ease-out forwards, ekg-pulse 3s ease-in-out 2.5s infinite;
+}
+
+@keyframes ekg-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes ekg-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--divider); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* Card base */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+}
+
+/* Section spacing */
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (max-width: 640px) {
+  .section-container {
+    padding: 0 16px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
