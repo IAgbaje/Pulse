@@ -1,46 +1,49 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
 
 declare global {
   interface Window {
-    Tally?: { loadEmbeds: () => void };
+    Tally?: { openPopup: (formId: string, options?: Record<string, unknown>) => void };
   }
 }
 
+const TRUST_CARDS = [
+  {
+    icon: "⏱",
+    headline: "3–4 minutes",
+    body: "A handful of questions. No lengthy forms, no sign-up required.",
+  },
+  {
+    icon: "🔒",
+    headline: "Fully anonymous",
+    body: "Zero names, zero company names, zero trace back to you.",
+  },
+  {
+    icon: "📊",
+    headline: "Open data",
+    body: "Your entry directly moves the index everyone else reads.",
+  },
+];
+
 export default function Contribute() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setLoaded(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (loaded) {
-      if (window.Tally) {
-        window.Tally.loadEmbeds();
-      }
+  const handleOpen = () => {
+    if (window.Tally) {
+      window.Tally.openPopup("44PlyB", {
+        layout: "modal",
+        width: 720,
+        hideTitle: true,
+        alignLeft: true,
+      });
     }
-  }, [loaded]);
+  };
 
   return (
     <section
       id="contribute"
-      ref={sectionRef}
       className="py-20"
       style={{ borderTop: "1px solid rgba(200,150,42,0.12)" }}
     >
       <div className="section-container">
+        {/* Label */}
         <p
           className="uppercase mb-2"
           style={{
@@ -53,6 +56,8 @@ export default function Contribute() {
         >
           Contribute
         </p>
+
+        {/* Heading */}
         <h2
           className="mb-3 max-w-2xl"
           style={{
@@ -64,6 +69,8 @@ export default function Contribute() {
         >
           Your four minutes will change someone&apos;s next negotiation
         </h2>
+
+        {/* Subtext */}
         <p
           className="mb-10 max-w-xl"
           style={{
@@ -77,56 +84,74 @@ export default function Contribute() {
           Every submission makes the index more useful for the professional who comes after you.
         </p>
 
-        {/* Tally embed */}
-        <div
-          className="w-full rounded-lg overflow-hidden"
-          style={{
-            border: "1px solid rgba(200,150,42,0.14)",
-            minHeight: "800px",
-            background: "rgba(200,150,42,0.02)",
-          }}
-        >
-          {loaded && (
-            <iframe
-              src="https://tally.so/embed/44PlyB?alignLeft=1&hideTitle=1&dynamicHeight=1"
-              loading="lazy"
-              width="100%"
-              height="800"
-              frameBorder={0}
-              marginHeight={0}
-              marginWidth={0}
-              title="PULSE"
-              style={{ display: "block" }}
-            />
-          )}
-          {!loaded && (
+        {/* Trust cards */}
+        <div className="grid grid-cols-1 gap-4 mb-10 sm:grid-cols-3">
+          {TRUST_CARDS.map((card) => (
             <div
-              className="flex items-center justify-center"
-              style={{ height: "800px" }}
+              key={card.headline}
+              className="rounded-lg p-5"
+              style={{
+                border: "1px solid rgba(200,150,42,0.18)",
+                background: "rgba(200,150,42,0.04)",
+              }}
             >
+              <span style={{ fontSize: "20px" }}>{card.icon}</span>
+              <p
+                className="mt-3 mb-1"
+                style={{
+                  fontFamily: "var(--font-karla)",
+                  fontWeight: 700,
+                  fontSize: "14px",
+                  color: "#C8962A",
+                }}
+              >
+                {card.headline}
+              </p>
               <p
                 style={{
                   fontFamily: "var(--font-karla)",
-                  fontSize: "14px",
-                  color: "rgba(240,235,225,0.3)",
+                  fontWeight: 400,
+                  fontSize: "13px",
+                  color: "rgba(240,235,225,0.46)",
+                  lineHeight: 1.6,
                 }}
               >
-                Loading form...
+                {card.body}
               </p>
             </div>
-          )}
+          ))}
         </div>
 
+        {/* CTA button */}
+        <button
+          onClick={handleOpen}
+          className="inline-flex items-center gap-2 rounded-lg px-8 py-4 transition-opacity hover:opacity-90 active:opacity-75"
+          style={{
+            background: "#C8962A",
+            fontFamily: "var(--font-karla)",
+            fontWeight: 700,
+            fontSize: "15px",
+            color: "#0B1120",
+            letterSpacing: "0.02em",
+            cursor: "pointer",
+            border: "none",
+          }}
+        >
+          Submit your compensation
+          <span style={{ fontSize: "16px" }}>→</span>
+        </button>
+
+        {/* Social proof */}
         <p
-          className="mt-6 text-center"
+          className="mt-5"
           style={{
             fontFamily: "var(--font-karla)",
             fontSize: "13px",
-            color: "rgba(240,235,225,0.3)",
+            color: "rgba(240,235,225,0.28)",
             letterSpacing: "0.03em",
           }}
         >
-          100% anonymous. No names, no company names, no identifying information.
+          Already 87 submissions · Updated as new data arrives
         </p>
       </div>
     </section>
