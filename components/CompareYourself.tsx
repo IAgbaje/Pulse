@@ -48,6 +48,12 @@ export default function CompareYourself({ data }: CompareYourselfProps) {
   const [result, setResult] = useState<CompareResult | null>(null);
   const [error, setError] = useState("");
 
+  const handleSalaryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value.replace(/[^0-9]/g, "");
+    if (raw === "") { setSalary(""); return; }
+    setSalary(parseInt(raw, 10).toLocaleString("en-NG"));
+  };
+
   const handleCompare = () => {
     setError("");
     setResult(null);
@@ -236,22 +242,35 @@ export default function CompareYourself({ data }: CompareYourselfProps) {
               >
                 Monthly gross salary (₦)
               </label>
-              <input
-                type="number"
-                value={salary}
-                onChange={(e) => setSalary(e.target.value)}
-                placeholder="e.g. 600000"
-                className="w-full px-4 py-3 focus:outline-none transition-colors"
-                style={{
-                  background: "rgba(8,28,15,0.8)",
-                  border: "1px solid rgba(200,150,42,0.2)",
-                  borderRadius: "6px",
-                  color: "#F0EBE1",
-                  fontFamily: "var(--font-karla)",
-                  fontSize: "14px",
-                }}
-                onKeyDown={(e) => e.key === "Enter" && handleCompare()}
-              />
+              <div className="relative">
+                <span
+                  className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none select-none"
+                  style={{
+                    fontFamily: "var(--font-karla)",
+                    fontSize: "14px",
+                    color: "rgba(240,235,225,0.4)",
+                  }}
+                >
+                  ₦
+                </span>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={salary}
+                  onChange={handleSalaryChange}
+                  placeholder="e.g. 600,000"
+                  className="w-full pl-7 pr-4 py-3 focus:outline-none transition-colors"
+                  style={{
+                    background: "rgba(8,28,15,0.8)",
+                    border: "1px solid rgba(200,150,42,0.2)",
+                    borderRadius: "6px",
+                    color: "#F0EBE1",
+                    fontFamily: "var(--font-karla)",
+                    fontSize: "14px",
+                  }}
+                  onKeyDown={(e) => e.key === "Enter" && handleCompare()}
+                />
+              </div>
             </div>
 
             {error && (
