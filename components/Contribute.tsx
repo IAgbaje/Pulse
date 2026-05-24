@@ -151,7 +151,7 @@ export default function Contribute() {
             letterSpacing: "0.03em",
           }}
         >
-          Already 87 submissions · Updated as new data arrives
+          Already 104 submissions · Updated as new data arrives
         </p>
       </div>
     </section>
