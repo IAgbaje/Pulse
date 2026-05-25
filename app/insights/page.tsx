@@ -54,12 +54,12 @@ export default function InsightsPage() {
     {
       stat: `${negotiationPremiumPct}%`,
       title: "The negotiation premium",
-      body: `Professionals who negotiated their last salary earn a median of ${formatCurrency(negStats.negotiatedMedian)} monthly. Those who didn&apos;t: ${formatCurrency(negStats.notNegotiatedMedian)}. Same level. Same city. Different conversation. The data is unambiguous — ask for more.`,
+      body: `Professionals who negotiated their last salary earn a median of ${formatCurrency(negStats.negotiatedMedian)} monthly. Those who didn't: ${formatCurrency(negStats.notNegotiatedMedian)}. Same level. Same city. Different conversation. The data is unambiguous — ask for more.`,
     },
     {
       stat: `${multiplier}×`,
       title: "Junior to senior multiplier",
-      body: "Moving from 0–2 years to 4–8 years of experience dramatically increases median compensation. The biggest single jump is between mid-level and senior. That&apos;s where to focus your energy.",
+      body: "Moving from 0–2 years to 4–8 years of experience dramatically increases median compensation. The biggest single jump is between mid-level and senior. That's where to focus your energy.",
     },
     {
       stat: `${avgTakeHome}%`,
