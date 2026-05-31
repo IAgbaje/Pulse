@@ -82,10 +82,16 @@ export const INDUSTRY_ORDER = [
   "Financial Services",
   "SaaS",
   "Healthtech",
+  "HRTech",
   "Edtech",
   "Logistics",
   "Consulting",
   "Public Sector",
+  "Telecoms",
+  "Pharmaceuticals",
+  "Media & Entertainment",
+  "Legal",
+  "Maritime",
   "Other",
 ];
 
