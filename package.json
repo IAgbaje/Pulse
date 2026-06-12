@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/validate-data.mjs && next build",
+    "validate": "node scripts/validate-data.mjs",
     "start": "next start",
     "lint": "next lint"
   },

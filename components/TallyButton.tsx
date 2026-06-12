@@ -1,5 +1,7 @@
 "use client";
 
+import { track } from "@vercel/analytics";
+
 declare global {
   interface Window {
     Tally?: {
@@ -22,8 +24,12 @@ export default function TallyButton({
   className = "",
 }: TallyButtonProps) {
   const handleClick = () => {
-    if (typeof window !== "undefined" && window.Tally) {
-      window.Tally.openPopup(TALLY_FORM_ID, {
+    const popup = typeof window !== "undefined" && !!window.Tally;
+    // The core funnel event: CTA click → form open. Conversion analysis
+    // depends on this firing before anything else.
+    track("tally_open", { variant, method: popup ? "popup" : "new_tab" });
+    if (popup) {
+      window.Tally!.openPopup(TALLY_FORM_ID, {
         width: 700,
         hideTitle: true,
         overlay: true,

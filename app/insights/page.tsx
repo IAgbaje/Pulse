@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import {
   getAllData,
+  getYearData,
   getByLevel,
+  getAggregates,
   getNegotiationStats,
   getWorkArrangementStats,
   getTrend,
   getBenefitsBreakdown,
   formatCurrency,
   filterData,
+  LATEST_YEAR,
+  MIN_SEGMENT_RECORDS,
 } from "@/lib/data";
 import InsightCard from "@/components/InsightCard";
 import IndustryChart from "@/components/IndustryChart";
@@ -18,71 +22,135 @@ export const metadata: Metadata = {
   title: "Compensation Insights | Pulse",
 };
 
+interface CardDef {
+  stat: string;
+  title: string;
+  body: string;
+  basis: string;
+}
+
 export default function InsightsPage() {
   const data = getAllData();
-  const negStats = getNegotiationStats(data);
-  const byLevel = getByLevel(data);
-  const workStats = getWorkArrangementStats(data);
+  const current = getYearData(data, LATEST_YEAR);
   const trend = getTrend(data);
-  const benefits = getBenefitsBreakdown(data);
 
-  const negotiationPremiumPct =
-    negStats.notNegotiatedMedian > 0
-      ? Math.round(((negStats.negotiatedMedian - negStats.notNegotiatedMedian) / negStats.notNegotiatedMedian) * 100)
-      : 82;
+  const currentBasis = `${LATEST_YEAR} dataset`;
+  const insightCards: CardDef[] = [];
 
-  const juniorMedian = byLevel.find((l) => l.level === "Junior (0-2 yrs)")?.median ?? 0;
-  const seniorMedian = byLevel.find((l) => l.level === "Senior (4-8 yrs)")?.median ?? 0;
-  const multiplier = juniorMedian > 0 ? (seniorMedian / juniorMedian).toFixed(1) : "3.6";
+  // 1. Real wages — the headline story. Nominal change between the earliest
+  // and latest dataset years, against a backdrop of devaluation.
+  if (trend.length > 1) {
+    const first = trend[0];
+    const last = trend[trend.length - 1];
+    if (first.median > 0 && last.median > 0) {
+      const nominalPct = Math.round(((last.median - first.median) / first.median) * 100);
+      insightCards.push({
+        stat: `${nominalPct >= 0 ? "+" : ""}${nominalPct}%`,
+        basis: `${first.year} vs ${last.year}`,
+        title: "Flat naira, shrinking value",
+        body: `The median monthly gross moved from ${formatCurrency(first.median)} in ${first.year} to ${formatCurrency(last.median)} in ${last.year} — a ${Math.abs(nominalPct)}% nominal change across a period of steep naira devaluation and inflation. In real terms, Nigerian tech compensation has fallen substantially. If your salary hasn't moved since ${first.year}, you have taken a pay cut.`,
+      });
+    }
+  }
 
-  const allNGN = data.filter((r) => r.currency === "NGN" && r.monthly_gross !== null && r.monthly_net !== null);
-  const takeHomeRatios = allNGN.map((r) => (r.monthly_net! / r.monthly_gross!) * 100);
-  const avgTakeHome = takeHomeRatios.length > 0
-    ? Math.round(takeHomeRatios.reduce((a, b) => a + b, 0) / takeHomeRatios.length)
-    : 84;
-
-  const fintechData = filterData(data, { industry: "Fintech" });
-  const fintechPct = data.length > 0 ? Math.round((fintechData.length / data.length) * 100) : 51;
-
-  // Benefits stats for insight card
-  const topBenefit = benefits[0]?.benefit ?? "Health Insurance";
-  const topBenefitPct = benefits[0]?.percent ?? 0;
-  const withAnyBenefits = data.filter((r) => r.benefits && r.benefits.toLowerCase() !== "none" && r.benefits.toLowerCase() !== "n/a" && r.benefits.trim() !== "").length;
-  const withBenefitsPct = data.length > 0 ? Math.round((withAnyBenefits / data.length) * 100) : 0;
-
-  const insightCards = [
-    {
-      stat: `${negotiationPremiumPct}%`,
+  // 2. Negotiation premium — current year only, shown only when both groups
+  // clear the minimum-records threshold.
+  const negStats = getNegotiationStats(current);
+  const premiumValid =
+    negStats.notNegotiatedMedian > 0 &&
+    negStats.negotiatedCount >= MIN_SEGMENT_RECORDS &&
+    negStats.notNegotiatedCount >= MIN_SEGMENT_RECORDS;
+  if (premiumValid) {
+    const premiumPct = Math.round(
+      ((negStats.negotiatedMedian - negStats.notNegotiatedMedian) / negStats.notNegotiatedMedian) * 100
+    );
+    insightCards.push({
+      stat: `${premiumPct}%`,
+      basis: currentBasis,
       title: "The negotiation premium",
-      body: `Professionals who negotiated their last salary earn a median of ${formatCurrency(negStats.negotiatedMedian)} monthly. Those who didn't: ${formatCurrency(negStats.notNegotiatedMedian)}. Same level. Same city. Different conversation. The data is unambiguous — ask for more.`,
-    },
-    {
-      stat: `${multiplier}×`,
-      title: "Junior to senior multiplier",
-      body: "Moving from 0–2 years to 4–8 years of experience dramatically increases median compensation. The biggest single jump is between mid-level and senior. That's where to focus your energy.",
-    },
-    {
-      stat: `${avgTakeHome}%`,
-      title: "Take-home ratio",
-      body: `The average Nigerian tech professional takes home roughly ${avgTakeHome} kobo of every naira earned. Use this to convert the gross number on an offer letter into what actually lands in your account each month.`,
-    },
-    {
-      stat: `${fintechPct}%`,
-      title: "Fintech dominates",
-      body: `More than half of all data points come from fintech. The sector pays a median of ${formatCurrency(fintechData[0] ? getByLevel(fintechData)[0]?.median ?? 600000 : 600000)} monthly gross and remains the largest employer of tech talent in Nigeria by volume.`,
-    },
-    {
-      stat: `${negStats.negotiatedPercent}%`,
-      title: "Less than half negotiated",
-      body: "Fewer than half of the professionals in this dataset negotiated their compensation. Those who did earned significantly more. The data is clear — silence costs money. Ask.",
-    },
-    {
-      stat: `${withBenefitsPct}%`,
-      title: "Benefits are part of the deal",
-      body: `${withBenefitsPct}% of respondents receive at least one non-cash benefit. ${topBenefit} is the most common at ${topBenefitPct}% of submissions. When evaluating an offer, the full package — not just gross salary — is what determines your real compensation.`,
-    },
-  ];
+      body: `Professionals in the ${LATEST_YEAR} dataset who negotiated their last salary earn a median of ${formatCurrency(negStats.negotiatedMedian)} monthly (${negStats.negotiatedCount} records). Those who didn't: ${formatCurrency(negStats.notNegotiatedMedian)} (${negStats.notNegotiatedCount} records). Part of this gap reflects seniority — senior people negotiate more — but the direction is consistent: asking costs nothing and silence isn't free.`,
+    });
+  }
 
+  // 3. Who negotiates — current year.
+  const totalAnswered = negStats.negotiatedCount + negStats.notNegotiatedCount;
+  if (totalAnswered >= MIN_SEGMENT_RECORDS) {
+    insightCards.push({
+      stat: `${negStats.negotiatedPercent}%`,
+      basis: currentBasis,
+      title: "Who negotiates?",
+      body: `${negStats.negotiatedPercent}% of ${LATEST_YEAR} respondents negotiated their compensation. Whatever side of that line you're on, the premium data above tells you which side pays better.`,
+    });
+  }
+
+  // 4. Junior → senior multiplier. Falls back to the historical dataset when
+  // the current year lacks enough junior records — labeled accordingly.
+  const multiplierFrom = (records: typeof data, basis: string): CardDef | null => {
+    const byLevel = getByLevel(records);
+    const junior = byLevel.find((l) => l.level === "Junior (0-2 yrs)")?.median ?? 0;
+    const senior = byLevel.find((l) => l.level === "Senior (4-8 yrs)")?.median ?? 0;
+    if (junior <= 0 || senior <= 0) return null;
+    return {
+      stat: `${(senior / junior).toFixed(1)}×`,
+      basis,
+      title: "Junior to senior multiplier",
+      body: `Median compensation for seniors (4–8 yrs) is ${(senior / junior).toFixed(1)}× the junior (0–2 yrs) median — ${formatCurrency(senior)} vs ${formatCurrency(junior)} monthly gross. Experience is the single biggest lever on pay in this dataset.`,
+    };
+  };
+  const olderYears = trend.map((t) => t.year).filter((y) => y !== LATEST_YEAR);
+  const multiplierCard =
+    multiplierFrom(current, currentBasis) ??
+    (olderYears.length
+      ? multiplierFrom(getYearData(data, olderYears[olderYears.length - 1]), `${olderYears[olderYears.length - 1]} dataset (historical)`)
+      : null);
+  if (multiplierCard) insightCards.push(multiplierCard);
+
+  // 5. Take-home ratio — current year, NGN records with both gross and net.
+  const withNet = current.filter(
+    (r) => r.currency === "NGN" && r.monthly_gross !== null && r.monthly_net !== null
+  );
+  if (withNet.length >= MIN_SEGMENT_RECORDS) {
+    const avgTakeHome = Math.round(
+      withNet.map((r) => (r.monthly_net! / r.monthly_gross!) * 100).reduce((a, b) => a + b, 0) /
+        withNet.length
+    );
+    insightCards.push({
+      stat: `${avgTakeHome}%`,
+      basis: `${currentBasis} · ${withNet.length} records`,
+      title: "Take-home ratio",
+      body: `On average, ${LATEST_YEAR} respondents take home roughly ${avgTakeHome} kobo of every naira earned. Use this to convert the gross number on an offer letter into what actually lands in your account each month.`,
+    });
+  }
+
+  // 6. Fintech — current year share and sector median.
+  const fintechCurrent = filterData(current, { industry: "Fintech" });
+  const fintechAgg = getAggregates(fintechCurrent);
+  if (current.length > 0 && fintechAgg.countWithGross >= MIN_SEGMENT_RECORDS) {
+    const fintechPct = Math.round((fintechCurrent.length / current.length) * 100);
+    insightCards.push({
+      stat: `${fintechPct}%`,
+      basis: currentBasis,
+      title: "Fintech leads the dataset",
+      body: `${fintechPct}% of ${LATEST_YEAR} submissions come from fintech, with a sector median of ${formatCurrency(fintechAgg.median)} monthly gross (${fintechAgg.countWithGross} records). It remains the gravitational center of Nigerian tech hiring.`,
+    });
+  }
+
+  // 7. Benefits — current year.
+  const benefits = getBenefitsBreakdown(current);
+  const withAnyBenefits = current.filter(
+    (r) => r.benefits && r.benefits.toLowerCase() !== "none" && r.benefits.toLowerCase() !== "n/a" && r.benefits.trim() !== ""
+  ).length;
+  if (current.length >= MIN_SEGMENT_RECORDS && benefits.length > 0) {
+    const withBenefitsPct = Math.round((withAnyBenefits / current.length) * 100);
+    insightCards.push({
+      stat: `${withBenefitsPct}%`,
+      basis: currentBasis,
+      title: "Benefits are part of the deal",
+      body: `${withBenefitsPct}% of ${LATEST_YEAR} respondents receive at least one non-cash benefit. ${benefits[0].benefit} is the most common at ${benefits[0].percent}% of submissions. When evaluating an offer, the full package — not just gross salary — is what determines your real compensation.`,
+    });
+  }
+
+  const workStats = getWorkArrangementStats(data);
   const workChartData = workStats.map((w) => ({
     industry: w.arrangement.replace("Fully ", "").replace(" in-office", ""),
     median: w.median,
@@ -97,7 +165,8 @@ export default function InsightsPage() {
       <div className="max-w-content mx-auto px-6 pt-16 pb-8">
         <h1 className="text-3xl font-semibold text-cream mb-2">What the data reveals</h1>
         <p className="text-sm text-cream-60">
-          Key findings from {data.length} compensation records across Nigerian tech and business.
+          Key findings from {data.length} compensation records. Every number below states which
+          slice of the data it comes from — and nothing is shown below {MIN_SEGMENT_RECORDS} records.
         </p>
       </div>
 
@@ -105,7 +174,7 @@ export default function InsightsPage() {
       <div className="max-w-content mx-auto px-6 pb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {insightCards.map((card, i) => (
-            <InsightCard key={i} {...card} index={i} />
+            <InsightCard key={card.title} {...card} index={i} />
           ))}
         </div>
       </div>
@@ -115,12 +184,16 @@ export default function InsightsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="surface-card">
             <p className="text-sm font-semibold text-cream mb-1">Salary by level and negotiation status</p>
-            <p className="text-xs text-cream-40 mb-4">Negotiated vs not negotiated, by career level</p>
-            <NegotiationChart data={data} byLevel={byLevel} />
+            <p className="text-xs text-cream-40 mb-4">
+              All years pooled — directional view · levels shown only where both groups have ≥{MIN_SEGMENT_RECORDS} records
+            </p>
+            <NegotiationChart data={data} />
           </div>
           <div className="surface-card">
             <p className="text-sm font-semibold text-cream mb-1">Compensation by work arrangement</p>
-            <p className="text-xs text-cream-40 mb-4">Median monthly gross by work setup</p>
+            <p className="text-xs text-cream-40 mb-4">
+              All years pooled — directional view · median monthly gross by work setup
+            </p>
             <IndustryChart data={workChartData} />
           </div>
         </div>
@@ -131,13 +204,13 @@ export default function InsightsPage() {
         <div className="max-w-content mx-auto px-6 py-12">
           <h2 className="text-xl font-semibold text-cream mb-1">Beyond the paycheck</h2>
           <p className="text-sm text-cream-60 mb-8">
-            Non-cash benefits reported by professionals in the dataset — from health cover to stock options.
+            Non-cash benefits reported in the {LATEST_YEAR} dataset — from health cover to stock options.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
             <div className="surface-card">
               <p className="text-sm font-semibold text-cream mb-1">Most common benefits</p>
-              <p className="text-xs text-cream-40 mb-5">% of all respondents who listed each benefit</p>
-              <BenefitsChart data={benefits} totalRecords={data.length} />
+              <p className="text-xs text-cream-40 mb-5">% of {LATEST_YEAR} respondents who listed each benefit</p>
+              <BenefitsChart data={benefits} totalRecords={current.length} />
             </div>
             <div className="space-y-4">
               <div className="gold-card">
@@ -162,7 +235,11 @@ export default function InsightsPage() {
         <div className="border-t border-[rgba(200,150,42,0.10)]">
           <div className="max-w-content mx-auto px-6 py-12">
             <h2 className="text-xl font-semibold text-cream mb-2">Compensation over time</h2>
-            <p className="text-sm text-cream-60 mb-6">How median salaries have moved across datasets.</p>
+            <p className="text-sm text-cream-60 mb-6">
+              Each dataset year, shown separately. These are nominal naira figures — they are not
+              adjusted for inflation or devaluation, and should not be compared as if the naira held
+              its value between snapshots.
+            </p>
             <div className="flex flex-wrap gap-6">
               {trend.map((t) => (
                 <div key={t.year} className="gold-card flex-1 min-w-[140px]">

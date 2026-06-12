@@ -46,6 +46,14 @@ function parseNumericValue(value: string | number): number | null {
   return num;
 }
 
+// Compact ₦ formatting matching lib/data's formatCurrency, local to avoid
+// pulling the dataset into this client component's bundle.
+function formatCompactNaira(value: number): string {
+  if (value >= 1000000) return `₦${(value / 1000000).toFixed(1)}M`;
+  if (value >= 1000) return `₦${Math.round(value / 1000)}K`;
+  return `₦${value.toLocaleString()}`;
+}
+
 export default function StatCard({ label, value, subtitle, variant = "compact", animate = true }: StatCardProps) {
   const [inView, setInView] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -64,9 +72,13 @@ export default function StatCard({ label, value, subtitle, variant = "compact", 
     return () => observer.disconnect();
   }, []);
 
+  // Re-format animated values with the same notation as the original string,
+  // so "₦589K" animates as compact naira rather than "₦589,000K".
   const displayValue = shouldAnimate || inView
     ? typeof value === "string"
-      ? value.replace(/\d[\d.,]*/g, animatedNum.toLocaleString())
+      ? value.startsWith("₦")
+        ? formatCompactNaira(animatedNum)
+        : value.replace(/\d[\d.,]*/g, animatedNum.toLocaleString())
       : animatedNum.toLocaleString()
     : value;
 

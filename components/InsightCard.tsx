@@ -7,10 +7,12 @@ interface InsightCardProps {
   stat: string;
   title: string;
   body: string;
+  /** Which slice of the data this insight is computed from, e.g. "2026 dataset". */
+  basis?: string;
   index?: number;
 }
 
-export default function InsightCard({ stat, title, body, index = 0 }: InsightCardProps) {
+export default function InsightCard({ stat, title, body, basis, index = 0 }: InsightCardProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -33,6 +35,7 @@ export default function InsightCard({ stat, title, body, index = 0 }: InsightCar
       transition={{ duration: 0.3, delay: (index % 2) * 0.08 }}
       className="surface-card flex flex-col gap-3"
     >
+      {basis && <p className="label-caps">{basis}</p>}
       <p className="font-display text-5xl text-gold tracking-wide">{stat}</p>
       <p className="text-base font-semibold text-cream font-body">{title}</p>
       <p className="text-sm text-cream-60 leading-relaxed font-body">{body}</p>

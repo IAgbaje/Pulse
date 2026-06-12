@@ -30,7 +30,7 @@ export default function RecentSubmissions({ data }: RecentSubmissionsProps) {
             </tr>
           </thead>
           <tbody>
-            {data.map((r, i) => {
+            {data.map((r) => {
               const sym = getCurrencySymbol(r.currency);
               const grossDisplay =
                 r.monthly_gross != null
@@ -43,7 +43,7 @@ export default function RecentSubmissions({ data }: RecentSubmissionsProps) {
               const isDiaspora = r.currency !== "NGN";
 
               return (
-                <tr key={i} className={isDiaspora ? "opacity-80" : ""}>
+                <tr key={r.id} className={isDiaspora ? "opacity-80" : ""}>
                   <td className="text-cream-60 whitespace-nowrap">
                     {r.function.replace("Sales & Business Development", "Sales & BD")}
                   </td>

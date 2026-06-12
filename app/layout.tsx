@@ -3,6 +3,7 @@ import { Bebas_Neue, Karla } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
+import { SITE_URL } from "@/lib/site";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -23,6 +24,7 @@ const description =
   "Anonymous compensation data for Nigerian tech professionals. See what engineers, PMs, designers, and other roles earn by level, industry, and location.";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Pulse | Nigerian Tech Compensation Index",
   description,
   openGraph: {

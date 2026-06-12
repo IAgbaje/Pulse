@@ -10,7 +10,7 @@ const trustSignals = [
   "Completely anonymous — no name, email, or identifying information collected",
   "Takes four minutes. No account required.",
   "Your submission improves salary benchmarks for every professional after you",
-  "Data is aggregated and never shown individually",
+  "Submissions appear only as anonymized records — never with anything that could identify you",
 ];
 
 export default function ContributePage() {
@@ -40,7 +40,7 @@ export default function ContributePage() {
             Your submission doesn&apos;t need to be from a current role. If you recently changed jobs, negotiated an offer, or just want to add a data point from a role you&apos;ve left — it all helps. The more diverse the contributions, the more accurate the picture.
           </p>
           <p>
-            We never show individual submissions. Everything is aggregated into the medians, percentiles, and charts you see across the site. There&apos;s no way to trace a data point back to a person — that&apos;s by design, not by policy.
+            All statistics are aggregated into the medians, percentiles, and charts you see across the site. Individual records appear only as anonymized rows — role, level, industry, salary — and where a combination of details is rare enough that it could point to one person, we suppress those details. There&apos;s no name, email, or company attached to anything, so there&apos;s no way to trace a data point back to a person — that&apos;s by design, not by policy.
           </p>
         </div>
 

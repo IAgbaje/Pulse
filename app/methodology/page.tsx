@@ -102,10 +102,13 @@ export default function MethodologyPage() {
             No personally identifying information is collected. The submission form does not ask for name, email, company name, job title (only function and level), or any other field that could reasonably identify an individual.
           </p>
           <p>
-            Submissions are ingested as anonymized records only. Each record is assigned a random identifier at submission time. There is no way to trace a published data point back to the person who submitted it — including for the people who run this index.
+            Submissions are ingested as anonymized records only. Each record is assigned a random identifier when it enters the dataset. There is no way to trace a published data point back to the person who submitted it — including for the people who run this index.
           </p>
           <p>
-            Gender is collected as an optional field for equity analysis only. It is never displayed at the individual record level and is only used in aggregate views where sample size is sufficient.
+            Where a record&apos;s combination of role, level, industry, and location is rare enough that it could point to a single person, those details are suppressed in record-level views.
+          </p>
+          <p>
+            Gender is collected as an optional field for future equity analysis only. It is not published in the public dataset and would only ever be used in aggregate views where sample size is sufficient.
           </p>
         </Section>
 

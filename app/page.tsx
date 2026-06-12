@@ -2,17 +2,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   getAllData,
+  getYearData,
   getAggregates,
   getByLevel,
-  getByIndustry,
+  getTrend,
   formatCurrency,
   getNegotiationStats,
+  LATEST_YEAR,
+  MIN_SEGMENT_RECORDS,
 } from "@/lib/data";
 import EKGLine from "@/components/EKGLine";
 import TallyButton from "@/components/TallyButton";
 import StatCard from "@/components/StatCard";
 import SalaryChart from "@/components/SalaryChart";
-import IndustryChart from "@/components/IndustryChart";
 
 export const metadata: Metadata = {
   title: "Pulse | Nigerian Tech Compensation Index",
@@ -20,13 +22,23 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   const data = getAllData();
-  const agg = getAggregates(data);
-  const byLevel = getByLevel(data);
-  const byIndustry = getByIndustry(data);
-  const negStats = getNegotiationStats(data);
-  const negotiationPremiumPct = negStats.notNegotiatedMedian > 0
-    ? Math.round(((negStats.negotiatedMedian - negStats.notNegotiatedMedian) / negStats.notNegotiatedMedian) * 100)
-    : 82;
+  const current = getYearData(data, LATEST_YEAR);
+  const agg = getAggregates(current);
+  const byLevel = getByLevel(current);
+  const negStats = getNegotiationStats(current);
+  const trend = getTrend(data);
+
+  const premiumValid =
+    negStats.notNegotiatedMedian > 0 &&
+    negStats.negotiatedCount >= MIN_SEGMENT_RECORDS &&
+    negStats.notNegotiatedCount >= MIN_SEGMENT_RECORDS;
+  const negotiationPremiumPct = premiumValid
+    ? Math.round(
+        ((negStats.negotiatedMedian - negStats.notNegotiatedMedian) /
+          negStats.notNegotiatedMedian) *
+          100
+      )
+    : null;
 
   return (
     <>
@@ -57,25 +69,36 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Live Stats Bar */}
+      {/* Live Stats Bar — current dataset only */}
       <section className="bg-bg-surface border-y border-[rgba(200,150,42,0.10)]">
         <div className="max-w-content mx-auto px-6 py-6">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <StatCard
-              label="Data Points"
+              label="All-Time Data Points"
               value={data.length}
               variant="large"
             />
             <StatCard
-              label="Median Monthly Gross"
+              label={`Median Monthly Gross (${LATEST_YEAR})`}
               value={formatCurrency(agg.median)}
+              subtitle={`${agg.countWithGross} NGN records with gross data`}
               variant="large"
             />
-            <StatCard
-              label="Negotiation Premium"
-              value={`${negotiationPremiumPct}%`}
-              variant="large"
-            />
+            {negotiationPremiumPct !== null ? (
+              <StatCard
+                label={`Negotiation Premium (${LATEST_YEAR})`}
+                value={`${negotiationPremiumPct}%`}
+                subtitle="Median gap: negotiated vs not"
+                variant="large"
+              />
+            ) : (
+              <StatCard
+                label={`${LATEST_YEAR} Submissions`}
+                value={current.length}
+                subtitle="And growing — add yours"
+                variant="large"
+              />
+            )}
           </div>
         </div>
       </section>
@@ -84,23 +107,43 @@ export default function HomePage() {
       <section className="max-w-content mx-auto px-6 py-20">
         <h2 className="text-2xl font-semibold text-cream mb-2">Compensation at a glance</h2>
         <p className="text-sm text-cream-60 mb-8">
-          Median salaries across levels and top industries in the dataset.
+          Current-year benchmarks, and how the market has moved since 2023.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="surface-card">
-            <p className="text-sm font-semibold text-cream mb-1">Median salary by level</p>
-            <p className="text-xs text-cream-40 mb-4">Monthly gross (₦ NGN records)</p>
+            <p className="text-sm font-semibold text-cream mb-1">
+              Median salary by level — {LATEST_YEAR} dataset
+            </p>
+            <p className="text-xs text-cream-40 mb-4">
+              Monthly gross (₦ NGN records) · segments with fewer than {MIN_SEGMENT_RECORDS} records are hidden
+            </p>
             <SalaryChart data={byLevel} />
           </div>
           <div className="surface-card">
-            <p className="text-sm font-semibold text-cream mb-1">Top paying industries</p>
-            <p className="text-xs text-cream-40 mb-4">Median monthly gross by sector</p>
-            <IndustryChart data={byIndustry} />
+            <p className="text-sm font-semibold text-cream mb-1">Median gross by dataset year</p>
+            <p className="text-xs text-cream-40 mb-4">
+              Each year shown separately — salaries from different economic eras are never pooled
+            </p>
+            <div className="flex gap-4 mb-5">
+              {trend.map((t) => (
+                <div key={t.year} className="gold-card flex-1">
+                  <p className="label-caps mb-1">{t.year}</p>
+                  <p className="font-display text-3xl text-gold">{formatCurrency(t.median)}</p>
+                  <p className="text-xs text-cream-40 mt-1">{t.count} records</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-cream-60 leading-relaxed">
+              Nominal medians have barely moved between 2023 and {LATEST_YEAR} — across a period of
+              steep naira devaluation and inflation. In real terms, that is a significant pay cut
+              for Nigerian tech talent.
+            </p>
           </div>
         </div>
         <p className="text-xs text-cream-40 mt-4">
-          Source: Community Dataset (2023) + Pulse Submissions (2026) ·{" "}
-          {agg.countWithGross} records with gross salary data
+          Headline statistics use the {LATEST_YEAR} dataset only ({agg.countWithGross} NGN records
+          with gross salary). The 2023 community dataset is available as a historical view on the
+          Explore page.
         </p>
       </section>
 

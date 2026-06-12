@@ -47,7 +47,7 @@ export default function Footer() {
               ))}
             </div>
             <p className="text-xs text-cream-40">
-              Data last updated: {latestYear === 2026 ? "May 2026" : `${latestYear}`}
+              Latest dataset: {latestYear}
             </p>
           </div>
         </div>

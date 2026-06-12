@@ -1,10 +1,10 @@
 [
   {
+    "id": "6e55f0b4",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Fintech",
@@ -15,14 +15,15 @@
     "monthly_net": 500000,
     "negotiated": "Yes",
     "benefits": "13th Month Salary, Passage Allowance, Leave Allowance",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "5fa4b723",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -33,14 +34,15 @@
     "monthly_net": 400000,
     "negotiated": "Yes",
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "ef84c398",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "SaaS",
@@ -51,14 +53,15 @@
     "monthly_net": 600000,
     "negotiated": "Sort of",
     "benefits": "Health insurance, Gifts",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "d392339d",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Fully in-office",
     "industry": "Other",
@@ -69,14 +72,15 @@
     "monthly_net": 170000,
     "negotiated": "No",
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "6d3a4761",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Fintech",
@@ -87,14 +91,15 @@
     "monthly_net": 500000,
     "negotiated": "No",
     "benefits": "HMO",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "57e821d7",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Healthtech",
@@ -105,14 +110,15 @@
     "monthly_net": 727000,
     "negotiated": "No",
     "benefits": "Health insurance",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "b5234fc0",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "USA",
     "work_arrangement": "Fully remote",
     "industry": "Edtech",
@@ -123,14 +129,15 @@
     "monthly_net": 1100000,
     "negotiated": "Yes",
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "d746a6f7",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Edtech",
@@ -141,14 +148,15 @@
     "monthly_net": 185356,
     "negotiated": "Sort of",
     "benefits": "Health insurance, Pension, Data allowance",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "e3184e5b",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "SaaS",
@@ -159,14 +167,15 @@
     "monthly_net": null,
     "negotiated": "No",
     "benefits": "Paid Leave",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "718c578c",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Other",
@@ -177,14 +186,15 @@
     "monthly_net": 550000,
     "negotiated": "Yes",
     "benefits": "HMO",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "d8df993d",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully in-office",
     "industry": "Fintech",
@@ -195,14 +205,15 @@
     "monthly_net": 158000,
     "negotiated": "Sort of",
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "ec73a65f",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -213,14 +224,15 @@
     "monthly_net": 500000,
     "negotiated": "Sort of",
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "19518a8e",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -231,14 +243,15 @@
     "monthly_net": 250000,
     "negotiated": "No",
     "benefits": "Data allowance, Laptop",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "77a56203",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Fintech",
@@ -249,14 +262,15 @@
     "monthly_net": 400000,
     "negotiated": "No",
     "benefits": "ESOP, Insurance",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "6bc37e76",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -267,14 +281,15 @@
     "monthly_net": 506000,
     "negotiated": "Yes",
     "benefits": "Performance bonus, HMO, Pension",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "172939a3",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -285,14 +300,15 @@
     "monthly_net": 42000,
     "negotiated": "No",
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "1813c7ae",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Edtech",
@@ -303,14 +319,15 @@
     "monthly_net": 35000,
     "negotiated": "Yes",
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "d70d87ea",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Director",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "SaaS",
@@ -321,14 +338,15 @@
     "monthly_net": 6000000,
     "negotiated": "Yes",
     "benefits": "Stock options",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "e02df0f7",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "SaaS",
@@ -339,14 +357,15 @@
     "monthly_net": 423000,
     "negotiated": "No",
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "256a4d45",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -357,14 +376,15 @@
     "monthly_net": 525000,
     "negotiated": "No",
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "7727edf6",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Lead/Staff (6-10 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -375,14 +395,15 @@
     "monthly_net": 750000,
     "negotiated": "Yes",
     "benefits": "Macbook, HMO, 21 days leave",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "09b2fc2d",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully in-office",
     "industry": "Edtech",
@@ -393,14 +414,15 @@
     "monthly_net": 504000,
     "negotiated": "Sort of",
     "benefits": "HMO, Pension, Free lunch",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "07055add",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Male",
     "location": "United Kingdom",
     "work_arrangement": "Fully remote",
     "industry": "SaaS",
@@ -411,14 +433,15 @@
     "monthly_net": 75000,
     "negotiated": "No",
     "benefits": "Data allowance, Workspace allowance, Transport allowance",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "03389100",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -429,14 +452,15 @@
     "monthly_net": 733000,
     "negotiated": "Yes",
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "2fa0c0c3",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Healthtech",
@@ -447,14 +471,15 @@
     "monthly_net": 300000,
     "negotiated": "Yes",
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "68af8839",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Fintech",
@@ -465,14 +490,15 @@
     "monthly_net": 100000,
     "negotiated": "No",
     "benefits": "Logistics and lunch when visiting office",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "bd3b4138",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "SaaS",
@@ -483,14 +509,15 @@
     "monthly_net": 35000,
     "negotiated": "No",
     "benefits": "Device purchase",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "7bc4ef51",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully in-office",
     "industry": "SaaS",
@@ -501,14 +528,15 @@
     "monthly_net": null,
     "negotiated": "Yes",
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "67ddcdf2",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Fintech",
@@ -519,14 +547,15 @@
     "monthly_net": 350000,
     "negotiated": "Sort of",
     "benefits": "Insurance, fitness program",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "912a7e74",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Other",
@@ -537,14 +566,15 @@
     "monthly_net": 324000,
     "negotiated": "Sort of",
     "benefits": "Data allowance, Phone credit, Health insurance",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "9d6a6643",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Other",
@@ -555,14 +585,15 @@
     "monthly_net": 637000,
     "negotiated": "No",
     "benefits": "Leave allowance, HMO",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "087be5d9",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -573,14 +604,15 @@
     "monthly_net": 397000,
     "negotiated": "Sort of",
     "benefits": "Leave allowance, Profit sharing, 13th month",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "20cc01ee",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Fintech",
@@ -591,14 +623,15 @@
     "monthly_net": 350000,
     "negotiated": "Yes",
     "benefits": "Work Laptop, Data allowance",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "5d7cb5a0",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Healthtech",
@@ -609,14 +642,15 @@
     "monthly_net": 800000,
     "negotiated": "Yes",
     "benefits": "Health insurance, Group life insurance, Performance Bonus, Leave allowance",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "17aae4b2",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Healthtech",
@@ -627,14 +661,15 @@
     "monthly_net": 430000,
     "negotiated": "No",
     "benefits": "Health insurance, Data",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "8a733be2",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -645,14 +680,15 @@
     "monthly_net": 237000,
     "negotiated": "No",
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "37f1a61c",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "SaaS",
@@ -663,14 +699,15 @@
     "monthly_net": 820000,
     "negotiated": "Yes",
     "benefits": "Contract role",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "2afb765e",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Other",
@@ -681,14 +718,15 @@
     "monthly_net": 150000,
     "negotiated": "Yes",
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "d2a47d05",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "SaaS",
@@ -699,14 +737,15 @@
     "monthly_net": 245800,
     "negotiated": "Yes",
     "benefits": "HMO, Pension",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "346c61d1",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Fintech",
@@ -717,14 +756,15 @@
     "monthly_net": 450000,
     "negotiated": "No",
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "d5fde26c",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Other",
@@ -735,14 +775,15 @@
     "monthly_net": 950000,
     "negotiated": "Yes",
     "benefits": "13th month, Laptop, HMO",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "c6505a8e",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "SaaS",
@@ -753,14 +794,15 @@
     "monthly_net": 250000,
     "negotiated": "No",
     "benefits": "HMO, Pension, Annual Bonus, Data, Laptop, Project allowance",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "41507fd9",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Healthtech",
@@ -771,14 +813,15 @@
     "monthly_net": 200000,
     "negotiated": "Sort of",
     "benefits": "Data allowance, Paid leave, Health insurance",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "0ea19cbc",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -789,14 +832,15 @@
     "monthly_net": 800000,
     "negotiated": "Yes",
     "benefits": "HMO, Pension, Data Allowance",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "13bd2cb9",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Female",
     "location": "Canada",
     "work_arrangement": "Fully remote",
     "industry": "Fintech",
@@ -807,14 +851,15 @@
     "monthly_net": 500000,
     "negotiated": "No",
     "benefits": "Pension, HMO, Gym membership",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "26a089a9",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Fintech",
@@ -825,14 +870,15 @@
     "monthly_net": 450000,
     "negotiated": "Sort of",
     "benefits": "Macbook",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "619fa837",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "SaaS",
@@ -843,14 +889,15 @@
     "monthly_net": 702000,
     "negotiated": "Yes",
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "b5ad6723",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Lead/Staff (6-10 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -861,14 +908,15 @@
     "monthly_net": 1060000,
     "negotiated": "Yes",
     "benefits": "ESOP, Health, Gift card vouchers, Performance bonuses, Profit sharing",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "20df1dd8",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -879,14 +927,15 @@
     "monthly_net": 500000,
     "negotiated": "No",
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "8dd29772",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -897,14 +946,15 @@
     "monthly_net": 394762,
     "negotiated": "No",
     "benefits": "HMO, Laptop, Data token",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "bdf05971",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -915,14 +965,15 @@
     "monthly_net": 600000,
     "negotiated": "Yes",
     "benefits": "HMO, Pension",
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "795bd847",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -933,14 +984,15 @@
     "monthly_net": 200000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "0e42ee0d",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -951,14 +1003,15 @@
     "monthly_net": 800000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "28076732",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -969,14 +1022,15 @@
     "monthly_net": 350000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "4c9c8d2d",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -987,14 +1041,15 @@
     "monthly_net": 420000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "d888ee4b",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -1005,14 +1060,15 @@
     "monthly_net": 300000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "c2de313c",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -1023,14 +1079,15 @@
     "monthly_net": 250000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "8bb3ccd7",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -1041,14 +1098,15 @@
     "monthly_net": 460000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "5a7aaf11",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Logistics",
@@ -1059,14 +1117,15 @@
     "monthly_net": 250000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "5bde8ace",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Logistics",
@@ -1077,14 +1136,15 @@
     "monthly_net": 360000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "80903e27",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": null,
     "location": "Abuja",
     "work_arrangement": null,
     "industry": "Edtech",
@@ -1095,14 +1155,15 @@
     "monthly_net": 450000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "a2a03868",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -1113,14 +1174,15 @@
     "monthly_net": 250000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "34329e08",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -1131,14 +1193,15 @@
     "monthly_net": 350000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "cbc29bf2",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -1149,14 +1212,15 @@
     "monthly_net": 120000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "d5e3a19e",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Edtech",
@@ -1167,14 +1231,15 @@
     "monthly_net": 580000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "d4078173",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": null,
     "location": "Ogun",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -1185,14 +1250,15 @@
     "monthly_net": 400000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "8fd74eac",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Other",
@@ -1203,14 +1269,15 @@
     "monthly_net": 145000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "47154060",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -1221,14 +1288,15 @@
     "monthly_net": 500000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "915d18c8",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Other",
@@ -1239,14 +1307,15 @@
     "monthly_net": 155000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "f543f54d",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Other",
@@ -1257,14 +1326,15 @@
     "monthly_net": 246000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "5ccbeb4d",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -1275,14 +1345,15 @@
     "monthly_net": 550000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "d3759bd7",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -1293,14 +1364,15 @@
     "monthly_net": 450000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "f293767d",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -1311,14 +1383,15 @@
     "monthly_net": 420000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "3b7715c2",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": null,
     "location": "Abuja",
     "work_arrangement": null,
     "industry": "Other",
@@ -1329,14 +1402,15 @@
     "monthly_net": 450000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "a494dbaf",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": null,
     "location": "Abuja",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -1347,14 +1421,15 @@
     "monthly_net": 644000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "c0b3ebfb",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -1365,14 +1440,15 @@
     "monthly_net": 350000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "785c1b4e",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Logistics",
@@ -1383,14 +1459,15 @@
     "monthly_net": 300000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "7fa1707f",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -1401,14 +1478,15 @@
     "monthly_net": 600000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "c81157e5",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Logistics",
@@ -1419,14 +1497,15 @@
     "monthly_net": 150000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "9c30242f",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Other",
@@ -1437,14 +1516,15 @@
     "monthly_net": 550000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "014836d1",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Other",
@@ -1455,14 +1535,15 @@
     "monthly_net": 170000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "b2bf72ca",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Other",
@@ -1473,14 +1554,15 @@
     "monthly_net": 300000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "cf49dce8",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Other",
@@ -1491,14 +1573,15 @@
     "monthly_net": 243000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "dc66ef69",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": null,
     "location": "Abuja",
     "work_arrangement": null,
     "industry": "Edtech",
@@ -1509,14 +1592,15 @@
     "monthly_net": 500000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "731999d8",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Healthtech",
@@ -1527,14 +1611,15 @@
     "monthly_net": 150000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "d511afc5",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Other",
@@ -1545,14 +1630,15 @@
     "monthly_net": 250000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "969cd846",
     "source": "community_2023",
     "source_label": "Community (2023)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": null,
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -1563,14 +1649,15 @@
     "monthly_net": 1100000,
     "negotiated": null,
     "benefits": null,
-    "year": 2023
+    "year": 2023,
+    "submission_date": null
   },
   {
+    "id": "6869388d",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -1581,14 +1668,15 @@
     "monthly_net": 750000,
     "negotiated": "No",
     "benefits": null,
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "40129f38",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "UK",
     "work_arrangement": null,
     "industry": "Fintech",
@@ -1599,14 +1687,15 @@
     "monthly_net": 1200000,
     "negotiated": "Yes",
     "benefits": null,
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "9478e34f",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Female",
     "location": "UK",
     "work_arrangement": "Hybrid",
     "industry": "Public Sector",
@@ -1617,14 +1706,15 @@
     "monthly_net": 3000,
     "negotiated": "No",
     "benefits": "Health (family), Pension, Internet, Device, Gym, Remote stipend, Extra annual leave",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "0a1505c9",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Female",
     "location": "UK",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -1635,14 +1725,15 @@
     "monthly_net": 6073,
     "negotiated": "Yes",
     "benefits": "Health insurance (individual & family), Pension, Extra annual leave",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "c4f062c7",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Consulting",
@@ -1653,14 +1744,15 @@
     "monthly_net": 187000,
     "negotiated": "Yes",
     "benefits": null,
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "0ddaab0e",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Female",
     "location": "UK",
     "work_arrangement": "Fully remote",
     "industry": "Fintech",
@@ -1671,14 +1763,15 @@
     "monthly_net": 1500,
     "negotiated": "Yes",
     "benefits": "Internet/data allowance",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "cb61b1ba",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Prefer not to say",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Financial Services",
@@ -1689,14 +1782,15 @@
     "monthly_net": 1500000,
     "negotiated": "Yes",
     "benefits": "Health, Pension, Internet, Device, L&D, Transport, Housing, Meals, Gym, Parental leave",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "d8071473",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Other",
@@ -1707,14 +1801,15 @@
     "monthly_net": 586000,
     "negotiated": "Yes",
     "benefits": "Health insurance, Pension, Device, Remote work stipend",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "1b961fd2",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Other",
@@ -1725,14 +1820,15 @@
     "monthly_net": 2000000,
     "negotiated": "No",
     "benefits": "Health (family), Pension, Internet, Device, L&D, Transport, Housing, Meals, Remote stipend, Gym, Parental leave, Flights",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "818471b4",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -1743,14 +1839,15 @@
     "monthly_net": 200000,
     "negotiated": "No",
     "benefits": "Health insurance, Pension, Gym",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "71130ae5",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Sales & Business Development",
     "role_level": "Lead/Staff (6-10 yrs)",
-    "gender": "Male",
     "location": "Abuja",
     "work_arrangement": "Hybrid",
     "industry": "Consulting",
@@ -1761,14 +1858,15 @@
     "monthly_net": 650000,
     "negotiated": "Yes",
     "benefits": null,
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "2fd9d730",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -1779,14 +1877,15 @@
     "monthly_net": 456000,
     "negotiated": "No",
     "benefits": "Health insurance (family), Pension, L&D",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "6dd75fea",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Fintech",
@@ -1797,14 +1896,15 @@
     "monthly_net": 1500000,
     "negotiated": "Yes",
     "benefits": "Health (family), Pension, Internet, Device, L&D, Transport, Housing, Parental leave, Extra annual leave",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "2ce3fc03",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Sales & Business Development",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Fintech",
@@ -1815,14 +1915,15 @@
     "monthly_net": 1000000,
     "negotiated": "Yes",
     "benefits": null,
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "d3a26f1e",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Logistics",
@@ -1833,14 +1934,15 @@
     "monthly_net": 750000,
     "negotiated": "Yes",
     "benefits": null,
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "c1ed16b9",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -1851,14 +1953,15 @@
     "monthly_net": 1000000,
     "negotiated": "No",
     "benefits": "Health (individual & family), Pension, Internet, Device, L&D, Meals, Gym, Parental leave, Visa support",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "c45f4e7e",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Female",
     "location": "Port Harcourt",
     "work_arrangement": "Fully remote",
     "industry": "Other",
@@ -1869,14 +1972,15 @@
     "monthly_net": 700000,
     "negotiated": "No",
     "benefits": null,
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "bb1c2419",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Operations",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Female",
     "location": "Other Nigeria",
     "work_arrangement": "Fully remote",
     "industry": "Fintech",
@@ -1887,14 +1991,15 @@
     "monthly_net": 520000,
     "negotiated": "No",
     "benefits": "Health Insurance, Pension",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "3359c8d9",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Finance & Accounting",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -1905,14 +2010,15 @@
     "monthly_net": 446000,
     "negotiated": "Yes",
     "benefits": "Health Insurance, Pension, Data Allowance, Housing Allowance, Meal Allowance, Gym / Wellness",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "583b92f7",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Marketing",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Media & Entertainment",
@@ -1923,14 +2029,15 @@
     "monthly_net": 300000,
     "negotiated": "Yes",
     "benefits": null,
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "e5675c4f",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -1941,14 +2048,15 @@
     "monthly_net": 136000,
     "negotiated": "Yes",
     "benefits": "Health Insurance, Pension",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "110381ee",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully in-office",
     "industry": "Pharmaceuticals",
@@ -1959,14 +2067,15 @@
     "monthly_net": 505000,
     "negotiated": "No",
     "benefits": "Health Insurance, Data Allowance, Meal Allowance",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "86c0341c",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Design",
     "role_level": "Junior (0-2 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -1977,14 +2086,15 @@
     "monthly_net": 500000,
     "negotiated": "No",
     "benefits": "Health Insurance, Pension, Data Allowance, Laptop / Device, Gym / Wellness",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "f81e76bc",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -1995,14 +2105,15 @@
     "monthly_net": 1206000,
     "negotiated": "Yes",
     "benefits": "Health Insurance, Pension, Data Allowance, Housing Allowance, Meal Allowance, Gym / Wellness",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "3ab50aa8",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Operations",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -2013,14 +2124,15 @@
     "monthly_net": 933000,
     "negotiated": "No",
     "benefits": "Health Insurance, Pension, Data Allowance, Laptop / Device, L&D Budget, Gym / Wellness, Paid Parental Leave",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "2a6df048",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Customer Support",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "Abuja",
     "work_arrangement": "Hybrid",
     "industry": "Healthtech",
@@ -2031,14 +2143,15 @@
     "monthly_net": 600000,
     "negotiated": "Yes",
     "benefits": "Health Insurance, Pension, Data Allowance, Laptop / Device, Transport Allowance, Housing Allowance, Meal Allowance",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "51165306",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Engineering",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -2049,14 +2162,15 @@
     "monthly_net": 300000,
     "negotiated": "Yes",
     "benefits": null,
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "88692fc1",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Engineering",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Telecoms",
@@ -2067,14 +2181,15 @@
     "monthly_net": 1000000,
     "negotiated": "Yes",
     "benefits": "Health Insurance",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "4676110a",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Operations",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Legal",
@@ -2085,14 +2200,15 @@
     "monthly_net": 450000,
     "negotiated": "No",
     "benefits": "Health Insurance, Pension, Data Allowance, Laptop / Device, L&D Budget, Paid Parental Leave, Leave Allowance",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "cf86b2a5",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Fintech",
@@ -2103,14 +2219,15 @@
     "monthly_net": 1843514,
     "negotiated": "Yes",
     "benefits": "Health Insurance, Pension, Laptop / Device, Gym / Wellness, Paid Parental Leave, Leave Allowance",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "7c0041e5",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Fintech",
@@ -2121,14 +2238,15 @@
     "monthly_net": 2730,
     "negotiated": "Yes",
     "benefits": "Health Insurance, Data Allowance, Laptop / Device, L&D Budget, Paid Parental Leave, Leave Allowance, Visa / Relocation Support",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "44dffd15",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -2139,14 +2257,15 @@
     "monthly_net": 450000,
     "negotiated": "Yes",
     "benefits": null,
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "6fe3e655",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Engineering",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Male",
     "location": "Canada",
     "work_arrangement": "Fully remote",
     "industry": "SaaS",
@@ -2157,14 +2276,15 @@
     "monthly_net": 2000,
     "negotiated": "Yes",
     "benefits": "Health Insurance, Laptop / Device, Meal Allowance, Gym / Wellness",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "963992dd",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Marketing",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "HRTech",
@@ -2175,14 +2295,15 @@
     "monthly_net": 1500,
     "negotiated": "No",
     "benefits": "Laptop / Device",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "5e7abbbf",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Operations",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Fintech",
@@ -2193,14 +2314,15 @@
     "monthly_net": 400000,
     "negotiated": "No",
     "benefits": "Health Insurance, Pension, Data Allowance, Laptop / Device, Transport Allowance, Housing Allowance, Gym / Wellness",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "3f40cd7d",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Finance & Accounting",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -2211,14 +2333,15 @@
     "monthly_net": 400000,
     "negotiated": "No",
     "benefits": "Pension, Data Allowance, Housing Allowance, Meal Allowance, Gym / Wellness, Transport Allowance",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "4d10ef6d",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Operations",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Fully in-office",
     "industry": "Maritime",
@@ -2229,14 +2352,15 @@
     "monthly_net": 350000,
     "negotiated": "No",
     "benefits": "Health Insurance, Pension, L&D Budget, Transport Allowance, Housing Allowance, Meal Allowance, Leave Allowance, Travel / Passage Allowance",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "9a00bad6",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Fintech",
@@ -2247,14 +2371,15 @@
     "monthly_net": 1600000,
     "negotiated": "No",
     "benefits": "Health Insurance, Pension",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "11d6820d",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Marketing",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Other",
@@ -2265,14 +2390,15 @@
     "monthly_net": 501000,
     "negotiated": "Yes",
     "benefits": null,
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "027dba8c",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Marketing",
     "role_level": "Lead/Staff (6-10 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Hybrid",
     "industry": "Fintech",
@@ -2283,14 +2409,15 @@
     "monthly_net": 2500000,
     "negotiated": "Yes",
     "benefits": "Health Insurance, Pension, L&D Budget, Transport Allowance, Meal Allowance",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "87b4ac97",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Product Management",
     "role_level": "Senior (4-8 yrs)",
-    "gender": "Female",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "E-commerce",
@@ -2301,14 +2428,15 @@
     "monthly_net": 750,
     "negotiated": "No",
     "benefits": "Paid Parental Leave",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "b21736c6",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Marketing",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "E-commerce",
@@ -2319,14 +2447,15 @@
     "monthly_net": 500000,
     "negotiated": "No",
     "benefits": "Data Allowance, Laptop / Device",
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   },
   {
+    "id": "f3e41f5a",
     "source": "pulse_2026",
     "source_label": "Pulse (2026)",
     "function": "Design",
     "role_level": "Mid-level (2-4 yrs)",
-    "gender": "Male",
     "location": "Lagos",
     "work_arrangement": "Fully remote",
     "industry": "Edtech",
@@ -2337,6 +2466,7 @@
     "monthly_net": 265000,
     "negotiated": "Yes",
     "benefits": null,
-    "year": 2026
+    "year": 2026,
+    "submission_date": null
   }
 ]

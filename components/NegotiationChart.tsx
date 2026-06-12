@@ -6,13 +6,12 @@ import {
   getLevelShortLabel,
   getMedian,
   type CompensationRecord,
-  type LevelBreakdown,
   LEVEL_ORDER,
+  MIN_SEGMENT_RECORDS,
 } from "@/lib/data";
 
 interface NegotiationChartProps {
   data: CompensationRecord[];
-  byLevel: LevelBreakdown[];
 }
 
 interface TooltipEntry { dataKey: string; name: string; fill: string; value: number }
@@ -45,8 +44,11 @@ export default function NegotiationChart({ data }: NegotiationChartProps) {
       level: getLevelShortLabel(level),
       Negotiated: getMedian(negotiated),
       "Not negotiated": getMedian(notNeg),
+      // Only show a level when both groups clear the minimum-records threshold —
+      // a median of two salaries is a coincidence, not a benchmark.
+      valid: negotiated.length >= MIN_SEGMENT_RECORDS && notNeg.length >= MIN_SEGMENT_RECORDS,
     };
-  }).filter((d) => d.Negotiated > 0 || d["Not negotiated"] > 0);
+  }).filter((d) => d.valid);
 
   if (!chartData.length) return (
     <div className="flex items-center justify-center h-48 text-cream-40 text-sm">

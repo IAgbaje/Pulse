@@ -2,11 +2,11 @@ import seedData from "@/data/seed.json";
 import community2024Data from "@/data/community_2024.json";
 
 export interface CompensationRecord {
+  id: string;
   source: "community_2023" | "pulse_2026" | "community_2024";
   source_label: string;
   function: string;
   role_level: string;
-  gender: string | null;
   location: string | null;
   work_arrangement: string | null;
   industry: string | null;
@@ -18,6 +18,8 @@ export interface CompensationRecord {
   negotiated: string | null;
   benefits: string | null;
   year: number;
+  /** ISO date of submission; null for records ingested before this field existed. */
+  submission_date: string | null;
 }
 
 export interface Filters {
@@ -96,11 +98,23 @@ export const INDUSTRY_ORDER = [
   "Other",
 ];
 
+/** Minimum records before a segment statistic is displayed anywhere. */
+export const MIN_SEGMENT_RECORDS = 5;
+
 export function getAllData(): CompensationRecord[] {
   return [
     ...(seedData as CompensationRecord[]),
     ...(community2024Data as CompensationRecord[]),
   ];
+}
+
+/** Most recent dataset year — the default basis for all displayed statistics. */
+export const LATEST_YEAR = Math.max(
+  ...(seedData as CompensationRecord[]).map((r) => r.year)
+);
+
+export function getYearData(data: CompensationRecord[], year: number): CompensationRecord[] {
+  return data.filter((r) => r.year === year);
 }
 
 export function getNGNRecordsWithGross(data: CompensationRecord[]): number[] {
@@ -191,12 +205,6 @@ export function getGrossValues(data: CompensationRecord[], currency: string): nu
     .map((r) => r.monthly_gross as number);
 }
 
-export function formatCurrencyFull(value: number, currency = "NGN"): string {
-  if (!value || value === 0) return "—";
-  const symbol = currency === "GBP" ? "£" : currency === "USDT" ? "$" : "₦";
-  return `${symbol}${value.toLocaleString()}`;
-}
-
 export function getSalaryBuckets(
   data: CompensationRecord[],
   bucketSize = 200000
@@ -208,11 +216,11 @@ export function getSalaryBuckets(
   for (let min = 0; min <= max; min += bucketSize) {
     const bucketMax = min + bucketSize;
     const count = values.filter((v) => v >= min && v < bucketMax).length;
-    if (count > 0 || min < max) {
+    if (count > 0) {
       buckets.push({ range: `${formatCurrency(min)}–${formatCurrency(bucketMax)}`, min, max: bucketMax, count });
     }
   }
-  return buckets.filter((b) => b.count > 0);
+  return buckets;
 }
 
 export function getByLevel(data: CompensationRecord[]): LevelBreakdown[] {
@@ -227,7 +235,7 @@ export function getByLevel(data: CompensationRecord[]): LevelBreakdown[] {
       p75: getPercentile(values, 75),
       count: values.length,
     };
-  }).filter((l) => l.count > 0);
+  }).filter((l) => l.count >= MIN_SEGMENT_RECORDS);
 }
 
 export function getByIndustry(data: CompensationRecord[]): IndustryBreakdown[] {
@@ -247,7 +255,7 @@ export function getByIndustry(data: CompensationRecord[]): IndustryBreakdown[] {
       p75: getPercentile(values, 75),
       count: values.length,
     };
-  }).filter((i) => i.count > 0);
+  }).filter((i) => i.count >= MIN_SEGMENT_RECORDS);
 }
 
 export function getTrend(data: CompensationRecord[]): TrendPoint[] {
@@ -292,7 +300,7 @@ export function getWorkArrangementStats(data: CompensationRecord[]) {
       .filter((r) => r.work_arrangement === arr && r.currency === "NGN" && r.monthly_gross !== null)
       .map((r) => r.monthly_gross as number);
     return { arrangement: arr, median: getMedian(values), count: values.length };
-  }).filter((a) => a.count > 0);
+  }).filter((a) => a.count >= MIN_SEGMENT_RECORDS);
 }
 
 export function getFilterOptions(data: CompensationRecord[]) {
@@ -312,9 +320,41 @@ export function getFilterOptions(data: CompensationRecord[]) {
 }
 
 export function getRecentSubmissions(data: CompensationRecord[], limit = 20): CompensationRecord[] {
+  // Sort by submission_date when present (newer ingests), then by year.
   return [...data]
-    .sort((a, b) => b.year - a.year || (b.source > a.source ? 1 : -1))
+    .sort((a, b) => {
+      if (a.submission_date && b.submission_date) return b.submission_date.localeCompare(a.submission_date);
+      if (a.submission_date !== b.submission_date) return a.submission_date ? -1 : 1;
+      return b.year - a.year;
+    })
     .slice(0, limit);
+}
+
+/**
+ * k-anonymity guard for record-level display: any record whose
+ * (function, level, industry, location) combination is unique across the full
+ * dataset gets its location suppressed; if still unique on
+ * (function, level, industry), the industry is suppressed too.
+ */
+export function coarsenForDisplay(
+  records: CompensationRecord[],
+  allData: CompensationRecord[]
+): CompensationRecord[] {
+  const count = (map: Map<string, number>, key: string) =>
+    map.set(key, (map.get(key) ?? 0) + 1);
+  const key4 = (r: CompensationRecord) => [r.function, r.role_level, r.industry, r.location].join("|");
+  const key3 = (r: CompensationRecord) => [r.function, r.role_level, r.industry].join("|");
+
+  const c4 = new Map<string, number>();
+  const c3 = new Map<string, number>();
+  allData.forEach((r) => { count(c4, key4(r)); count(c3, key3(r)); });
+
+  return records.map((r) => {
+    if ((c4.get(key4(r)) ?? 0) > 1) return r;
+    const coarsened = { ...r, location: null };
+    if ((c3.get(key3(r)) ?? 0) > 1) return coarsened;
+    return { ...coarsened, industry: null };
+  });
 }
 
 export function getLevelShortLabel(level: string): string {
@@ -329,13 +369,7 @@ export function getLevelShortLabel(level: string): string {
 }
 
 export function getCurrencySymbol(currency: string): string {
-  if (currency === "GBP") return "£";
-  if (currency === "USDT") return "$";
-  return "₦";
-}
-
-export function isDiaspora(record: CompensationRecord): boolean {
-  return record.currency !== "NGN";
+  return CURRENCY_SYMBOLS[currency] ?? currency;
 }
 
 export interface BenefitStat {
