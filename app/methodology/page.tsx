@@ -105,7 +105,7 @@ export default function MethodologyPage() {
             Submissions are ingested as anonymized records only. Each record is assigned a random identifier when it enters the dataset. There is no way to trace a published data point back to the person who submitted it — including for the people who run this index.
           </p>
           <p>
-            Where a record&apos;s combination of role, level, industry, and location is rare enough that it could point to a single person, those details are suppressed in record-level views.
+            Record-level views show the same class-level fields the form collects — function, level, industry, and city — alongside the salary. These categories describe thousands of people each; they are not identifiers. No company name, no specific job title, no team, no exact employer is ever shown.
           </p>
           <p>
             Gender is collected as an optional field for future equity analysis only. It is not published in the public dataset and would only ever be used in aggregate views where sample size is sufficient.

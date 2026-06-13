@@ -343,30 +343,20 @@ export function getRecentSubmissions(data: CompensationRecord[], limit = 20): Co
 }
 
 /**
- * k-anonymity guard for record-level display: any record whose
- * (function, level, industry, location) combination is unique across the full
- * dataset gets its location suppressed; if still unique on
- * (function, level, industry), the industry is suppressed too.
+ * Display-row projection. The form never collects personally identifying
+ * information (no name, email, or company), so function/level/industry/city
+ * are class labels rather than identifiers — a "Fintech / Lagos / Senior"
+ * record describes thousands of people. We keep this function as a hook for
+ * any future targeted suppression (e.g., diaspora records where city =
+ * country = single person), but it currently passes records through unchanged
+ * so the public table matches what respondents actually submit.
  */
 export function coarsenForDisplay(
   records: CompensationRecord[],
-  allData: CompensationRecord[]
+  _allData: CompensationRecord[]
 ): CompensationRecord[] {
-  const count = (map: Map<string, number>, key: string) =>
-    map.set(key, (map.get(key) ?? 0) + 1);
-  const key4 = (r: CompensationRecord) => [r.function, r.role_level, r.industry, r.location].join("|");
-  const key3 = (r: CompensationRecord) => [r.function, r.role_level, r.industry].join("|");
-
-  const c4 = new Map<string, number>();
-  const c3 = new Map<string, number>();
-  allData.forEach((r) => { count(c4, key4(r)); count(c3, key3(r)); });
-
-  return records.map((r) => {
-    if ((c4.get(key4(r)) ?? 0) > 1) return r;
-    const coarsened = { ...r, location: null };
-    if ((c3.get(key3(r)) ?? 0) > 1) return coarsened;
-    return { ...coarsened, industry: null };
-  });
+  void _allData;
+  return records.map((r) => ({ ...r }));
 }
 
 export function getLevelShortLabel(level: string): string {
