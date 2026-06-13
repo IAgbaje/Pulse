@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getAllData } from "@/lib/data";
+import { getAllData } from "@/lib/server-data";
 
 export default function Footer() {
   const data = getAllData();

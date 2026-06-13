@@ -16,6 +16,7 @@ const LEVELS = [
   "Director",
 ];
 const NEGOTIATED = ["Yes", "No", "Sort of", null];
+const GENDERS = ["Male", "Female", "Non-binary", "Prefer not to say", null];
 // NGN monthly gross sanity bounds — flag, don't fail, so a reviewer decides.
 const NGN_GROSS_MIN = 30_000;
 const NGN_GROSS_MAX = 20_000_000;
@@ -42,7 +43,11 @@ function validateFile(file) {
     if (!NEGOTIATED.includes(r.negotiated)) errors.push(`${at}: bad negotiated "${r.negotiated}"`);
     if (typeof r.function !== "string" || !r.function) errors.push(`${at}: missing function`);
     if (typeof r.year !== "number" || r.year < 2020 || r.year > 2100) errors.push(`${at}: bad year ${r.year}`);
-    if ("gender" in r) errors.push(`${at}: gender must not be in the published dataset`);
+    // Gender is retained for aggregate equity analysis. It must never be
+    // rendered in record-level views or shipped to the client — enforced by
+    // keeping the dataset server-side (lib/data.ts) and excluding gender from
+    // display-row projections.
+    if (!GENDERS.includes(r.gender)) errors.push(`${at}: bad gender "${r.gender}"`);
 
     for (const f of ["monthly_gross", "monthly_net"]) {
       if (r[f] !== null && (typeof r[f] !== "number" || r[f] <= 0)) errors.push(`${at}: ${f} must be a positive number or null`);

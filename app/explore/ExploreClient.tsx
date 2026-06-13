@@ -1,19 +1,15 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import {
-  getAllData,
-  filterData,
-  getAggregates,
-  getByLevel,
-  getByIndustry,
-  getSalaryBuckets,
-  getRecentSubmissions,
-  getFilterOptions,
-  coarsenForDisplay,
   formatCurrency,
   LATEST_YEAR,
   MIN_SEGMENT_RECORDS,
+  type Aggregates,
+  type LevelBreakdown,
+  type IndustryBreakdown,
+  type SalaryBucket,
+  type CompensationRecord,
 } from "@/lib/data";
 import FilterBar from "@/components/FilterBar";
 import StatCard from "@/components/StatCard";
@@ -21,22 +17,44 @@ import DistributionChart from "@/components/DistributionChart";
 import BreakdownTable from "@/components/BreakdownTable";
 import RecentSubmissions from "@/components/RecentSubmissions";
 
-const allData = getAllData();
-const filterOpts = getFilterOptions(allData);
+interface ExploreData {
+  aggregate: Aggregates;
+  byLevel: LevelBreakdown[];
+  byIndustry: IndustryBreakdown[];
+  buckets: SalaryBucket[];
+  recent: CompensationRecord[];
+}
+
+interface ExploreClientProps {
+  totalCount: number;
+  filterOptions: {
+    levels: string[];
+    industries: string[];
+    locations: string[];
+    stages: string[];
+    years: number[];
+  };
+  initial: ExploreData;
+}
+
 const DEFAULT_YEAR = String(LATEST_YEAR);
 
 const yearLabel = (y: number) =>
   y === LATEST_YEAR ? `${y} dataset (current)` : `${y} dataset (historical)`;
 
-export default function ExploreClient() {
+export default function ExploreClient({ totalCount, filterOptions, initial }: ExploreClientProps) {
   const [year, setYear] = useState(DEFAULT_YEAR);
   const [level, setLevel] = useState("");
   const [industry, setIndustry] = useState("");
   const [location, setLocation] = useState("");
   const [stage, setStage] = useState("");
 
-  const filtered = useMemo(
-    () => filterData(allData, {
+  const [data, setData] = useState<ExploreData>(initial);
+  const [loading, setLoading] = useState(false);
+  const isInitial = useRef(true);
+
+  const filters = useMemo(
+    () => ({
       year: year ? Number(year) : undefined,
       level: level || undefined,
       industry: industry || undefined,
@@ -45,41 +63,50 @@ export default function ExploreClient() {
     }),
     [year, level, industry, location, stage]
   );
-  const agg = useMemo(() => getAggregates(filtered), [filtered]);
-  const byLevel = useMemo(() => getByLevel(filtered), [filtered]);
-  const byIndustry = useMemo(() => getByIndustry(filtered), [filtered]);
-  const buckets = useMemo(() => getSalaryBuckets(filtered), [filtered]);
-  const recent = useMemo(
-    () => coarsenForDisplay(getRecentSubmissions(filtered, 20), allData),
-    [filtered]
-  );
 
-  const reset = () => {
+  useEffect(() => {
+    // Skip the first run — the server-rendered default state is already correct.
+    if (isInitial.current) { isInitial.current = false; return; }
+    let cancelled = false;
+    setLoading(true);
+    fetch("/api/aggregates", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(filters),
+    })
+      .then((r) => r.json())
+      .then((res: ExploreData) => { if (!cancelled) setData(res); })
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; };
+  }, [filters]);
+
+  const reset = useCallback(() => {
     setYear(DEFAULT_YEAR); setLevel(""); setIndustry(""); setLocation(""); setStage("");
-  };
+  }, []);
 
   const filterConfigs = [
-    { key: "year", placeholder: "All years (pooled)", value: year, onChange: setYear, options: [...filterOpts.years].sort((a, b) => b - a).map((y) => ({ value: String(y), label: yearLabel(y) })) },
-    { key: "level", placeholder: "All levels", value: level, onChange: setLevel, options: filterOpts.levels.map((l) => ({ value: l, label: l.split(" (")[0] })) },
-    { key: "industry", placeholder: "All industries", value: industry, onChange: setIndustry, options: filterOpts.industries.map((i) => ({ value: i, label: i })) },
-    { key: "location", placeholder: "All locations", value: location, onChange: setLocation, options: filterOpts.locations.map((l) => ({ value: l, label: l })) },
-    { key: "stage", placeholder: "All stages", value: stage, onChange: setStage, options: filterOpts.stages.filter(Boolean).map((s) => ({ value: s!, label: s! })) },
+    { key: "year", placeholder: "All years (pooled)", value: year, onChange: setYear, options: [...filterOptions.years].sort((a, b) => b - a).map((y) => ({ value: String(y), label: yearLabel(y) })) },
+    { key: "level", placeholder: "All levels", value: level, onChange: setLevel, options: filterOptions.levels.map((l) => ({ value: l, label: l.split(" (")[0] })) },
+    { key: "industry", placeholder: "All industries", value: industry, onChange: setIndustry, options: filterOptions.industries.map((i) => ({ value: i, label: i })) },
+    { key: "location", placeholder: "All locations", value: location, onChange: setLocation, options: filterOptions.locations.map((l) => ({ value: l, label: l })) },
+    { key: "stage", placeholder: "All stages", value: stage, onChange: setStage, options: filterOptions.stages.map((s) => ({ value: s, label: s })) },
   ];
+
+  const { aggregate: agg, byLevel, byIndustry, buckets, recent } = data;
 
   return (
     <>
       <div className="pt-16">
         <FilterBar
           filters={filterConfigs}
-          totalCount={allData.length}
-          filteredCount={filtered.length}
+          totalCount={totalCount}
+          filteredCount={agg.count}
           onReset={reset}
         />
       </div>
 
       <div className="max-w-content mx-auto px-6 py-10 space-y-10">
 
-        {/* Page heading */}
         <div>
           <h1 className="text-2xl font-semibold text-cream">Salary explorer</h1>
           <p className="text-sm text-cream-60 mt-1">
@@ -96,9 +123,9 @@ export default function ExploreClient() {
               ₦ statistics from {agg.countWithGross} NGN records with gross data · {agg.count - agg.countWithGross} additional records (net-only or diaspora) shown in the table.
             </p>
           )}
+          {loading && <p className="text-xs text-cream-40 mt-1">Updating…</p>}
         </div>
 
-        {/* Aggregate cards */}
         {agg.countWithGross < MIN_SEGMENT_RECORDS ? (
           <div className="surface-card text-center py-10">
             <p className="text-cream font-semibold mb-2">Not enough data for this filter</p>
@@ -116,22 +143,19 @@ export default function ExploreClient() {
           </div>
         )}
 
-        {/* Distribution chart */}
         {agg.countWithGross >= MIN_SEGMENT_RECORDS && (
           <div className="surface-card">
             <p className="text-sm font-semibold text-cream mb-1">Salary distribution</p>
             <p className="text-xs text-cream-40 mb-4">Monthly gross (₦ NGN records only)</p>
-            <DistributionChart data={filtered} buckets={buckets} />
+            <DistributionChart aggregate={agg} buckets={buckets} />
           </div>
         )}
 
-        {/* Breakdown tables */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <BreakdownTable data={byLevel} type="level" title="By level" />
           <BreakdownTable data={byIndustry} type="industry" title="By industry" />
         </div>
 
-        {/* Recent submissions */}
         <div>
           <h2 className="text-lg font-semibold text-cream mb-1">Latest contributions</h2>
           <p className="text-sm text-cream-60 mb-4">

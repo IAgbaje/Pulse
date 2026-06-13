@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import {
-  getAllData,
   getYearData,
   getByLevel,
   getAggregates,
@@ -13,6 +12,7 @@ import {
   LATEST_YEAR,
   MIN_SEGMENT_RECORDS,
 } from "@/lib/data";
+import { getAllData } from "@/lib/server-data";
 import InsightCard from "@/components/InsightCard";
 import IndustryChart from "@/components/IndustryChart";
 import NegotiationChart from "@/components/NegotiationChart";

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { getAllData } from "@/lib/server-data";
+import { getFilterOptions } from "@/lib/data";
 import CompareClient from "./CompareClient";
 
 export const metadata: Metadata = {
@@ -8,5 +10,11 @@ export const metadata: Metadata = {
 };
 
 export default function ComparePage() {
-  return <CompareClient />;
+  const opts = getFilterOptions(getAllData());
+  return (
+    <CompareClient
+      totalCount={getAllData().length}
+      industries={opts.industries}
+    />
+  );
 }

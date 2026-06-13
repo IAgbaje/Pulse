@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  getAllData,
   getYearData,
   getAggregates,
   getByLevel,
@@ -11,6 +10,7 @@ import {
   LATEST_YEAR,
   MIN_SEGMENT_RECORDS,
 } from "@/lib/data";
+import { getAllData } from "@/lib/server-data";
 import EKGLine from "@/components/EKGLine";
 import TallyButton from "@/components/TallyButton";
 import StatCard from "@/components/StatCard";

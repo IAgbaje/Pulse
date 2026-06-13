@@ -9,10 +9,10 @@ import {
   ResponsiveContainer,
   ReferenceLine,
 } from "recharts";
-import { type SalaryBucket, formatCurrency, getMedian, getNGNRecordsWithGross, type CompensationRecord } from "@/lib/data";
+import { type SalaryBucket, type Aggregates, formatCurrency } from "@/lib/data";
 
 interface DistributionChartProps {
-  data: CompensationRecord[];
+  aggregate: Aggregates;
   buckets: SalaryBucket[];
 }
 
@@ -28,9 +28,8 @@ const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: Toolti
   );
 };
 
-export default function DistributionChart({ data, buckets }: DistributionChartProps) {
-  const grossValues = getNGNRecordsWithGross(data);
-  const median = getMedian(grossValues);
+export default function DistributionChart({ aggregate, buckets }: DistributionChartProps) {
+  const median = aggregate.median;
 
   if (!buckets.length) return (
     <div className="flex items-center justify-center h-48 text-cream-40 text-sm">

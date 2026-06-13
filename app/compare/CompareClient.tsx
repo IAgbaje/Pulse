@@ -1,16 +1,9 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { track } from "@vercel/analytics";
 import {
-  getAllData,
-  filterData,
-  getPercentileRank,
-  getGrossValues,
-  getMedian,
-  getPercentile,
   formatCurrency,
-  getFilterOptions,
   LEVEL_ORDER,
   LATEST_YEAR,
   MIN_SEGMENT_RECORDS,
@@ -20,9 +13,45 @@ import { SITE_URL } from "@/lib/site";
 import PercentileGauge from "@/components/PercentileGauge";
 import TallyButton from "@/components/TallyButton";
 
-const allData = getAllData();
-const filterOpts = getFilterOptions(allData);
+interface CompareClientProps {
+  totalCount: number;
+  industries: string[];
+}
+
+interface SegmentAnchors {
+  p10: number;
+  p25: number;
+  p50: number;
+  p75: number;
+  p90: number;
+}
+
+interface SegmentResponse {
+  count: number;
+  anchors: SegmentAnchors | null;
+}
+
 const COMPARE_URL = `${SITE_URL}/compare`;
+
+// Estimate percentile rank by linear interpolation between the five anchors
+// returned by the API. Mathematically exact at the anchors; smooth in between.
+// Privacy-preserving: the dataset itself never leaves the server.
+function estimateRank(value: number, a: SegmentAnchors): number {
+  const points: [number, number][] = [
+    [0, a.p10], [10, a.p10], [25, a.p25], [50, a.p50], [75, a.p75], [90, a.p90], [100, a.p90],
+  ];
+  if (value <= a.p10) return Math.max(0, Math.round(10 * (value / a.p10)));
+  if (value >= a.p90) return Math.min(100, 90 + Math.round(10 * Math.min(1, (value - a.p90) / Math.max(a.p90, 1))));
+  for (let i = 1; i < points.length; i++) {
+    const [rLo, vLo] = points[i - 1];
+    const [rHi, vHi] = points[i];
+    if (value >= vLo && value <= vHi) {
+      if (vHi === vLo) return Math.round(rLo);
+      return Math.round(rLo + ((value - vLo) / (vHi - vLo)) * (rHi - rLo));
+    }
+  }
+  return 50;
+}
 
 // Currencies captured in the Tally form
 const CURRENCIES = [
@@ -113,13 +142,15 @@ function formatSalaryDisplay(digits: string): string {
   return isNaN(num) ? digits : num.toLocaleString("en-NG");
 }
 
-export default function CompareClient() {
+export default function CompareClient({ totalCount, industries }: CompareClientProps) {
   const [currency, setCurrency] = useState("NGN");
   const [level, setLevel] = useState("");
   const [industry, setIndustry] = useState("");
   const [salaryDigits, setSalaryDigits] = useState("");
   const [includeHistorical, setIncludeHistorical] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [segment, setSegment] = useState<SegmentResponse | null>(null);
+  const [segmentLoading, setSegmentLoading] = useState(false);
 
   const currencySymbol = CURRENCY_SYMBOLS[currency] ?? currency;
 
@@ -127,7 +158,6 @@ export default function CompareClient() {
     setSalaryDigits(e.target.value.replace(/[^\d]/g, ""));
   }, []);
 
-  // Reset result when currency changes
   const handleCurrencyChange = (val: string) => {
     setCurrency(val);
     setSubmitted(false);
@@ -138,42 +168,38 @@ export default function CompareClient() {
   const parsedSalary = salaryDigits ? parseInt(salaryDigits, 10) : null;
   const salaryValid = parsedSalary !== null && parsedSalary > 0;
 
-  // Benchmark against the current dataset year by default — 2023 salaries come
-  // from a different economic era and would distort the percentile.
-  const segmentData = useMemo(() => {
-    if (!submitted) return null;
-    return filterData(allData, {
-      level: level || undefined,
-      industry: industry || undefined,
-      year: includeHistorical ? undefined : LATEST_YEAR,
-    });
-  }, [submitted, level, industry, includeHistorical]);
+  // After submit, fetch percentile anchors from the API. Only the segment
+  // descriptor (level/industry/currency/historical) leaves the browser — the
+  // user's salary stays client-side.
+  useEffect(() => {
+    if (!submitted) { setSegment(null); return; }
+    let cancelled = false;
+    setSegmentLoading(true);
+    fetch("/api/segment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        level: level || undefined,
+        industry: industry || undefined,
+        currency,
+        includeHistorical,
+      }),
+    })
+      .then((r) => r.json())
+      .then((res: SegmentResponse) => { if (!cancelled) setSegment(res); })
+      .finally(() => { if (!cancelled) setSegmentLoading(false); });
+    return () => { cancelled = true; };
+  }, [submitted, level, industry, currency, includeHistorical]);
 
-  // Use the selected currency — works for NGN, GBP, USD, EUR, CAD
-  const grossValues = useMemo(() => {
-    if (!segmentData) return [];
-    return getGrossValues(segmentData, currency);
-  }, [segmentData, currency]);
-
-  const stats = useMemo(() => {
-    if (!grossValues.length) return null;
-    return {
-      median: getMedian(grossValues),
-      p25: getPercentile(grossValues, 25),
-      p75: getPercentile(grossValues, 75),
-      count: grossValues.length,
-    };
-  }, [grossValues]);
-
-  const percentileRank = useMemo(() => {
-    if (!grossValues.length || !parsedSalary) return 50;
-    return getPercentileRank(grossValues, parsedSalary);
-  }, [grossValues, parsedSalary]);
-
-  const resultState: ResultState = useMemo(() => {
-    if (!submitted || !stats || parsedSalary === null) return null;
-    return getResultState(percentileRank, stats.count);
-  }, [submitted, stats, parsedSalary, percentileRank]);
+  const stats = segment?.anchors
+    ? { p25: segment.anchors.p25, median: segment.anchors.p50, p75: segment.anchors.p75, count: segment.count }
+    : null;
+  const percentileRank = segment?.anchors && parsedSalary !== null
+    ? estimateRank(parsedSalary, segment.anchors)
+    : 50;
+  const resultState: ResultState = !submitted || parsedSalary === null || !segment
+    ? null
+    : getResultState(percentileRank, segment.count);
 
   const handleCompare = (e: React.FormEvent) => {
     e.preventDefault();
@@ -206,7 +232,7 @@ export default function CompareClient() {
         <h1 className="text-3xl font-semibold text-cream mb-2">Where do you stand?</h1>
         <p className="text-sm text-cream-60 leading-relaxed">
           Enter your monthly gross salary to see where you rank among{" "}
-          <span className="text-cream">{allData.length}</span> anonymized compensation records. No account needed.
+          <span className="text-cream">{totalCount}</span> anonymized compensation records. No account needed.
         </p>
       </div>
 
@@ -253,7 +279,7 @@ export default function CompareClient() {
                 className="filter-select w-full"
               >
                 <option value="">All industries</option>
-                {filterOpts.industries.map((i) => (
+                {industries.map((i) => (
                   <option key={i} value={i}>{i}</option>
                 ))}
               </select>
@@ -336,8 +362,9 @@ export default function CompareClient() {
                 <p className="text-xs text-cream-40 label-caps mb-0.5">Comparing against</p>
                 <p className="text-sm text-cream font-medium">{segmentLabel}</p>
                 <p className="text-xs text-cream-40">
-                  {grossValues.length} {CURRENCIES.find(c => c.value === currency)?.label ?? currency} records with gross data ·{" "}
+                  {segment?.count ?? 0} {CURRENCIES.find(c => c.value === currency)?.label ?? currency} records with gross data ·{" "}
                   {includeHistorical ? "all years (2023 + " + LATEST_YEAR + ")" : `${LATEST_YEAR} dataset`}
+                  {segmentLoading && " · loading…"}
                 </p>
               </div>
               <button onClick={handleReset} className="text-xs text-gold hover:underline">
@@ -350,7 +377,7 @@ export default function CompareClient() {
               <div className="surface-card text-center py-10">
                 <p className="text-cream font-semibold mb-2">Not enough data for this segment</p>
                 <p className="text-sm text-cream-60 mb-4">
-                  We have {grossValues.length} {currency} record{grossValues.length !== 1 ? "s" : ""} for this combination. We need at least {MIN_SEGMENT_RECORDS} for a reliable percentile.
+                  We have {segment?.count ?? 0} {currency} record{(segment?.count ?? 0) !== 1 ? "s" : ""} for this combination. We need at least {MIN_SEGMENT_RECORDS} for a reliable percentile.
                   {currency !== "NGN" && " As more professionals contribute in this currency, the picture will sharpen."}
                 </p>
                 <div className="flex items-center justify-center gap-4">

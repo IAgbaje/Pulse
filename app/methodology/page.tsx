@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getAllData } from "@/lib/data";
+import { getAllData } from "@/lib/server-data";
 
 export const metadata: Metadata = {
   title: "Methodology | Pulse",

@@ -1,5 +1,6 @@
-import seedData from "@/data/seed.json";
-import community2024Data from "@/data/community_2024.json";
+// This module is client-safe: no JSON imports, only types, constants, and pure
+// helpers. The raw dataset lives in @/lib/server-data and must only be imported
+// from server components or API route handlers — never from client code.
 
 export interface CompensationRecord {
   id: string;
@@ -7,6 +8,8 @@ export interface CompensationRecord {
   source_label: string;
   function: string;
   role_level: string;
+  /** Optional, retained for aggregate equity analysis; never returned to the client. */
+  gender?: string | null;
   location: string | null;
   work_arrangement: string | null;
   industry: string | null;
@@ -101,17 +104,26 @@ export const INDUSTRY_ORDER = [
 /** Minimum records before a segment statistic is displayed anywhere. */
 export const MIN_SEGMENT_RECORDS = 5;
 
-export function getAllData(): CompensationRecord[] {
-  return [
-    ...(seedData as CompensationRecord[]),
-    ...(community2024Data as CompensationRecord[]),
-  ];
-}
+/**
+ * Most recent dataset year — the default basis for all displayed statistics.
+ * Hard-coded so this client-safe module never has to read the dataset to
+ * compute it. Bump when a new annual cohort is ingested.
+ */
+export const LATEST_YEAR = 2026;
 
-/** Most recent dataset year — the default basis for all displayed statistics. */
-export const LATEST_YEAR = Math.max(
-  ...(seedData as CompensationRecord[]).map((r) => r.year)
-);
+/** Functions tracked for the contributor progress bar. */
+export const TRACKED_FUNCTIONS = [
+  "Product Management",
+  "Engineering",
+  "Design",
+  "Marketing",
+  "Operations",
+  "Sales & Business Development",
+  "Finance & Accounting",
+  "Data",
+  "Customer Support",
+  "Compliance",
+];
 
 export function getYearData(data: CompensationRecord[], year: number): CompensationRecord[] {
   return data.filter((r) => r.year === year);
