@@ -60,9 +60,9 @@ export default function Navbar() {
             <TallyButton variant="nav" />
           </div>
 
-          {/* Mobile hamburger */}
+          {/* Mobile hamburger — 44px hit target for thumbs */}
           <button
-            className="md:hidden text-cream-60 hover:text-cream transition-colors p-1"
+            className="md:hidden text-cream-60 hover:text-cream transition-colors p-3 -mr-2"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
           >
@@ -75,7 +75,7 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="fixed inset-0 z-[60] bg-bg-primary flex flex-col items-center justify-center">
           <button
-            className="absolute top-5 right-6 text-cream-60 hover:text-cream transition-colors"
+            className="absolute top-3 right-3 text-cream-60 hover:text-cream transition-colors p-3"
             onClick={() => setMobileOpen(false)}
             aria-label="Close menu"
           >

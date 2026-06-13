@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Bebas_Neue, Karla } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
@@ -22,6 +22,16 @@ const karla = Karla({
 
 const description =
   "Anonymous compensation data for Nigerian tech professionals. See what engineers, PMs, designers, and other roles earn by level, industry, and location.";
+
+// Mobile-friendly viewport: scale 1, no zoom-out on landscape,
+// notched-phone safe areas honored, theme color matches the brand background
+// so the iOS/Android status bar blends into the navy hero.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#0B1120",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

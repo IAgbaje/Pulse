@@ -46,7 +46,7 @@ export default function HomePage() {
       <section className="min-h-[70vh] flex flex-col items-center justify-center text-center px-6 pt-24 pb-12 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(200,150,42,0.04)_0%,transparent_70%)] pointer-events-none" />
         <div className="relative z-10 max-w-2xl mx-auto">
-          <h1 className="font-display text-[64px] md:text-[80px] leading-none text-cream mb-2 tracking-wide">
+          <h1 className="font-display text-5xl sm:text-[64px] md:text-[80px] leading-none text-cream mb-2 tracking-wide">
             PULSE
           </h1>
           <EKGLine />

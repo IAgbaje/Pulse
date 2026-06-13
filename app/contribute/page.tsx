@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { TRACKED_FUNCTIONS, LATEST_YEAR } from "@/lib/data";
 import { getAllData } from "@/lib/server-data";
 import TallyButton from "@/components/TallyButton";
+import ContributeSuccess from "@/components/ContributeSuccess";
 
 export const metadata: Metadata = {
   title: "Contribute | Pulse",
@@ -18,7 +19,16 @@ const trustSignals = [
   "Submissions appear only as anonymized records — never with anything that could identify you",
 ];
 
-export default function ContributePage() {
+export default function ContributePage({
+  searchParams,
+}: {
+  searchParams?: { submitted?: string };
+}) {
+  // Tally redirects to /contribute?submitted=1 on form completion. Render the
+  // post-submit experience (with share CTAs + tally_completed event) at the
+  // top of the page; the rest of the page still renders below as a soft
+  // landing surface.
+  const submitted = searchParams?.submitted === "1";
   const data = getAllData();
   const currentYear = data.filter((r) => r.year === LATEST_YEAR);
 
@@ -34,16 +44,19 @@ export default function ContributePage() {
 
   return (
     <div className="pt-16">
-      {/* Hero */}
-      <div className="max-w-reading mx-auto px-6 pt-16 pb-12 text-center">
-        <p className="label-caps text-gold mb-4">{data.length} data points and counting</p>
-        <h1 className="text-3xl md:text-4xl font-semibold text-cream mb-4 text-balance leading-snug">
-          The index is only as good as what people put in.
-        </h1>
-        <p className="text-sm text-cream-60 leading-relaxed max-w-md mx-auto">
-          Every salary shared makes the next negotiation sharper. You&apos;ve already used this data. Now it&apos;s your turn.
-        </p>
-      </div>
+      {submitted ? (
+        <ContributeSuccess />
+      ) : (
+        <div className="max-w-reading mx-auto px-6 pt-16 pb-12 text-center">
+          <p className="label-caps text-gold mb-4">{data.length} data points and counting</p>
+          <h1 className="text-3xl md:text-4xl font-semibold text-cream mb-4 text-balance leading-snug">
+            The index is only as good as what people put in.
+          </h1>
+          <p className="text-sm text-cream-60 leading-relaxed max-w-md mx-auto">
+            Every salary shared makes the next negotiation sharper. You&apos;ve already used this data. Now it&apos;s your turn.
+          </p>
+        </div>
+      )}
 
       {/* Body */}
       <div className="max-w-reading mx-auto px-6 pb-16 space-y-8">

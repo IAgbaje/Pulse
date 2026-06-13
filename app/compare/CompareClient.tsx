@@ -320,7 +320,8 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
                   onChange={handleSalaryChange}
                   placeholder="650,000"
                   style={{ background: "var(--bg-input)" }}
-                  className="flex-1 px-3 py-[10px] text-sm text-cream focus:outline-none placeholder:text-cream-30 font-body"
+                  // 16px on mobile to suppress iOS Safari auto-zoom on focus.
+                  className="flex-1 px-3 py-3 text-base sm:text-sm text-cream focus:outline-none placeholder:text-cream-30 font-body min-h-[44px]"
                   required
                 />
               </div>
