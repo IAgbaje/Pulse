@@ -11,12 +11,16 @@ import {
   filterData,
   LATEST_YEAR,
   MIN_SEGMENT_RECORDS,
+  TRACKED_FUNCTIONS,
+  LEVEL_ORDER,
+  getLevelShortLabel,
 } from "@/lib/data";
 import { getAllData } from "@/lib/server-data";
 import InsightCard from "@/components/InsightCard";
 import IndustryChart from "@/components/IndustryChart";
 import NegotiationChart from "@/components/NegotiationChart";
 import BenefitsChart from "@/components/BenefitsChart";
+import CompositionChart, { type CompositionSlice } from "@/components/CompositionChart";
 
 export const metadata: Metadata = {
   title: "Compensation Insights | Pulse",
@@ -33,6 +37,49 @@ export default function InsightsPage() {
   const data = getAllData();
   const current = getYearData(data, LATEST_YEAR);
   const trend = getTrend(data);
+
+  // ---- Composition (current year): function, level, year, location ----
+  const tally = <K extends string | number | null>(
+    rows: typeof data,
+    key: (r: typeof data[number]) => K | undefined | null,
+  ): CompositionSlice[] => {
+    const counts = new Map<string, number>();
+    rows.forEach((r) => {
+      const v = key(r);
+      if (v === undefined || v === null || v === "") return;
+      const label = String(v);
+      counts.set(label, (counts.get(label) ?? 0) + 1);
+    });
+    return Array.from(counts.entries()).map(([label, count]) => ({ label, count }));
+  };
+
+  const functionSlices = tally(current, (r) => r.function);
+  // Levels rendered in seniority order, not popularity order.
+  const levelOrderIndex = new Map(LEVEL_ORDER.map((l, i) => [l, i]));
+  const levelSlices = tally(current, (r) => r.role_level)
+    .map((s) => ({ label: getLevelShortLabel(s.label), count: s.count, _ord: levelOrderIndex.get(s.label) ?? 99 }))
+    .sort((a, b) => a._ord - b._ord)
+    .map(({ label, count }) => ({ label, count }));
+  const yearSlices = tally(data, (r) => r.year)
+    .map((s) => ({ label: String(s.label), count: s.count }))
+    .sort((a, b) => Number(a.label) - Number(b.label));
+  const locationSlices = (() => {
+    const raw = tally(current, (r) => r.location);
+    // Collapse the long tail into "Other" so the donut stays readable.
+    raw.sort((a, b) => b.count - a.count);
+    const top = raw.slice(0, 5);
+    const rest = raw.slice(5).reduce((sum, s) => sum + s.count, 0);
+    return rest > 0 ? [...top, { label: "Other", count: rest }] : top;
+  })();
+
+  // ---- Per-function progress toward the campaign threshold ----
+  const FUNCTION_TARGET = 50;
+  const functionProgress = TRACKED_FUNCTIONS.map((fn) => ({
+    fn,
+    count: current.filter((r) => r.function === fn).length,
+  }))
+    .map((row) => ({ ...row, gap: Math.max(0, FUNCTION_TARGET - row.count) }))
+    .sort((a, b) => b.gap - a.gap || a.fn.localeCompare(b.fn));
 
   const currentBasis = `${LATEST_YEAR} dataset`;
   const insightCards: CardDef[] = [];
@@ -168,6 +215,88 @@ export default function InsightsPage() {
           Key findings from {data.length} compensation records. Every number below states which
           slice of the data it comes from — and nothing is shown below {MIN_SEGMENT_RECORDS} records.
         </p>
+      </div>
+
+      {/* Composition — who has answered so far */}
+      <div className="border-t border-[rgba(200,150,42,0.10)] bg-bg-surface">
+        <div className="max-w-content mx-auto px-6 py-12">
+          <div className="mb-8">
+            <p className="label-caps text-gold mb-2">Who answered</p>
+            <h2 className="text-xl font-semibold text-cream mb-1">
+              Inside the {LATEST_YEAR} dataset — {current.length} respondents so far
+            </h2>
+            <p className="text-sm text-cream-60 max-w-2xl">
+              The shape of the dataset determines the strength of every number on this page. Where
+              one slice dominates, the headline insights describe that slice more than the market.
+              These charts make that visible — and make the gaps obvious.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="surface-card">
+              <CompositionChart
+                title="Function"
+                caption={`${functionSlices.length} functions represented in ${LATEST_YEAR}`}
+                data={functionSlices}
+              />
+            </div>
+            <div className="surface-card">
+              <CompositionChart
+                title="Role level"
+                caption={`${LATEST_YEAR} respondents by seniority`}
+                data={levelSlices}
+              />
+            </div>
+            <div className="surface-card">
+              <CompositionChart
+                title="Location"
+                caption={`Top 5 locations in ${LATEST_YEAR}, plus all others`}
+                data={locationSlices}
+              />
+            </div>
+            <div className="surface-card">
+              <CompositionChart
+                title="Records by dataset year"
+                caption="The 2023 community dataset and 2026 Pulse submissions, side by side"
+                data={yearSlices}
+              />
+            </div>
+          </div>
+
+          {/* Progress vs target — where the dataset needs help next */}
+          <div className="surface-card mt-6">
+            <p className="text-sm font-semibold text-cream mb-1">
+              Where the dataset needs you next
+            </p>
+            <p className="text-xs text-cream-40 mb-5">
+              {LATEST_YEAR} submissions per function · target {FUNCTION_TARGET} before reliable
+              level-by-level breakdowns are published
+            </p>
+            <div className="space-y-3">
+              {functionProgress.map(({ fn, count }) => {
+                const pct = Math.min(100, Math.round((count / FUNCTION_TARGET) * 100));
+                const met = count >= FUNCTION_TARGET;
+                return (
+                  <div key={fn}>
+                    <div className="flex items-center justify-between mb-1 text-xs">
+                      <span className={met ? "text-cream" : "text-cream-60"}>{fn}</span>
+                      <span className="text-cream-40 tabular-nums whitespace-nowrap">
+                        {count}/{FUNCTION_TARGET}
+                        {met && <span className="ml-2 text-gold">target met</span>}
+                      </span>
+                    </div>
+                    <div className="h-1.5 rounded-full bg-[rgba(200,150,42,0.08)] overflow-hidden">
+                      <div
+                        className="h-full rounded-full bg-gold transition-all duration-500"
+                        style={{ width: `${pct}%`, opacity: met ? 1 : 0.4 + (pct / 100) * 0.6 }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Insight cards */}
