@@ -2678,5 +2678,25 @@
     "benefits": "Health (individual), Device, Gym, Remote stipend",
     "year": 2026,
     "submission_date": "2026-06-12"
+  },
+  {
+    "id": "vX2OQ2X",
+    "source": "pulse_2026",
+    "source_label": "Pulse (2026)",
+    "function": "Engineering",
+    "role_level": "Mid-level (2-4 yrs)",
+    "gender": "Male",
+    "location": "Lagos",
+    "work_arrangement": "Fully remote",
+    "industry": "Fintech",
+    "company_stage": "Series C+",
+    "company_size": "1000+",
+    "currency": "NGN",
+    "monthly_gross": 1300000,
+    "monthly_net": 1100000,
+    "negotiated": "Yes",
+    "benefits": "Health (family)",
+    "year": 2026,
+    "submission_date": "2026-06-13"
   }
 ]
