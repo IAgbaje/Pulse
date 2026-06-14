@@ -74,10 +74,10 @@ function getResultState(percentile: number, count: number): ResultState {
 const resultCopy: Record<Exclude<ResultState, "insufficient" | null>, { headline: string; body: string }> = {
   above75: {
     headline: "You're earning in the top quarter.",
-    body: "Your compensation sits above the 75th percentile for this segment. That's a strong position — but knowing where you stand is only half the work. If you haven't renegotiated recently, now is a good time to revisit.",
+    body: "Your compensation sits above the 75th percentile for this segment. That's a strong position, but knowing where you stand is only half the work. If you haven't renegotiated recently, now is a good time to revisit.",
   },
   aboveMedian: {
-    headline: "You're above the median — and there's room to push.",
+    headline: "You're above the median, and there's room to push.",
     body: "You're earning more than half the professionals in this segment. The gap to the 75th percentile may be smaller than you think. The data shows that professionals who negotiate consistently close it.",
   },
   belowMedian: {
@@ -169,7 +169,7 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
   const salaryValid = parsedSalary !== null && parsedSalary > 0;
 
   // After submit, fetch percentile anchors from the API. Only the segment
-  // descriptor (level/industry/currency/historical) leaves the browser — the
+  // descriptor (level/industry/currency/historical) leaves the browser. The
   // user's salary stays client-side.
   useEffect(() => {
     if (!submitted) { setSegment(null); return; }
@@ -205,7 +205,7 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
     e.preventDefault();
     if (salaryValid) {
       setSubmitted(true);
-      // Funnel event only — the salary value itself is never sent anywhere.
+      // Funnel event only. The salary value itself is never sent anywhere.
       track("salary_compared", {
         currency,
         level: level || "all",
@@ -223,7 +223,7 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
   const segmentLabel =
     [level && level.split(" (")[0], industry].filter(Boolean).join(" · ") || "All professionals";
 
-  const shareText = `I just benchmarked my salary on Pulse — Nigeria's anonymous compensation index. I'm at the ${percentileRank}th percentile for ${segmentLabel}. Check where you stand 👉`;
+  const shareText = `I just benchmarked my salary on Pulse, Nigeria's anonymous compensation index. I'm at the ${percentileRank}th percentile for ${segmentLabel}. Check where you stand 👉`;
 
   return (
     <div className="pt-16">
@@ -297,14 +297,14 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
                 <span className="text-xs text-cream-60 leading-relaxed">
                   Include 2023 historical records.{" "}
                   <span className="text-cream-40">
-                    By default you&apos;re benchmarked against {LATEST_YEAR} data only — 2023
+                    By default you&apos;re benchmarked against {LATEST_YEAR} data only. 2023
                     salaries predate major naira devaluation and can understate today&apos;s market.
                   </span>
                 </span>
               </label>
             </div>
 
-            {/* Salary — Option B prefix box */}
+            {/* Salary: Option B prefix box */}
             <div>
               <label className="label-caps mb-2 block">Monthly gross salary</label>
               <div className="flex rounded-lg border border-[rgba(200,150,42,0.15)] focus-within:border-[rgba(200,150,42,0.40)] focus-within:shadow-[0_0_0_2px_rgba(200,150,42,0.10)] overflow-hidden transition-all duration-150">
@@ -335,7 +335,7 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
               )}
               {currency !== "NGN" && (
                 <p className="text-xs text-cream-30 mt-1.5">
-                  Note: {CURRENCIES.find(c => c.value === currency)?.label} data is limited — results may not be statistically significant yet.
+                  Note: {CURRENCIES.find(c => c.value === currency)?.label} data is limited, so results may not be statistically significant yet.
                 </p>
               )}
             </div>
@@ -442,7 +442,7 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
                   <div>
                     <p className="text-sm font-semibold text-cream mb-1">Share your result</p>
                     <p className="text-xs text-cream-60 mb-4 leading-relaxed">
-                      Every share brings in more data — and helps someone else walk into their next negotiation better informed.
+                      Every share brings in more data, and helps someone else walk into their next negotiation better informed.
                     </p>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                       {PLATFORMS.map((platform) => (

@@ -1,5 +1,5 @@
 // Explore page filter endpoint. Accepts a filter spec and returns aggregates,
-// breakdowns, distribution buckets, and coarsened recent rows — never raw
+// breakdowns, distribution buckets, and coarsened recent rows. Never raw
 // records with gender or other sensitive fields.
 
 import { NextRequest, NextResponse } from "next/server";

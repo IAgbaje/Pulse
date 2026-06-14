@@ -43,7 +43,7 @@ export default function MethodologyPage() {
       <div className="max-w-reading mx-auto px-6 pt-16 pb-12">
         <h1 className="text-3xl font-semibold text-cream mb-2">How the data works</h1>
         <p className="text-sm text-cream-60 leading-relaxed">
-          Pulse is built on voluntary, anonymous contributions. Here&apos;s exactly what we collect, how we calculate it, and what to trust — and what to treat with caution.
+          Pulse is built on voluntary, anonymous contributions. Here&apos;s exactly what we collect, how we calculate it, what to trust, and what to treat with caution.
         </p>
       </div>
 
@@ -74,7 +74,7 @@ export default function MethodologyPage() {
 
         <Section number="02" title="What we measure">
           <p>
-            All Nigerian Naira (NGN) aggregate statistics — median, 25th percentile, 75th percentile — are calculated using <strong className="text-cream">monthly gross salary</strong>. This is the number before tax and deductions.
+            All Nigerian Naira (NGN) aggregate statistics (median, 25th percentile, 75th percentile) are calculated using <strong className="text-cream">monthly gross salary</strong>. This is the number before tax and deductions.
           </p>
           <p>
             Records in GBP, USD, EUR, or other currencies represent diaspora and remote workers. They appear in the data table and recent submissions feed, but are excluded from ₦ aggregate calculations to avoid currency distortion. We display these with their original currency symbol.
@@ -86,14 +86,14 @@ export default function MethodologyPage() {
 
         <Section number="03" title="How statistics are calculated">
           <p>
-            When we calculate percentile values — the median, 25th, and 75th — we don&apos;t just pick the nearest number from a ranked list. We calculate a precise point between values, so the result reflects the actual spread of salaries rather than rounding to the closest submission. This matters most in smaller segments, where a simpler method would produce numbers that look more certain than they are.
+            When we calculate percentile values (the median, 25th, and 75th), we don&apos;t just pick the nearest number from a ranked list. We calculate a precise point between values, so the result reflects the actual spread of salaries rather than rounding to the closest submission. This matters most in smaller segments, where a simpler method would produce numbers that look more certain than they are.
           </p>
           <p>
-            Every aggregate stat you see — by level, by industry — requires at least{" "}
+            Every aggregate stat you see (by level, by industry) requires at least{" "}
             <strong className="text-cream">5 salary records</strong> before it&apos;s displayed. Below that threshold, the interface tells you there isn&apos;t enough data rather than showing a number that could mislead. A figure built on two or three submissions isn&apos;t a benchmark. It&apos;s a coincidence.
           </p>
           <p>
-            The negotiation premium compares the median salary of professionals who negotiated their offer against the median of those who didn&apos;t — expressed as a percentage difference. Only records where someone gave a clear answer on negotiation and reported a gross salary in Naira are included. Ambiguous or missing responses don&apos;t factor in.
+            The negotiation premium compares the median salary of professionals who negotiated their offer against the median of those who didn&apos;t, expressed as a percentage difference. Only records where someone gave a clear answer on negotiation and reported a gross salary in Naira are included. Ambiguous or missing responses don&apos;t factor in.
           </p>
         </Section>
 
@@ -102,10 +102,10 @@ export default function MethodologyPage() {
             No personally identifying information is collected. The submission form does not ask for name, email, company name, job title (only function and level), or any other field that could reasonably identify an individual.
           </p>
           <p>
-            Submissions are ingested as anonymized records only. Each record is assigned a random identifier when it enters the dataset. There is no way to trace a published data point back to the person who submitted it — including for the people who run this index.
+            Submissions are ingested as anonymized records only. Each record is assigned a random identifier when it enters the dataset. There is no way to trace a published data point back to the person who submitted it, including for the people who run this index.
           </p>
           <p>
-            Record-level views show the same class-level fields the form collects — function, level, industry, and city — alongside the salary. These categories describe thousands of people each; they are not identifiers. No company name, no specific job title, no team, no exact employer is ever shown.
+            Record-level views show the same class-level fields the form collects (function, level, industry, and city) alongside the salary. These categories describe thousands of people each; they are not identifiers. No company name, no specific job title, no team, no exact employer is ever shown.
           </p>
           <p>
             Gender is collected as an optional field for future equity analysis only. It is not published in the public dataset and would only ever be used in aggregate views where sample size is sufficient.
@@ -114,7 +114,7 @@ export default function MethodologyPage() {
 
         <Section number="05" title="Limitations">
           <p>
-            Pulse is a <strong className="text-cream">self-reported, voluntary dataset</strong>. It is not a random sample. Professionals who choose to contribute may differ systematically from those who do not — skewed toward those who are actively job-searching, recently negotiated, or work in certain sectors and cities.
+            Pulse is a <strong className="text-cream">self-reported, voluntary dataset</strong>. It is not a random sample. Professionals who choose to contribute may differ systematically from those who do not, skewed toward those who are actively job-searching, recently negotiated, or work in certain sectors and cities.
           </p>
           <p>
             {/* The 2023 and 2024 datasets have heavier representation in Product Management roles. */}
@@ -124,7 +124,7 @@ export default function MethodologyPage() {
             Compensation data ages quickly. Nigerian tech salaries are affected by inflation, forex movements, and talent market dynamics. Data from 2023 should be interpreted in its original economic context, not used as a baseline for 2026 negotiations without adjustment.
           </p>
           <p>
-            Pulse is built and maintained independently. It is not affiliated with any employer, recruiter, or HR platform. The goal is transparency — not to advocate for any particular compensation outcome.
+            Pulse is built and maintained independently. It is not affiliated with any employer, recruiter, or HR platform. The goal is transparency, not to advocate for any particular compensation outcome.
           </p>
         </Section>
       </div>

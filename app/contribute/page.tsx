@@ -13,10 +13,10 @@ export const metadata: Metadata = {
 const FUNCTION_TARGET = 50;
 
 const trustSignals = [
-  "Completely anonymous — no name, email, or identifying information collected",
+  "Completely anonymous. No name, email, or identifying information collected.",
   "Takes four minutes. No account required.",
   "Your submission improves salary benchmarks for every professional after you",
-  "Submissions appear only as anonymized records — never with anything that could identify you",
+  "Submissions appear only as anonymized records, never with anything that could identify you",
 ];
 
 export default function ContributePage({
@@ -63,13 +63,13 @@ export default function ContributePage({
         {/* Why it matters */}
         <div className="space-y-4 text-sm text-cream-60 leading-relaxed">
           <p>
-            Nigerian tech salaries have been invisible for too long — buried in DMs, hushed in offices, whispered between trusted friends. Pulse exists to change that. The professionals who have contributed to this index are the reason anyone can benchmark, compare, or negotiate with real numbers instead of guesswork.
+            Nigerian tech salaries have been invisible for too long: buried in DMs, hushed in offices, whispered between trusted friends. Pulse exists to change that. The professionals who have contributed to this index are the reason anyone can benchmark, compare, or negotiate with real numbers instead of guesswork.
           </p>
           <p>
-            Your submission doesn&apos;t need to be from a current role. If you recently changed jobs, negotiated an offer, or just want to add a data point from a role you&apos;ve left — it all helps. The more diverse the contributions, the more accurate the picture.
+            Your submission doesn&apos;t need to be from a current role. If you recently changed jobs, negotiated an offer, or just want to add a data point from a role you&apos;ve left, it all helps. The more diverse the contributions, the more accurate the picture.
           </p>
           <p>
-            All statistics are aggregated into the medians, percentiles, and charts you see across the site. Individual records appear only as anonymized rows — function, level, industry, city, salary — class labels that describe thousands of people each. There&apos;s no name, email, or company attached to anything, so there&apos;s no way to trace a data point back to a person — that&apos;s by design, not by policy.
+            All statistics are aggregated into the medians, percentiles, and charts you see across the site. Individual records appear only as anonymized rows (function, level, industry, city, salary): class labels that describe thousands of people each. There&apos;s no name, email, or company attached to anything, so there&apos;s no way to trace a data point back to a person. That&apos;s by design, not by policy.
           </p>
         </div>
 
@@ -87,7 +87,7 @@ export default function ContributePage({
           </ul>
         </div>
 
-        {/* Per-function progress — where the dataset needs the most help */}
+        {/* Per-function progress: where the dataset needs the most help */}
         <div className="surface-card">
           <p className="text-sm font-semibold text-cream mb-1">Where the dataset needs you most</p>
           <p className="text-xs text-cream-40 mb-5">

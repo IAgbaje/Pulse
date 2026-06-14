@@ -69,7 +69,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Live Stats Bar — current dataset only */}
+      {/* Live Stats Bar: current dataset only */}
       <section className="bg-bg-surface border-y border-[rgba(200,150,42,0.10)]">
         <div className="max-w-content mx-auto px-6 py-6">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -95,7 +95,7 @@ export default function HomePage() {
               <StatCard
                 label={`${LATEST_YEAR} Submissions`}
                 value={current.length}
-                subtitle="And growing — add yours"
+                subtitle="And growing. Add yours."
                 variant="large"
               />
             )}
@@ -112,7 +112,7 @@ export default function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="surface-card">
             <p className="text-sm font-semibold text-cream mb-1">
-              Median salary by level — {LATEST_YEAR} dataset
+              Median salary by level, {LATEST_YEAR} dataset
             </p>
             <p className="text-xs text-cream-40 mb-4">
               Monthly gross (₦ NGN records) · segments with fewer than {MIN_SEGMENT_RECORDS} records are hidden
@@ -122,7 +122,7 @@ export default function HomePage() {
           <div className="surface-card">
             <p className="text-sm font-semibold text-cream mb-1">Median gross by dataset year</p>
             <p className="text-xs text-cream-40 mb-4">
-              Each year shown separately — salaries from different economic eras are never pooled
+              Each year shown separately. Salaries from different economic eras are never pooled.
             </p>
             <div className="flex gap-4 mb-5">
               {trend.map((t) => (
@@ -134,7 +134,7 @@ export default function HomePage() {
               ))}
             </div>
             <p className="text-xs text-cream-60 leading-relaxed">
-              Nominal medians have barely moved between 2023 and {LATEST_YEAR} — across a period of
+              Nominal medians have barely moved between 2023 and {LATEST_YEAR}, across a period of
               steep naira devaluation and inflation. In real terms, that is a significant pay cut
               for Nigerian tech talent.
             </p>

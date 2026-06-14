@@ -1,6 +1,6 @@
 "use client";
 
-// Composition chart — a small donut/bar combo for "who's in the dataset"
+// Composition chart: a small donut/bar combo for "who's in the dataset"
 // breakdowns (function, level, year, location, currency). Sized for
 // screenshotting into Twitter/LinkedIn posts at 1:1 or 2:1 aspect.
 

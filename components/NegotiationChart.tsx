@@ -44,8 +44,8 @@ export default function NegotiationChart({ data }: NegotiationChartProps) {
       level: getLevelShortLabel(level),
       Negotiated: getMedian(negotiated),
       "Not negotiated": getMedian(notNeg),
-      // Only show a level when both groups clear the minimum-records threshold —
-      // a median of two salaries is a coincidence, not a benchmark.
+      // Only show a level when both groups clear the minimum-records threshold.
+      // A median of two salaries is a coincidence, not a benchmark.
       valid: negotiated.length >= MIN_SEGMENT_RECORDS && notNeg.length >= MIN_SEGMENT_RECORDS,
     };
   }).filter((d) => d.valid);

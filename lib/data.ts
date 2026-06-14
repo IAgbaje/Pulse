@@ -1,6 +1,6 @@
 // This module is client-safe: no JSON imports, only types, constants, and pure
 // helpers. The raw dataset lives in @/lib/server-data and must only be imported
-// from server components or API route handlers — never from client code.
+// from server components or API route handlers, never from client code.
 
 export interface CompensationRecord {
   id: string;
@@ -105,7 +105,7 @@ export const INDUSTRY_ORDER = [
 export const MIN_SEGMENT_RECORDS = 5;
 
 /**
- * Most recent dataset year — the default basis for all displayed statistics.
+ * Most recent dataset year. The default basis for all displayed statistics.
  * Hard-coded so this client-safe module never has to read the dataset to
  * compute it. Bump when a new annual cohort is ingested.
  */
@@ -199,7 +199,7 @@ export const CURRENCY_SYMBOLS: Record<string, string> = {
 };
 
 export function formatCurrency(value: number, currency = "NGN"): string {
-  if (!value || value === 0) return "—";
+  if (!value || value === 0) return "–";
   const symbol = CURRENCY_SYMBOLS[currency] ?? currency;
   if (currency === "NGN") {
     if (value >= 1000000) return `₦${(value / 1000000).toFixed(1)}M`;
@@ -345,7 +345,7 @@ export function getRecentSubmissions(data: CompensationRecord[], limit = 20): Co
 /**
  * Display-row projection. The form never collects personally identifying
  * information (no name, email, or company), so function/level/industry/city
- * are class labels rather than identifiers — a "Fintech / Lagos / Senior"
+ * are class labels rather than identifiers. A "Fintech / Lagos / Senior"
  * record describes thousands of people. We keep this function as a hook for
  * any future targeted suppression (e.g., diaspora records where city =
  * country = single person), but it currently passes records through unchanged

@@ -65,7 +65,7 @@ export default function ExploreClient({ totalCount, filterOptions, initial }: Ex
   );
 
   useEffect(() => {
-    // Skip the first run — the server-rendered default state is already correct.
+    // Skip the first run. The server-rendered default state is already correct.
     if (isInitial.current) { isInitial.current = false; return; }
     let cancelled = false;
     setLoading(true);
@@ -114,8 +114,8 @@ export default function ExploreClient({ totalCount, filterOptions, initial }: Ex
           </p>
           {year === "" && (
             <p className="text-xs text-gold/80 mt-1">
-              Viewing all years pooled — 2023 and {LATEST_YEAR} salaries come from very different
-              economic conditions. Treat pooled statistics with caution.
+              Viewing all years pooled. 2023 and {LATEST_YEAR} salaries come from very different
+              economic conditions, so treat pooled statistics with caution.
             </p>
           )}
           {agg.countWithGross < agg.count && (

@@ -1,4 +1,4 @@
-// Static filter dropdown values + record count. Cached at the edge — the
+// Static filter dropdown values + record count. Cached at the edge: the
 // dataset only changes on rebuild, so this never needs to be recomputed at
 // request time.
 

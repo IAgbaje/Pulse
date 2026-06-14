@@ -36,10 +36,10 @@ export default function RecentSubmissions({ data }: RecentSubmissionsProps) {
                 r.monthly_gross != null
                   ? `${sym}${r.monthly_gross.toLocaleString()}`
                   : r.currency !== "NGN"
-                  ? `${sym}—`
-                  : "—";
+                  ? `${sym}–`
+                  : "–";
               const netDisplay =
-                r.monthly_net != null ? `${sym}${r.monthly_net.toLocaleString()}` : "—";
+                r.monthly_net != null ? `${sym}${r.monthly_net.toLocaleString()}` : "–";
               const isDiaspora = r.currency !== "NGN";
 
               return (
@@ -50,8 +50,8 @@ export default function RecentSubmissions({ data }: RecentSubmissionsProps) {
                   <td className="text-cream-60 whitespace-nowrap">
                     {r.role_level.split(" (")[0]}
                   </td>
-                  <td className="text-cream-60">{r.industry ?? "—"}</td>
-                  <td className="text-cream-60">{r.location ?? "—"}</td>
+                  <td className="text-cream-60">{r.industry ?? "–"}</td>
+                  <td className="text-cream-60">{r.location ?? "–"}</td>
                   <td className="salary-cell">{grossDisplay}</td>
                   <td className="text-cream-60">{netDisplay}</td>
                   <td>

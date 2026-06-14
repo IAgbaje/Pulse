@@ -60,7 +60,7 @@ export default function Navbar() {
             <TallyButton variant="nav" />
           </div>
 
-          {/* Mobile hamburger — 44px hit target for thumbs */}
+          {/* Mobile hamburger: 44px hit target for thumbs */}
           <button
             className="md:hidden text-cream-60 hover:text-cream transition-colors p-3 -mr-2"
             onClick={() => setMobileOpen(true)}

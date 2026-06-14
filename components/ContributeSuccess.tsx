@@ -1,6 +1,6 @@
 "use client";
 
-// Post-submit success state — rendered when the Tally form redirects back to
+// Post-submit success state. Rendered when the Tally form redirects back to
 // /contribute?submitted=1. This is the single highest-conversion moment in the
 // product: the user just spent ~4 minutes contributing, their intent ceiling
 // is at its peak, and a share ask here is the cheapest way to grow the
@@ -13,7 +13,7 @@ import { track } from "@vercel/analytics";
 import { SITE_URL } from "@/lib/site";
 
 const SHARE_TEXT =
-  "I just added my salary to Pulse — Nigeria's anonymous tech compensation index. It took 4 minutes. Add yours and help everyone negotiate from data, not vibes 👇";
+  "I just added my salary to Pulse, Nigeria's anonymous tech compensation index. It took 4 minutes. Add yours and help everyone negotiate from data, not vibes 👇";
 
 const SHARE_URL = `${SITE_URL}/contribute`;
 
@@ -41,7 +41,7 @@ const PLATFORMS = [
 export default function ContributeSuccess() {
   useEffect(() => {
     // Funnel-bottom event. Fires once per arrival regardless of refresh, which
-    // is fine — duplicates round-trip via Vercel Analytics' dedup window.
+    // is fine: duplicates round-trip via Vercel Analytics' dedup window.
     track("tally_completed");
   }, []);
 
@@ -62,7 +62,7 @@ export default function ContributeSuccess() {
         or function is partly benchmarking against your contribution.
       </p>
 
-      {/* Share — the single most valuable action right now */}
+      {/* Share: the single most valuable action right now */}
       <div className="surface-card text-left space-y-5">
         <div>
           <p className="text-sm font-semibold text-cream mb-1">
@@ -71,7 +71,7 @@ export default function ContributeSuccess() {
           <p className="text-xs text-cream-60 leading-relaxed">
             One share to a function-specific group (engineering Slack, design
             Discord, your old PM WhatsApp) is worth more than a week of public
-            posts. Most functions are still under 50 records — that&apos;s where
+            posts. Most functions are still under 50 records, and that&apos;s where
             the breakdowns get unlocked.
           </p>
         </div>
@@ -92,7 +92,7 @@ export default function ContributeSuccess() {
         </div>
       </div>
 
-      {/* Secondary CTAs — Compare is the natural next step */}
+      {/* Secondary CTAs: Compare is the natural next step */}
       <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
         <Link
           href="/compare"

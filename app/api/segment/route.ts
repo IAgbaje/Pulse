@@ -1,5 +1,5 @@
 // Compare page benchmarking endpoint. Returns only percentile anchors and a
-// count — no raw salary values, no record metadata. The client interpolates
+// count. No raw salary values, no record metadata. The client interpolates
 // the user's percentile rank from the anchors so the salary number itself
 // never leaves the browser.
 
