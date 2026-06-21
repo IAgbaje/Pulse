@@ -22,6 +22,7 @@ export default function RecentSubmissions({ data }: RecentSubmissionsProps) {
             <tr>
               <th>Function</th>
               <th>Level</th>
+              <th>Company</th>
               <th>Industry</th>
               <th>Location</th>
               <th>Gross (Monthly)</th>
@@ -50,6 +51,7 @@ export default function RecentSubmissions({ data }: RecentSubmissionsProps) {
                   <td className="text-cream-60 whitespace-nowrap">
                     {r.role_level.split(" (")[0]}
                   </td>
+                  <td className="text-cream-60 whitespace-nowrap">{r.company_name ?? "–"}</td>
                   <td className="text-cream-60">{r.industry ?? "–"}</td>
                   <td className="text-cream-60">{r.location ?? "–"}</td>
                   <td className="salary-cell">{grossDisplay}</td>

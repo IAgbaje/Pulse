@@ -21,8 +21,8 @@ function Section({ number, title, children }: SectionProps) {
   );
 }
 
-export default function MethodologyPage() {
-  const data = getAllData();
+export default async function MethodologyPage() {
+  const data = await getAllData();
   const sources = [
     {
       label: "Community 2023",
@@ -33,7 +33,7 @@ export default function MethodologyPage() {
     {
       label: "Pulse 2026",
       count: data.filter((r) => r.source === "pulse_2026").length,
-      desc: "Live anonymous submissions collected via Tally. This dataset grows continuously as professionals contribute.",
+      desc: "Live anonymous submissions collected via the Pulse contribution form. This dataset grows continuously as professionals contribute.",
     },
   ];
 
@@ -99,16 +99,16 @@ export default function MethodologyPage() {
 
         <Section number="04" title="Anonymization and privacy">
           <p>
-            No personally identifying information is collected. The submission form does not ask for name, email, company name, job title (only function and level), or any other field that could reasonably identify an individual.
+            No personally identifying information is collected. The submission form does not ask for name, email, or any other field that could reasonably identify an individual.
           </p>
           <p>
             Submissions are ingested as anonymized records only. Each record is assigned a random identifier when it enters the dataset. There is no way to trace a published data point back to the person who submitted it, including for the people who run this index.
           </p>
           <p>
-            Record-level views show the same class-level fields the form collects (function, level, industry, and city) alongside the salary. These categories describe thousands of people each; they are not identifiers. No company name, no specific job title, no team, no exact employer is ever shown.
+            Company names are shown publicly alongside salary data to add credibility and context. However, because no personal information is attached to any submission, there is no way to connect a company&apos;s salary data point to any specific employee.
           </p>
           <p>
-            Gender is collected as an optional field for future equity analysis only. It is not published in the public dataset and would only ever be used in aggregate views where sample size is sufficient.
+            Gender is collected for future equity analysis only. It is not published in the public dataset and would only ever be used in aggregate views where sample size is sufficient.
           </p>
         </Section>
 

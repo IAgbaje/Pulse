@@ -33,8 +33,8 @@ interface CardDef {
   basis: string;
 }
 
-export default function InsightsPage() {
-  const data = getAllData();
+export default async function InsightsPage() {
+  const data = await getAllData();
   const current = getYearData(data, LATEST_YEAR);
   const trend = getTrend(data);
 

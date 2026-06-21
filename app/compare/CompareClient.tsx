@@ -11,7 +11,7 @@ import {
 } from "@/lib/data";
 import { SITE_URL } from "@/lib/site";
 import PercentileGauge from "@/components/PercentileGauge";
-import TallyButton from "@/components/TallyButton";
+import { PulseFormTrigger } from "@/components/PulseForm";
 
 interface CompareClientProps {
   totalCount: number;
@@ -467,7 +467,7 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
                     <p className="text-xs text-cream-60 mb-3 leading-relaxed">
                       This comparison only works because others shared their numbers. It takes four minutes and stays completely anonymous.
                     </p>
-                    <TallyButton variant="primary" />
+                    <PulseFormTrigger variant="primary" />
                   </div>
                 </div>
               </>

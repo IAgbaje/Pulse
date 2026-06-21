@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.108.2",
     "@vercel/analytics": "^2.0.1",
     "framer-motion": "^12.40.0",
     "lucide-react": "^1.16.0",
@@ -17,7 +18,8 @@
     "react": "^18",
     "react-dom": "^18",
     "recharts": "^3.8.1",
-    "server-only": "^0.0.1"
+    "server-only": "^0.0.1",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "^20",

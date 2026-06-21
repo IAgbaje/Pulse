@@ -9,11 +9,12 @@ export const metadata: Metadata = {
     "See where your salary ranks against anonymous Nigerian tech compensation data. Runs entirely in your browser. Your number is never stored.",
 };
 
-export default function ComparePage() {
-  const opts = getFilterOptions(getAllData());
+export default async function ComparePage() {
+  const data = await getAllData();
+  const opts = getFilterOptions(data);
   return (
     <CompareClient
-      totalCount={getAllData().length}
+      totalCount={data.length}
       industries={opts.industries}
     />
   );

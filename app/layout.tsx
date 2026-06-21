@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Bebas_Neue, Karla } from "next/font/google";
-import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import { SITE_URL } from "@/lib/site";
@@ -56,10 +55,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${bebasNeue.variable} ${karla.variable}`}>
       <body className="bg-bg-primary text-cream font-body antialiased">
-        <Script
-          src="https://tally.so/widgets/embed.js"
-          strategy="lazyOnload"
-        />
         <Navbar />
         <main>{children}</main>
         <Footer />

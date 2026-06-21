@@ -4,24 +4,57 @@
 
 export interface CompensationRecord {
   id: string;
-  source: "community_2023" | "pulse_2026" | "community_2024";
+  source: "community_2023" | "pulse_2026" | "community_2024" | string;
   source_label: string;
+
+  // Core — both paths
   function: string;
   role_level: string;
-  /** Optional, retained for aggregate equity analysis; never returned to the client. */
+  job_title?: string | null;
+  years_experience?: string | null;
   gender?: string | null;
+  age_range?: string | null;
+  satisfaction?: number | null;
+  education?: string | null;
   location: string | null;
   work_arrangement: string | null;
-  industry: string | null;
-  company_stage: string | null;
-  company_size: string | null;
   currency: string;
   monthly_gross: number | null;
   monthly_net: number | null;
+
+  // Company path (SERVER-ONLY for individual rows)
+  company_name?: string | null;
+
+  // Anonymous path — employer context
+  foreign_employer?: boolean | null;
+  industry: string | null;
+  company_stage: string | null;
+  company_size: string | null;
+  company_age?: string | null;
+  headquartered_in_nigeria?: boolean | null;
+  company_hq?: string | null;
+
+  // Anonymous path — team
+  team_size?: string | null;
+  manage_others?: boolean | null;
+  report_to?: string | null;
+
+  // Anonymous path — comp details
   negotiated: string | null;
+  negotiation_outcome?: string | null;
+  has_bonus?: boolean | null;
+  bonus_range?: string | null;
+  has_equity?: boolean | null;
+
+  // Both paths
   benefits: string | null;
+
+  // Remote branch
+  confirmed_currency?: string | null;
+  multi_currency?: boolean | null;
+
+  // Metadata
   year: number;
-  /** ISO date of submission; null for records ingested before this field existed. */
   submission_date: string | null;
 }
 
@@ -32,6 +65,7 @@ export interface Filters {
   stage?: string;
   source?: string;
   year?: number;
+  company?: string;
 }
 
 export interface Aggregates {
@@ -169,6 +203,7 @@ export function filterData(data: CompensationRecord[], filters: Filters): Compen
     if (filters.stage && r.company_stage !== filters.stage) return false;
     if (filters.source && r.source !== filters.source) return false;
     if (filters.year && r.year !== filters.year) return false;
+    if (filters.company && r.company_name !== filters.company) return false;
     return true;
   });
 }
@@ -326,6 +361,7 @@ export function getFilterOptions(data: CompensationRecord[]) {
     ],
     locations: unique(data.map((r) => r.location)).sort(),
     stages: unique(data.map((r) => r.company_stage)).sort(),
+    companies: unique(data.map((r) => r.company_name)).sort(),
     years: unique(data.map((r) => r.year)).sort() as number[],
     sources: unique(data.map((r) => r.source)).sort(),
   };

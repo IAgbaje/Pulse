@@ -43,6 +43,11 @@ body {
   outline-offset: 2px;
 }
 
+select option {
+  background-color: var(--bg-surface);
+  color: var(--cream);
+}
+
 /* EKG heartbeat — Phase 1: draw on, Phase 2: breathe */
 @keyframes ekg-draw {
   from { stroke-dashoffset: 1000; }

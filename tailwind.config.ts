@@ -22,6 +22,7 @@ const config: Config = {
         cream: {
           DEFAULT: "#F0EBE1",
         },
+        charcoal: "#0B1120",
         positive: "#4ADE80",
         negative: "#F87171",
       },

@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { getAllData } from "@/lib/server-data";
 
-export default function Footer() {
-  const data = getAllData();
+export default async function Footer() {
+  const data = await getAllData();
   const latestYear = Math.max(...data.map((r) => r.year));
 
   return (

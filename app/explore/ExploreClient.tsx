@@ -32,6 +32,7 @@ interface ExploreClientProps {
     industries: string[];
     locations: string[];
     stages: string[];
+    companies: string[];
     years: number[];
   };
   initial: ExploreData;
@@ -48,6 +49,7 @@ export default function ExploreClient({ totalCount, filterOptions, initial }: Ex
   const [industry, setIndustry] = useState("");
   const [location, setLocation] = useState("");
   const [stage, setStage] = useState("");
+  const [company, setCompany] = useState("");
 
   const [data, setData] = useState<ExploreData>(initial);
   const [loading, setLoading] = useState(false);
@@ -60,8 +62,9 @@ export default function ExploreClient({ totalCount, filterOptions, initial }: Ex
       industry: industry || undefined,
       location: location || undefined,
       stage: stage || undefined,
+      company: company || undefined,
     }),
-    [year, level, industry, location, stage]
+    [year, level, industry, location, stage, company]
   );
 
   useEffect(() => {
@@ -81,7 +84,7 @@ export default function ExploreClient({ totalCount, filterOptions, initial }: Ex
   }, [filters]);
 
   const reset = useCallback(() => {
-    setYear(DEFAULT_YEAR); setLevel(""); setIndustry(""); setLocation(""); setStage("");
+    setYear(DEFAULT_YEAR); setLevel(""); setIndustry(""); setLocation(""); setStage(""); setCompany("");
   }, []);
 
   const filterConfigs = [
@@ -90,6 +93,7 @@ export default function ExploreClient({ totalCount, filterOptions, initial }: Ex
     { key: "industry", placeholder: "All industries", value: industry, onChange: setIndustry, options: filterOptions.industries.map((i) => ({ value: i, label: i })) },
     { key: "location", placeholder: "All locations", value: location, onChange: setLocation, options: filterOptions.locations.map((l) => ({ value: l, label: l })) },
     { key: "stage", placeholder: "All stages", value: stage, onChange: setStage, options: filterOptions.stages.map((s) => ({ value: s, label: s })) },
+    ...(filterOptions.companies.length > 0 ? [{ key: "company", placeholder: "All companies", value: company, onChange: setCompany, options: filterOptions.companies.map((c) => ({ value: c, label: c })) }] : []),
   ];
 
   const { aggregate: agg, byLevel, byIndustry, buckets, recent } = data;

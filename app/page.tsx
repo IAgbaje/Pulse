@@ -12,7 +12,7 @@ import {
 } from "@/lib/data";
 import { getAllData } from "@/lib/server-data";
 import EKGLine from "@/components/EKGLine";
-import TallyButton from "@/components/TallyButton";
+import { PulseFormTrigger } from "@/components/PulseForm";
 import StatCard from "@/components/StatCard";
 import SalaryChart from "@/components/SalaryChart";
 
@@ -20,8 +20,8 @@ export const metadata: Metadata = {
   title: "Pulse | Nigerian Tech Compensation Index",
 };
 
-export default function HomePage() {
-  const data = getAllData();
+export default async function HomePage() {
+  const data = await getAllData();
   const current = getYearData(data, LATEST_YEAR);
   const agg = getAggregates(current);
   const byLevel = getByLevel(current);
@@ -64,7 +64,7 @@ export default function HomePage() {
             >
               Explore the data
             </Link>
-            <TallyButton variant="ghost" />
+            <PulseFormTrigger variant="ghost" />
           </div>
         </div>
       </section>
@@ -154,7 +154,7 @@ export default function HomePage() {
             Your four minutes will change someone&apos;s next negotiation.
           </h2>
           <div className="flex flex-col sm:flex-row gap-3 justify-center mt-6">
-            <TallyButton variant="primary" />
+            <PulseFormTrigger variant="primary" />
             <Link
               href="/methodology"
               className="border border-[rgba(200,150,42,0.25)] text-gold hover:bg-[rgba(200,150,42,0.08)] font-medium text-sm px-5 py-3 rounded-md transition-colors"

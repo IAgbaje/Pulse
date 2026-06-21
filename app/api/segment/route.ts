@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     year: body.includeHistorical ? undefined : LATEST_YEAR,
   };
 
-  const segment = filterData(getAllData(), filters);
+  const segment = filterData(await getAllData(), filters);
   const currency = body.currency ?? "NGN";
   const values = getGrossValues(segment, currency);
 

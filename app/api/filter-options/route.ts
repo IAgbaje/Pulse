@@ -6,10 +6,11 @@ import { NextResponse } from "next/server";
 import { getAllData } from "@/lib/server-data";
 import { getFilterOptions } from "@/lib/data";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export async function GET() {
-  const data = getAllData();
+  const data = await getAllData();
   const opts = getFilterOptions(data);
   return NextResponse.json({
     totalCount: data.length,

@@ -1,40 +1,31 @@
 import type { Metadata } from "next";
 import { TRACKED_FUNCTIONS, LATEST_YEAR } from "@/lib/data";
 import { getAllData } from "@/lib/server-data";
-import TallyButton from "@/components/TallyButton";
+import { PulseFormTrigger } from "@/components/PulseForm";
 import ContributeSuccess from "@/components/ContributeSuccess";
 
 export const metadata: Metadata = {
   title: "Contribute | Pulse",
 };
 
-// Records-per-function threshold before a function's stats can display
-// reliably across role levels. Drives the public progress bar.
 const FUNCTION_TARGET = 50;
 
 const trustSignals = [
   "Completely anonymous. No name, email, or identifying information collected.",
-  "Takes four minutes. No account required.",
+  "Takes 2-4 minutes. No account required.",
   "Your submission improves salary benchmarks for every professional after you",
   "Submissions appear only as anonymized records, never with anything that could identify you",
 ];
 
-export default function ContributePage({
+export default async function ContributePage({
   searchParams,
 }: {
   searchParams?: { submitted?: string };
 }) {
-  // Tally redirects to /contribute?submitted=1 on form completion. Render the
-  // post-submit experience (with share CTAs + tally_completed event) at the
-  // top of the page; the rest of the page still renders below as a soft
-  // landing surface.
   const submitted = searchParams?.submitted === "1";
-  const data = getAllData();
+  const data = await getAllData();
   const currentYear = data.filter((r) => r.year === LATEST_YEAR);
 
-  // Per-function counts for the rallying-mechanic progress bar. Sorted by
-  // largest gap-to-target so the most under-represented function appears first
-  // and gets the attention of any contributor who matches it.
   const functionProgress = TRACKED_FUNCTIONS.map((fn) => ({
     fn,
     count: currentYear.filter((r) => r.function === fn).length,
@@ -73,21 +64,22 @@ export default function ContributePage({
           </p>
         </div>
 
-        {/* CTA */}
-        <div className="text-center py-8">
-          <TallyButton variant="primary" />
-
-          <ul className="mt-6 space-y-2 text-left max-w-xs mx-auto">
-            {trustSignals.map((signal) => (
-              <li key={signal} className="flex items-start gap-2 text-xs text-cream-40">
-                <span className="text-gold mt-0.5 flex-shrink-0">✓</span>
-                <span>{signal}</span>
-              </li>
-            ))}
-          </ul>
+        {/* Form trigger */}
+        <div className="flex justify-center">
+          <PulseFormTrigger />
         </div>
 
-        {/* Per-function progress: where the dataset needs the most help */}
+        {/* Trust signals */}
+        <ul className="space-y-2 max-w-xs mx-auto">
+          {trustSignals.map((signal) => (
+            <li key={signal} className="flex items-start gap-2 text-xs text-cream-40">
+              <span className="text-gold mt-0.5 flex-shrink-0">✓</span>
+              <span>{signal}</span>
+            </li>
+          ))}
+        </ul>
+
+        {/* Per-function progress */}
         <div className="surface-card">
           <p className="text-sm font-semibold text-cream mb-1">Where the dataset needs you most</p>
           <p className="text-xs text-cream-40 mb-5">
@@ -125,13 +117,13 @@ export default function ContributePage({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {[
               "Role level and function",
-              "Industry and company stage",
+              "Job title and experience",
               "Location and work arrangement",
               "Monthly gross salary",
               "Monthly net (optional)",
-              "Whether you negotiated",
+              "Industry and company context",
               "Benefits received",
-              "Gender (optional, for equity analysis)",
+              "Gender (for future equity analysis)",
             ].map((item) => (
               <div key={item} className="flex items-center gap-2 text-xs text-cream-60">
                 <span className="w-1.5 h-1.5 rounded-full bg-gold/60 flex-shrink-0" />
@@ -140,7 +132,8 @@ export default function ContributePage({
             ))}
           </div>
           <p className="text-xs text-cream-30 mt-4">
-            No name, email, company name, or any individually identifying field is collected.
+            Company names are shown publicly alongside salary data to add credibility.
+            Your identity stays completely anonymous — no name, email, or personally identifying information is collected.
           </p>
         </div>
       </div>

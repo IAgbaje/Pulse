@@ -32,6 +32,7 @@ function toDisplayRow(r: CompensationRecord) {
     currency: r.currency,
     monthly_gross: r.monthly_gross,
     monthly_net: r.monthly_net,
+    company_name: r.company_name ?? null,
     negotiated: r.negotiated,
     benefits: r.benefits,
     year: r.year,
@@ -54,9 +55,10 @@ export async function POST(req: NextRequest) {
     location: body.location,
     stage: body.stage,
     source: body.source,
+    company: body.company,
   };
 
-  const all = getAllData();
+  const all = await getAllData();
   const filtered = filterData(all, filters);
   const recentLimit = Math.min(Math.max(body.recentLimit ?? 20, 1), 50);
   const recentRaw = getRecentSubmissions(filtered, recentLimit);

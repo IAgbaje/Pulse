@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import TallyButton from "@/components/TallyButton";
+import { PulseFormTrigger } from "@/components/PulseForm";
 
 const navLinks = [
   { href: "/explore", label: "Explore" },
@@ -57,7 +57,7 @@ export default function Navbar() {
                 {label}
               </Link>
             ))}
-            <TallyButton variant="nav" />
+            <PulseFormTrigger variant="nav" />
           </div>
 
           {/* Mobile hamburger: 44px hit target for thumbs */}
@@ -96,7 +96,7 @@ export default function Navbar() {
                 {label}
               </Link>
             ))}
-            <TallyButton variant="primary" />
+            <PulseFormTrigger variant="primary" />
           </div>
         </div>
       )}
