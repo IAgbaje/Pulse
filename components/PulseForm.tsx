@@ -645,7 +645,10 @@ export function PulseFormTrigger({
       >
         {displayLabel}
       </button>
-      <FormModal open={open} onClose={() => setOpen(false)}>
+      <FormModal open={open} onClose={() => {
+        track("form_modal_closed", { variant });
+        setOpen(false);
+      }}>
         <PulseFormContent onComplete={() => setOpen(false)} />
       </FormModal>
     </>
@@ -661,6 +664,33 @@ function PulseFormContent({ onComplete }: { onComplete?: () => void }) {
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const startTimeRef = useRef(Date.now());
+  const stepStartRef = useRef(Date.now());
+  const utmRef = useRef<Record<string, string>>({});
+
+  // Capture UTM params on mount for campaign attribution
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const utmKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+    utmKeys.forEach((k) => {
+      const v = params.get(k);
+      if (v) utmRef.current[k] = v;
+    });
+    if (document.referrer) utmRef.current.referrer = new URL(document.referrer).hostname;
+  }, []);
+
+  // Track step views
+  useEffect(() => {
+    const steps = getSteps(form);
+    const step = steps[currentStep];
+    if (step) {
+      stepStartRef.current = Date.now();
+      track("form_step_viewed", {
+        step: step.key,
+        step_index: currentStep,
+        path: form.path ?? "undecided",
+      });
+    }
+  }, [currentStep, form.path]);
 
   useEffect(() => {
     const handleBeforeUnload = () => {
@@ -669,6 +699,7 @@ function PulseFormContent({ onComplete }: { onComplete?: () => void }) {
           step: steps[currentStep]?.key ?? "unknown",
           path: form.path ?? "undecided",
           seconds_spent: Math.round((Date.now() - startTimeRef.current) / 1000),
+          ...utmRef.current,
         });
       }
     };
@@ -697,7 +728,12 @@ function PulseFormContent({ onComplete }: { onComplete?: () => void }) {
 
   const next = () => {
     if (!step || !canAdvance(step.key, form)) return;
-    track("form_step_completed", { step: step.key, path: form.path ?? "undecided" });
+    track("form_step_completed", {
+      step: step.key,
+      step_index: currentStep,
+      path: form.path ?? "undecided",
+      step_seconds: Math.round((Date.now() - stepStartRef.current) / 1000),
+    });
     if (isLastStep) {
       handleSubmit();
     } else {
@@ -706,7 +742,10 @@ function PulseFormContent({ onComplete }: { onComplete?: () => void }) {
   };
 
   const back = () => {
-    if (currentStep > 0) setCurrentStep((s) => s - 1);
+    if (currentStep > 0) {
+      track("form_step_back", { from: step?.key ?? "unknown", step_index: currentStep });
+      setCurrentStep((s) => s - 1);
+    }
   };
 
   const handleSubmit = async () => {
@@ -792,8 +831,10 @@ function PulseFormContent({ onComplete }: { onComplete?: () => void }) {
 
       if (!res.ok) {
         if (data.error === "rate_limited") {
+          track("form_rate_limited", { path: form.path ?? "unknown", ...utmRef.current });
           setError(`You've already submitted recently. Please try again in ${data.retry_after_days} day(s).`);
         } else {
+          track("form_error", { error: data.error, path: form.path ?? "unknown" });
           setError(data.error || "Submission failed. Please try again.");
         }
         setSubmitting(false);
@@ -802,7 +843,9 @@ function PulseFormContent({ onComplete }: { onComplete?: () => void }) {
 
       track("form_submitted", {
         path: form.path ?? "unknown",
-        time_spent_ms: Date.now() - startTimeRef.current,
+        total_seconds: Math.round((Date.now() - startTimeRef.current) / 1000),
+        steps_completed: steps.length,
+        ...utmRef.current,
       });
       setSubmitted(true);
     } catch {

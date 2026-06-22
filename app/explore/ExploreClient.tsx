@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
+import { track } from "@vercel/analytics";
 import {
   formatCurrency,
   LATEST_YEAR,
@@ -87,7 +88,19 @@ export default function ExploreClient({ totalCount, filterOptions, initial }: Ex
       body: JSON.stringify(filters),
     })
       .then((r) => r.json())
-      .then((res: ExploreData) => { if (!cancelled) setData(res); })
+      .then((res: ExploreData) => {
+        if (!cancelled) {
+          setData(res);
+          const activeFilters = Object.entries(filters).filter(([, v]) => v !== undefined).map(([k]) => k);
+          if (activeFilters.length > 1 || (activeFilters.length === 1 && activeFilters[0] !== "year")) {
+            track("explore_filtered", {
+              filters: activeFilters.join(","),
+              result_count: res.aggregate.count,
+              ...(filters.search ? { search_query: filters.search } : {}),
+            });
+          }
+        }
+      })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
   }, [filters]);
