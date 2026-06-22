@@ -242,14 +242,19 @@ function SubmissionCard({
 
       {expanded && (
         <div className="mb-3">
-          {EDITABLE_FIELDS.map((field) => (
-            <EditableField
-              key={field.key}
-              field={field}
-              value={local[field.key] as string | number | null | undefined}
-              onSave={handleFieldSave}
-            />
-          ))}
+          {EDITABLE_FIELDS.map((field) => {
+            const raw = local[field.key];
+            const val: string | number | null | undefined =
+              typeof raw === "boolean" || Array.isArray(raw) ? String(raw) : raw;
+            return (
+              <EditableField
+                key={field.key}
+                field={field}
+                value={val}
+                onSave={handleFieldSave}
+              />
+            );
+          })}
           <div className="flex justify-between py-1.5 border-b border-[rgba(200,150,42,0.08)]">
             <span className="text-cream-40 text-xs">Gender</span>
             <span className="text-cream text-xs">{local.gender}</span>
