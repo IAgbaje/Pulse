@@ -189,7 +189,7 @@ function Select({
   placeholder?: string;
 }) {
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-1.5 text-left">
       <label className="text-xs text-cream-60">
         {label}
         {required && <span className="text-gold ml-0.5">*</span>}
@@ -231,7 +231,7 @@ function TextInput({
   inputMode?: "text" | "numeric";
 }) {
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-1.5 text-left">
       <label className="text-xs text-cream-60">
         {label}
         {required && <span className="text-gold ml-0.5">*</span>}
@@ -260,7 +260,7 @@ function YesNo({
   required?: boolean;
 }) {
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-1.5 text-left">
       <label className="text-xs text-cream-60">
         {label}
         {required && <span className="text-gold ml-0.5">*</span>}
@@ -297,7 +297,7 @@ function StarRating({
   required?: boolean;
 }) {
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-1.5 text-left">
       <label className="text-xs text-cream-60">
         {label}
         {required && <span className="text-gold ml-0.5">*</span>}
@@ -339,7 +339,7 @@ function Pills({
     );
   };
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-1.5 text-left">
       <label className="text-xs text-cream-60">{label}</label>
       <div className="flex flex-wrap gap-2">
         {options.map((opt) => (
