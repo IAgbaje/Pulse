@@ -23,6 +23,7 @@ function toDisplayRow(r: CompensationRecord) {
     source: r.source,
     source_label: r.source_label,
     function: r.function,
+    job_title: r.job_title ?? null,
     role_level: r.role_level,
     location: r.location,
     work_arrangement: r.work_arrangement,
@@ -56,6 +57,7 @@ export async function POST(req: NextRequest) {
     stage: body.stage,
     source: body.source,
     company: body.company,
+    search: body.search,
   };
 
   const all = await getAllData();

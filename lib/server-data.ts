@@ -10,6 +10,7 @@
 import "server-only";
 import seedData from "@/data/seed.json";
 import community2024Data from "@/data/community_2024.json";
+import pulse2026Data from "@/data/pulse_2026.json";
 import { createClient } from "@supabase/supabase-js";
 import type { CompensationRecord } from "@/lib/data";
 
@@ -69,6 +70,7 @@ export async function getAllData(): Promise<CompensationRecord[]> {
   const historical: CompensationRecord[] = [
     ...(seedData as CompensationRecord[]),
     ...(community2024Data as CompensationRecord[]),
+    ...(pulse2026Data as CompensationRecord[]),
   ];
 
   if (!supabase) return historical;

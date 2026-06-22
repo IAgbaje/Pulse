@@ -20,7 +20,7 @@ export default function RecentSubmissions({ data }: RecentSubmissionsProps) {
         <table className="w-full data-table min-w-[640px]">
           <thead>
             <tr>
-              <th>Function</th>
+              <th>Role</th>
               <th>Level</th>
               <th>Company</th>
               <th>Industry</th>
@@ -45,8 +45,8 @@ export default function RecentSubmissions({ data }: RecentSubmissionsProps) {
 
               return (
                 <tr key={r.id} className={isDiaspora ? "opacity-80" : ""}>
-                  <td className="text-cream-60 whitespace-nowrap">
-                    {r.function.replace("Sales & Business Development", "Sales & BD")}
+                  <td className="text-cream-60 whitespace-nowrap" title={r.function}>
+                    {r.job_title || r.function.replace("Sales & Business Development", "Sales & BD")}
                   </td>
                   <td className="text-cream-60 whitespace-nowrap">
                     {r.role_level.split(" (")[0]}

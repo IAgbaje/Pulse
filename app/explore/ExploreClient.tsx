@@ -50,10 +50,18 @@ export default function ExploreClient({ totalCount, filterOptions, initial }: Ex
   const [location, setLocation] = useState("");
   const [stage, setStage] = useState("");
   const [company, setCompany] = useState("");
+  const [search, setSearch] = useState("");
+  const [searchInput, setSearchInput] = useState("");
 
   const [data, setData] = useState<ExploreData>(initial);
   const [loading, setLoading] = useState(false);
   const isInitial = useRef(true);
+
+  // Debounce search input
+  useEffect(() => {
+    const timer = setTimeout(() => setSearch(searchInput), 350);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
 
   const filters = useMemo(
     () => ({
@@ -63,8 +71,9 @@ export default function ExploreClient({ totalCount, filterOptions, initial }: Ex
       location: location || undefined,
       stage: stage || undefined,
       company: company || undefined,
+      search: search || undefined,
     }),
-    [year, level, industry, location, stage, company]
+    [year, level, industry, location, stage, company, search]
   );
 
   useEffect(() => {
@@ -84,7 +93,7 @@ export default function ExploreClient({ totalCount, filterOptions, initial }: Ex
   }, [filters]);
 
   const reset = useCallback(() => {
-    setYear(DEFAULT_YEAR); setLevel(""); setIndustry(""); setLocation(""); setStage(""); setCompany("");
+    setYear(DEFAULT_YEAR); setLevel(""); setIndustry(""); setLocation(""); setStage(""); setCompany(""); setSearch(""); setSearchInput("");
   }, []);
 
   const filterConfigs = [
@@ -114,8 +123,17 @@ export default function ExploreClient({ totalCount, filterOptions, initial }: Ex
         <div>
           <h1 className="text-2xl font-semibold text-cream">Salary explorer</h1>
           <p className="text-sm text-cream-60 mt-1">
-            Filter by dataset year, level, industry, location, or stage to explore compensation data.
+            Search by company, role, or function. Use filters to narrow results.
           </p>
+          <div className="mt-3">
+            <input
+              type="text"
+              placeholder="Search roles, companies, or functions... e.g. &quot;Product Manager&quot; or &quot;Fintech&quot;"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              className="w-full bg-bg-primary border border-[rgba(200,150,42,0.25)] rounded-lg px-4 py-2.5 text-cream text-sm outline-none focus:border-gold placeholder:text-cream-40 transition-colors"
+            />
+          </div>
           {year === "" && (
             <p className="text-xs text-gold/80 mt-1">
               Viewing all years pooled. 2023 and {LATEST_YEAR} salaries come from very different

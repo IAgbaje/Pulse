@@ -66,6 +66,7 @@ export interface Filters {
   source?: string;
   year?: number;
   company?: string;
+  search?: string;
 }
 
 export interface Aggregates {
@@ -204,6 +205,14 @@ export function filterData(data: CompensationRecord[], filters: Filters): Compen
     if (filters.source && r.source !== filters.source) return false;
     if (filters.year && r.year !== filters.year) return false;
     if (filters.company && r.company_name !== filters.company) return false;
+    if (filters.search) {
+      const q = filters.search.toLowerCase();
+      const searchable = [r.function, r.job_title, r.company_name, r.industry, r.role_level]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+      if (!searchable.includes(q)) return false;
+    }
     return true;
   });
 }

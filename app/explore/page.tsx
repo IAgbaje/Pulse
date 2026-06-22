@@ -31,6 +31,7 @@ export default async function ExplorePage() {
     source: r.source,
     source_label: r.source_label,
     function: r.function,
+    job_title: r.job_title ?? null,
     role_level: r.role_level,
     location: r.location,
     work_arrangement: r.work_arrangement,
