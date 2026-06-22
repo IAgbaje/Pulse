@@ -246,7 +246,7 @@ function SubmissionCard({
             <EditableField
               key={field.key}
               field={field}
-              value={local[field.key]}
+              value={local[field.key] as string | number | null | undefined}
               onSave={handleFieldSave}
             />
           ))}
