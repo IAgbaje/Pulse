@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) throw new Error("Supabase credentials not configured");
+  return createClient(url, key);
+}
 
 export async function GET(req: NextRequest) {
   const q = req.nextUrl.searchParams.get("q")?.trim() ?? "";
@@ -13,7 +15,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ companies: [] });
   }
 
-  const { data: matches } = await supabase
+  const { data: matches } = await getSupabase()
     .from("companies")
     .select("name, industry")
     .eq("active", true)
