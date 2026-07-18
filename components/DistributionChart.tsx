@@ -10,6 +10,7 @@ import {
   ReferenceLine,
 } from "recharts";
 import { type SalaryBucket, type Aggregates, formatCurrency } from "@/lib/data";
+import { VIZ_COLORS, axisTickStyle, tooltipContentStyle, referenceLineStyle } from "@/lib/chart-theme";
 
 interface DistributionChartProps {
   aggregate: Aggregates;
@@ -21,9 +22,9 @@ const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: Toolti
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
-    <div className="bg-bg-surface border border-[rgba(200,150,42,0.20)] rounded-lg p-3 text-xs">
-      <p className="text-cream font-semibold">{d.range}</p>
-      <p className="text-cream-60 mt-1">{d.count} submission{d.count !== 1 ? "s" : ""}</p>
+    <div className="text-xs" style={tooltipContentStyle}>
+      <p className="text-content-primary font-semibold">{d.range}</p>
+      <p className="text-content-secondary mt-1">{d.count} submission{d.count !== 1 ? "s" : ""}</p>
     </div>
   );
 };
@@ -32,7 +33,7 @@ export default function DistributionChart({ aggregate, buckets }: DistributionCh
   const median = aggregate.median;
 
   if (!buckets.length) return (
-    <div className="flex items-center justify-center h-48 text-cream-40 text-sm">
+    <div className="flex items-center justify-center h-48 text-content-tertiary text-sm">
       Not enough data for this view.
     </div>
   );
@@ -42,19 +43,19 @@ export default function DistributionChart({ aggregate, buckets }: DistributionCh
       <AreaChart data={buckets} margin={{ left: 8, right: 16, top: 8, bottom: 4 }}>
         <defs>
           <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#C8962A" stopOpacity={0.25} />
-            <stop offset="95%" stopColor="#C8962A" stopOpacity={0.02} />
+            <stop offset="5%" stopColor={VIZ_COLORS[0]} stopOpacity={0.25} />
+            <stop offset="95%" stopColor={VIZ_COLORS[0]} stopOpacity={0.02} />
           </linearGradient>
         </defs>
         <XAxis
           dataKey="range"
-          tick={{ fontSize: 10, fill: "rgba(240,235,225,0.35)" }}
+          tick={axisTickStyle}
           axisLine={false}
           tickLine={false}
           interval="preserveStartEnd"
         />
         <YAxis
-          tick={{ fontSize: 11, fill: "rgba(240,235,225,0.35)" }}
+          tick={axisTickStyle}
           axisLine={false}
           tickLine={false}
           width={28}
@@ -63,11 +64,11 @@ export default function DistributionChart({ aggregate, buckets }: DistributionCh
         {median > 0 && (
           <ReferenceLine
             x={buckets.find((b) => median >= b.min && median < b.max)?.range}
-            stroke="#C8962A"
+            stroke={referenceLineStyle.stroke}
             strokeDasharray="4 3"
             label={{
               value: `Median: ${formatCurrency(median)}`,
-              fill: "#C8962A",
+              fill: referenceLineStyle.labelFill,
               fontSize: 11,
               position: "insideTopRight",
             }}
@@ -76,7 +77,7 @@ export default function DistributionChart({ aggregate, buckets }: DistributionCh
         <Area
           type="monotone"
           dataKey="count"
-          stroke="#C8962A"
+          stroke={VIZ_COLORS[0]}
           strokeWidth={2}
           fill="url(#goldGrad)"
         />

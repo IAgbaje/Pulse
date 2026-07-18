@@ -9,6 +9,7 @@ import {
   LEVEL_ORDER,
   MIN_SEGMENT_RECORDS,
 } from "@/lib/data";
+import { VIZ_COLORS, axisTickStyle, tooltipContentStyle, tooltipCursorStyle } from "@/lib/chart-theme";
 
 interface NegotiationChartProps {
   data: CompensationRecord[];
@@ -18,8 +19,8 @@ interface TooltipEntry { dataKey: string; name: string; fill: string; value: num
 const CustomTooltip = ({ active, payload, label }: { active?: boolean; payload?: TooltipEntry[]; label?: string }) => {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-bg-surface border border-[rgba(200,150,42,0.20)] rounded-lg p-3 text-xs">
-      <p className="text-cream font-semibold mb-2">{label}</p>
+    <div className="text-xs" style={tooltipContentStyle}>
+      <p className="text-content-primary font-semibold mb-2">{label}</p>
       {payload.map((p) => (
         <p key={p.dataKey} style={{ color: p.fill }}>
           {p.name}: {formatCurrency(p.value)}
@@ -51,7 +52,7 @@ export default function NegotiationChart({ data }: NegotiationChartProps) {
   }).filter((d) => d.valid);
 
   if (!chartData.length) return (
-    <div className="flex items-center justify-center h-48 text-cream-40 text-sm">
+    <div className="flex items-center justify-center h-48 text-content-tertiary text-sm">
       Not enough data for this view.
     </div>
   );
@@ -59,12 +60,12 @@ export default function NegotiationChart({ data }: NegotiationChartProps) {
   return (
     <ResponsiveContainer width="100%" height={220}>
       <BarChart data={chartData} margin={{ left: 8, right: 8, top: 4, bottom: 4 }}>
-        <XAxis dataKey="level" tick={{ fontSize: 11, fill: "rgba(240,235,225,0.35)" }} axisLine={false} tickLine={false} />
-        <YAxis tickFormatter={(v) => formatCurrency(v)} tick={{ fontSize: 11, fill: "rgba(240,235,225,0.35)" }} axisLine={false} tickLine={false} width={60} />
-        <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(200,150,42,0.06)" }} />
-        <Legend wrapperStyle={{ fontSize: 11, color: "rgba(240,235,225,0.50)" }} />
-        <Bar dataKey="Negotiated" fill="#C8962A" radius={[4, 4, 0, 0]} barSize={16} />
-        <Bar dataKey="Not negotiated" fill="rgba(200,150,42,0.30)" radius={[4, 4, 0, 0]} barSize={16} />
+        <XAxis dataKey="level" tick={axisTickStyle} axisLine={false} tickLine={false} />
+        <YAxis tickFormatter={(v) => formatCurrency(v)} tick={axisTickStyle} axisLine={false} tickLine={false} width={60} />
+        <Tooltip content={<CustomTooltip />} cursor={tooltipCursorStyle} />
+        <Legend wrapperStyle={{ fontSize: 11, color: "var(--text-tertiary)" }} />
+        <Bar dataKey="Negotiated" fill={VIZ_COLORS[0]} radius={[4, 4, 0, 0]} barSize={16} />
+        <Bar dataKey="Not negotiated" fill={VIZ_COLORS[1]} radius={[4, 4, 0, 0]} barSize={16} />
       </BarChart>
     </ResponsiveContainer>
   );

@@ -10,6 +10,7 @@ import {
   Cell,
 } from "recharts";
 import { formatCurrency, type IndustryBreakdown } from "@/lib/data";
+import { VIZ_COLORS, axisTickStyle, tooltipContentStyle, tooltipCursorStyle } from "@/lib/chart-theme";
 
 interface IndustryChartProps {
   data: IndustryBreakdown[];
@@ -20,19 +21,19 @@ const CustomTooltip = ({ active, payload, label }: { active?: boolean; payload?:
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
-    <div className="bg-bg-surface border border-[rgba(200,150,42,0.20)] rounded-lg p-3 text-xs">
-      <p className="text-cream font-semibold mb-1">{label}</p>
+    <div className="text-xs" style={tooltipContentStyle}>
+      <p className="text-content-primary font-semibold mb-1">{label}</p>
       <p className="text-gold">Median: {formatCurrency(d.median)}</p>
-      <p className="text-cream-60">25th: {formatCurrency(d.p25)}</p>
-      <p className="text-cream-60">75th: {formatCurrency(d.p75)}</p>
-      <p className="text-cream-40 mt-1">n = {d.count}</p>
+      <p className="text-content-secondary">25th: {formatCurrency(d.p25)}</p>
+      <p className="text-content-secondary">75th: {formatCurrency(d.p75)}</p>
+      <p className="text-content-tertiary mt-1">n = {d.count}</p>
     </div>
   );
 };
 
 export default function IndustryChart({ data }: IndustryChartProps) {
   if (!data.length) return (
-    <div className="flex items-center justify-center h-48 text-cream-40 text-sm">
+    <div className="flex items-center justify-center h-48 text-content-tertiary text-sm">
       Not enough data for this view.
     </div>
   );
@@ -44,7 +45,7 @@ export default function IndustryChart({ data }: IndustryChartProps) {
       <BarChart data={top} margin={{ left: 8, right: 8, top: 4, bottom: 24 }}>
         <XAxis
           dataKey="industry"
-          tick={{ fontSize: 11, fill: "rgba(240,235,225,0.35)" }}
+          tick={axisTickStyle}
           axisLine={false}
           tickLine={false}
           angle={-25}
@@ -53,15 +54,15 @@ export default function IndustryChart({ data }: IndustryChartProps) {
         />
         <YAxis
           tickFormatter={(v) => formatCurrency(v)}
-          tick={{ fontSize: 11, fill: "rgba(240,235,225,0.35)" }}
+          tick={axisTickStyle}
           axisLine={false}
           tickLine={false}
           width={64}
         />
-        <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(200,150,42,0.06)" }} />
+        <Tooltip content={<CustomTooltip />} cursor={tooltipCursorStyle} />
         <Bar dataKey="median" radius={[4, 4, 0, 0]} barSize={28}>
           {top.map((_, i) => (
-            <Cell key={i} fill={i === 0 ? "#C8962A" : "rgba(200,150,42,0.40)"} />
+            <Cell key={i} fill={VIZ_COLORS[0]} fillOpacity={i === 0 ? 1 : 0.4} />
           ))}
         </Bar>
       </BarChart>

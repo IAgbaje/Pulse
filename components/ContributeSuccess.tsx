@@ -17,24 +17,32 @@ const SHARE_TEXT =
 
 const SHARE_URL = `${SITE_URL}/contribute`;
 
-const PLATFORMS = [
+// Third-party share targets use the --brand-* vars (globals.css), same as
+// CompareClient's share row — semantic tokens (success/info) are reserved
+// for status meaning and must not double as brand colors.
+const PLATFORMS: {
+  name: string;
+  color: string;
+  bg: string;
+  href: (t: string, u: string) => string;
+}[] = [
   {
     name: "WhatsApp",
-    color: "#25D366",
-    bg: "rgba(37,211,102,0.10)",
-    href: (t: string, u: string) => `https://wa.me/?text=${encodeURIComponent(t + " " + u)}`,
+    color: "var(--brand-whatsapp)",
+    bg: "var(--brand-whatsapp-bg)",
+    href: (t, u) => `https://wa.me/?text=${encodeURIComponent(t + " " + u)}`,
   },
   {
     name: "X / Twitter",
-    color: "#e7e7e7",
-    bg: "rgba(231,231,231,0.08)",
-    href: (t: string, u: string) => `https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}&url=${encodeURIComponent(u)}`,
+    color: "var(--brand-x)",
+    bg: "var(--brand-x-bg)",
+    href: (t, u) => `https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}&url=${encodeURIComponent(u)}`,
   },
   {
     name: "LinkedIn",
-    color: "#0A66C2",
-    bg: "rgba(10,102,194,0.12)",
-    href: (_t: string, u: string) => `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(u)}`,
+    color: "var(--brand-linkedin)",
+    bg: "var(--brand-linkedin-bg)",
+    href: (_t, u) => `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(u)}`,
   },
 ];
 
@@ -46,17 +54,28 @@ export default function ContributeSuccess() {
   }, []);
 
   return (
-    <div className="max-w-reading mx-auto px-6 pt-20 pb-12 text-center">
-      <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[rgba(74,222,128,0.10)] border border-[rgba(74,222,128,0.30)] mb-6">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <div className="page-enter max-w-read mx-auto px-6 pt-20 pb-12 text-center">
+      <div className="count-up mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full border border-success bg-success-bg">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="text-success-bright"
+          aria-hidden="true"
+        >
           <polyline points="20 6 9 17 4 12" />
         </svg>
       </div>
-      <p className="label-caps text-gold mb-3">Submission received</p>
-      <h1 className="text-3xl md:text-4xl font-semibold text-cream mb-4 text-balance leading-snug">
+      <p className="label-caps text-content-accent mb-3">Submission received</p>
+      <h1 className="text-3xl md:text-4xl font-bold text-content-primary mb-4 text-balance leading-snug">
         Thank you. The index is better because of you.
       </h1>
-      <p className="text-sm text-cream-60 leading-relaxed max-w-md mx-auto mb-8">
+      <p className="text-sm text-content-secondary leading-relaxed max-w-md mx-auto mb-8">
         Your record joins the dataset within 48 hours. From now on, every
         professional who compares their salary against your level, industry,
         or function is partly benchmarking against your contribution.
@@ -65,10 +84,10 @@ export default function ContributeSuccess() {
       {/* Share: the single most valuable action right now */}
       <div className="surface-card text-left space-y-5">
         <div>
-          <p className="text-sm font-semibold text-cream mb-1">
+          <p className="text-sm font-bold text-content-primary mb-1">
             Now: bring one more person.
           </p>
-          <p className="text-xs text-cream-60 leading-relaxed">
+          <p className="text-xs text-content-secondary leading-relaxed">
             One share to a function-specific group (engineering Slack, design
             Discord, your old PM WhatsApp) is worth more than a week of public
             posts. Most functions are still under 50 records, and that&apos;s where
@@ -83,7 +102,7 @@ export default function ContributeSuccess() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => track("share_click", { platform: p.name, source: "contribute_success" })}
-              className="flex items-center justify-center gap-2 py-3 px-4 rounded-md border border-[rgba(200,150,42,0.15)] text-sm font-medium transition-all hover:border-[rgba(200,150,42,0.30)] min-h-[44px]"
+              className="flex items-center justify-center gap-2 py-3 px-4 rounded-md border border-strong text-sm font-bold transition-colors duration-fast ease-standard min-h-[44px] hover:border-gold-active"
               style={{ color: p.color, background: p.bg }}
             >
               Share on {p.name}
@@ -96,13 +115,13 @@ export default function ContributeSuccess() {
       <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
         <Link
           href="/compare"
-          className="bg-gold hover:bg-gold-hover text-bg-primary font-semibold text-sm tracking-[0.05em] px-6 py-3.5 rounded-md transition-colors min-h-[44px] inline-flex items-center justify-center"
+          className="bg-gold-500 hover:bg-gold-400 text-content-on-gold font-bold text-sm tracking-wide px-6 py-3.5 rounded-md transition-colors duration-fast ease-standard min-h-[44px] inline-flex items-center justify-center"
         >
           See where you stand
         </Link>
         <Link
           href="/insights"
-          className="border border-[rgba(200,150,42,0.25)] text-gold hover:bg-[rgba(200,150,42,0.08)] font-medium text-sm px-5 py-3 rounded-md transition-colors min-h-[44px] inline-flex items-center justify-center"
+          className="border border-gold hover:bg-surface-gold text-content-accent font-medium text-sm px-5 py-3 rounded-md transition-colors duration-fast ease-standard min-h-[44px] inline-flex items-center justify-center"
         >
           What the data reveals
         </Link>

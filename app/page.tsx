@@ -41,26 +41,26 @@ export default async function HomePage() {
     : null;
 
   return (
-    <>
+    <div className="page-enter">
       {/* Hero */}
-      <section className="min-h-[70vh] flex flex-col items-center justify-center text-center px-6 pt-24 pb-12 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(200,150,42,0.04)_0%,transparent_70%)] pointer-events-none" />
+      <section className="min-h-[70vh] flex flex-col items-center justify-center text-center px-6 pt-16 pb-12 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--accent-fill-tint)_0%,transparent_70%)] pointer-events-none" />
         <div className="relative z-10 max-w-2xl mx-auto">
-          <h1 className="font-display text-5xl sm:text-[64px] md:text-[80px] leading-none text-cream mb-2 tracking-wide">
+          <h1 className="display text-display-xl text-content-primary mb-2">
             PULSE
           </h1>
           <EKGLine />
-          <p className="text-xl md:text-2xl text-cream font-light mt-4 mb-3 leading-snug">
+          <p className="text-xl md:text-2xl text-content-primary font-light mt-4 mb-3 leading-snug">
             Nigerian tech talent has a voice. It&apos;s time it had data.
           </p>
-          <p className="text-sm text-cream-60 mb-8 leading-relaxed max-w-md mx-auto">
+          <p className="text-sm text-content-secondary mb-8 leading-relaxed max-w-md mx-auto">
             An anonymous compensation index for tech and business professionals in Nigeria.{" "}
-            <span className="text-cream">{data.length}</span> data points. Yours could be next.
+            <span className="text-content-primary">{data.length}</span> data points. Yours could be next.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/explore"
-              className="bg-gold hover:bg-gold-hover text-bg-primary font-semibold text-sm tracking-[0.05em] px-8 py-3.5 rounded-md transition-colors"
+              className="bg-gold-500 hover:bg-gold-400 text-content-on-gold font-semibold text-sm tracking-[0.05em] px-8 py-3.5 rounded-md transition-colors"
             >
               Explore the data
             </Link>
@@ -70,7 +70,7 @@ export default async function HomePage() {
       </section>
 
       {/* Live Stats Bar: current dataset only */}
-      <section className="bg-bg-surface border-y border-[rgba(200,150,42,0.10)]">
+      <section className="bg-surface-base border-y border-gold">
         <div className="max-w-content mx-auto px-6 py-6">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <StatCard
@@ -105,42 +105,42 @@ export default async function HomePage() {
 
       {/* Quick Snapshot */}
       <section className="max-w-content mx-auto px-6 py-20">
-        <h2 className="text-2xl font-semibold text-cream mb-2">Compensation at a glance</h2>
-        <p className="text-sm text-cream-60 mb-8">
+        <h2 className="display text-display-md text-content-primary mb-2">Compensation at a glance</h2>
+        <p className="text-sm text-content-secondary mb-8">
           Current-year benchmarks, and how the market has moved since 2023.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="surface-card">
-            <p className="text-sm font-semibold text-cream mb-1">
+            <p className="text-sm font-semibold text-content-primary mb-1">
               Median salary by level, {LATEST_YEAR} dataset
             </p>
-            <p className="text-xs text-cream-40 mb-4">
+            <p className="text-xs text-content-tertiary mb-4">
               Monthly gross (₦ NGN records) · segments with fewer than {MIN_SEGMENT_RECORDS} records are hidden
             </p>
             <SalaryChart data={byLevel} />
           </div>
           <div className="surface-card">
-            <p className="text-sm font-semibold text-cream mb-1">Median gross by dataset year</p>
-            <p className="text-xs text-cream-40 mb-4">
+            <p className="text-sm font-semibold text-content-primary mb-1">Median gross by dataset year</p>
+            <p className="text-xs text-content-tertiary mb-4">
               Each year shown separately. Salaries from different economic eras are never pooled.
             </p>
             <div className="flex gap-4 mb-5">
               {trend.map((t) => (
                 <div key={t.year} className="gold-card flex-1">
                   <p className="label-caps mb-1">{t.year}</p>
-                  <p className="font-display text-3xl text-gold">{formatCurrency(t.median)}</p>
-                  <p className="text-xs text-cream-40 mt-1">{t.count} records</p>
+                  <p className="display num text-display-sm text-content-accent">{formatCurrency(t.median)}</p>
+                  <p className="text-xs text-content-tertiary mt-1">{t.count} records</p>
                 </div>
               ))}
             </div>
-            <p className="text-xs text-cream-60 leading-relaxed">
+            <p className="text-xs text-content-secondary leading-relaxed">
               Nominal medians have barely moved between 2023 and {LATEST_YEAR}, across a period of
               steep naira devaluation and inflation. In real terms, that is a significant pay cut
               for Nigerian tech talent.
             </p>
           </div>
         </div>
-        <p className="text-xs text-cream-40 mt-4">
+        <p className="text-xs text-content-tertiary mt-4">
           Headline statistics use the {LATEST_YEAR} dataset only ({agg.countWithGross} NGN records
           with gross salary). The 2023 community dataset is available as a historical view on the
           Explore page.
@@ -148,22 +148,22 @@ export default async function HomePage() {
       </section>
 
       {/* CTA Banner */}
-      <section className="border-y border-[rgba(200,150,42,0.15)] bg-[rgba(200,150,42,0.03)]">
-        <div className="max-w-reading mx-auto px-6 py-16 text-center">
-          <h2 className="text-2xl md:text-3xl font-semibold text-cream mb-4 text-balance">
+      <section className="border-y border-gold bg-surface-gold">
+        <div className="max-w-read mx-auto px-6 py-16 text-center">
+          <h2 className="text-2xl md:text-3xl font-semibold text-content-primary mb-4 text-balance">
             Your four minutes will change someone&apos;s next negotiation.
           </h2>
           <div className="flex flex-col sm:flex-row gap-3 justify-center mt-6">
             <PulseFormTrigger variant="primary" />
             <Link
               href="/methodology"
-              className="border border-[rgba(200,150,42,0.25)] text-gold hover:bg-[rgba(200,150,42,0.08)] font-medium text-sm px-5 py-3 rounded-md transition-colors"
+              className="border border-gold-hover text-content-accent hover:bg-surface-gold font-medium text-sm px-5 py-3 rounded-md transition-colors"
             >
               Learn how it works
             </Link>
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

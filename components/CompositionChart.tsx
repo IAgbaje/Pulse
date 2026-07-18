@@ -11,32 +11,25 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { VIZ_COLORS, tooltipContentStyle } from "@/lib/chart-theme";
 
 export interface CompositionSlice {
   label: string;
   count: number;
 }
 
-// Gold gradient across slices, with the largest slice in the brand gold and
-// the rest fading to lower-opacity tints. Stable order = stable color.
-const SLICE_COLORS = [
-  "#C8962A",
-  "rgba(200,150,42,0.65)",
-  "rgba(200,150,42,0.50)",
-  "rgba(200,150,42,0.38)",
-  "rgba(200,150,42,0.28)",
-  "rgba(200,150,42,0.20)",
-  "rgba(200,150,42,0.14)",
-  "rgba(200,150,42,0.10)",
-];
+// Categorical viz palette, assigned in order (viz-1 gold first). Data is
+// sorted largest-first below, so the brand-gold slice always anchors the
+// chart as the biggest wedge. Stable order = stable color.
+const SLICE_COLORS = VIZ_COLORS;
 
 interface TooltipPayload { name: string; value: number; payload: { label: string; count: number; pct: number } }
 const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: TooltipPayload[] }) => {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
-    <div className="bg-bg-surface border border-[rgba(200,150,42,0.20)] rounded-lg p-3 text-xs">
-      <p className="text-cream font-semibold">{d.label}</p>
+    <div className="text-xs" style={tooltipContentStyle}>
+      <p className="text-content-primary font-semibold">{d.label}</p>
       <p className="text-gold mt-1">{d.count} record{d.count !== 1 ? "s" : ""} · {d.pct}%</p>
     </div>
   );
@@ -53,7 +46,7 @@ interface CompositionChartProps {
 export default function CompositionChart({ data, title, caption }: CompositionChartProps) {
   const total = data.reduce((sum, s) => sum + s.count, 0);
   if (total === 0) return (
-    <div className="flex items-center justify-center h-48 text-cream-40 text-sm">
+    <div className="flex items-center justify-center h-48 text-content-tertiary text-sm">
       No data yet.
     </div>
   );
@@ -63,8 +56,8 @@ export default function CompositionChart({ data, title, caption }: CompositionCh
 
   return (
     <div>
-      {title && <p className="text-sm font-semibold text-cream mb-1">{title}</p>}
-      {caption && <p className="text-xs text-cream-40 mb-4">{caption}</p>}
+      {title && <p className="text-sm font-semibold text-content-primary mb-1">{title}</p>}
+      {caption && <p className="text-xs text-content-tertiary mb-4">{caption}</p>}
       <div className="flex flex-col sm:flex-row items-center gap-6">
         <div className="w-full sm:w-[55%] h-[200px]">
           <ResponsiveContainer width="100%" height="100%">
@@ -93,9 +86,9 @@ export default function CompositionChart({ data, title, caption }: CompositionCh
                 className="w-2.5 h-2.5 rounded-sm flex-shrink-0"
                 style={{ background: SLICE_COLORS[i % SLICE_COLORS.length] }}
               />
-              <span className="text-cream-60 flex-1 truncate" title={s.label}>{s.label}</span>
-              <span className="text-cream-40 tabular-nums whitespace-nowrap">
-                {s.pct}% <span className="text-cream-30">({s.count})</span>
+              <span className="text-content-secondary flex-1 truncate" title={s.label}>{s.label}</span>
+              <span className="text-content-tertiary tabular-nums whitespace-nowrap">
+                {s.pct}% <span className="text-content-tertiary">({s.count})</span>
               </span>
             </li>
           ))}
