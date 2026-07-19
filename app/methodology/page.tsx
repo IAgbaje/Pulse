@@ -13,10 +13,10 @@ interface SectionProps {
 
 function Section({ number, title, children }: SectionProps) {
   return (
-    <div className="border-l-2 border-[rgba(200,150,42,0.30)] pl-6 py-1">
+    <div className="border-l-2 border-gold-hover pl-6 py-1">
       <p className="label-caps text-gold mb-1">{number}</p>
-      <h2 className="text-lg font-semibold text-cream mb-3">{title}</h2>
-      <div className="text-sm text-cream-60 leading-relaxed space-y-3">{children}</div>
+      <h2 className="display text-display-md text-content-primary mb-3">{title}</h2>
+      <div className="text-sm text-content-secondary leading-relaxed space-y-3">{children}</div>
     </div>
   );
 }
@@ -38,17 +38,17 @@ export default async function MethodologyPage() {
   ];
 
   return (
-    <div className="pt-16">
+    <div className="page-enter">
       {/* Hero */}
-      <div className="max-w-reading mx-auto px-6 pt-16 pb-12">
-        <h1 className="text-3xl font-semibold text-cream mb-2">How the data works</h1>
-        <p className="text-sm text-cream-60 leading-relaxed">
+      <div className="max-w-read mx-auto px-6 pt-16 pb-12">
+        <h1 className="display text-display-lg text-content-primary mb-2">How the data works</h1>
+        <p className="text-sm text-content-secondary leading-relaxed">
           Pulse is built on voluntary, anonymous contributions. Here&apos;s exactly what we collect, how we calculate it, what to trust, and what to treat with caution.
         </p>
       </div>
 
       {/* Sections */}
-      <div className="max-w-reading mx-auto px-6 pb-20 space-y-12">
+      <div className="max-w-read mx-auto px-6 pb-20 space-y-12">
 
         <Section number="01" title="Data sources">
           <p>
@@ -58,23 +58,23 @@ export default async function MethodologyPage() {
             {sources.map((s) => (
               <div key={s.label} className="gold-card">
                 <div className="flex items-center justify-between mb-1">
-                  <p className="text-cream font-semibold text-sm">{s.label}</p>
-                  <p className="font-display text-gold text-xl">{s.count}</p>
+                  <p className="text-content-primary font-semibold text-sm">{s.label}</p>
+                  <p className="display num text-display-sm text-content-accent">{s.count}</p>
                 </div>
-                <p className="text-cream-60 text-xs">{s.desc}</p>
+                <p className="text-content-secondary text-xs">{s.desc}</p>
               </div>
             ))}
           </div>
           <p className="mt-4">
             The 2023 community dataset was collected and curated by{" "}
-            <strong className="text-cream">Lola Soleye</strong>
+            <strong className="text-content-primary">Lola Soleye</strong>
             , with a focus on Product Management compensation in Nigerian tech. We are grateful for her work in making this data accessible.
           </p>
         </Section>
 
         <Section number="02" title="What we measure">
           <p>
-            All Nigerian Naira (NGN) aggregate statistics (median, 25th percentile, 75th percentile) are calculated using <strong className="text-cream">monthly gross salary</strong>. This is the number before tax and deductions.
+            All Nigerian Naira (NGN) aggregate statistics (median, 25th percentile, 75th percentile) are calculated using <strong className="text-content-primary">monthly gross salary</strong>. This is the number before tax and deductions.
           </p>
           <p>
             Records in GBP, USD, EUR, or other currencies represent diaspora and remote workers. They appear in the data table and recent submissions feed, but are excluded from ₦ aggregate calculations to avoid currency distortion. We display these with their original currency symbol.
@@ -90,7 +90,7 @@ export default async function MethodologyPage() {
           </p>
           <p>
             Every aggregate stat you see (by level, by industry) requires at least{" "}
-            <strong className="text-cream">5 salary records</strong> before it&apos;s displayed. Below that threshold, the interface tells you there isn&apos;t enough data rather than showing a number that could mislead. A figure built on two or three submissions isn&apos;t a benchmark. It&apos;s a coincidence.
+            <strong className="text-content-primary">5 salary records</strong> before it&apos;s displayed. Below that threshold, the interface tells you there isn&apos;t enough data rather than showing a number that could mislead. A figure built on two or three submissions isn&apos;t a benchmark. It&apos;s a coincidence.
           </p>
           <p>
             The negotiation premium compares the median salary of professionals who negotiated their offer against the median of those who didn&apos;t, expressed as a percentage difference. Only records where someone gave a clear answer on negotiation and reported a gross salary in Naira are included. Ambiguous or missing responses don&apos;t factor in.
@@ -114,7 +114,7 @@ export default async function MethodologyPage() {
 
         <Section number="05" title="Limitations">
           <p>
-            Pulse is a <strong className="text-cream">self-reported, voluntary dataset</strong>. It is not a random sample. Professionals who choose to contribute may differ systematically from those who do not, skewed toward those who are actively job-searching, recently negotiated, or work in certain sectors and cities.
+            Pulse is a <strong className="text-content-primary">self-reported, voluntary dataset</strong>. It is not a random sample. Professionals who choose to contribute may differ systematically from those who do not, skewed toward those who are actively job-searching, recently negotiated, or work in certain sectors and cities.
           </p>
           <p>
             {/* The 2023 and 2024 datasets have heavier representation in Product Management roles. */}
@@ -130,13 +130,13 @@ export default async function MethodologyPage() {
       </div>
 
       {/* Attribution footer */}
-      <div className="border-t border-[rgba(200,150,42,0.10)] bg-bg-surface">
-        <div className="max-w-reading mx-auto px-6 py-10">
+      <div className="border-t border-gold bg-surface-base">
+        <div className="max-w-read mx-auto px-6 py-10">
           <p className="label-caps text-gold mb-3">Built by</p>
-          <p className="text-sm text-cream-60 leading-relaxed">
+          <p className="text-sm text-content-secondary leading-relaxed">
             Pulse is an independent project by{" "}
-            <strong className="text-cream">Ibraheem Agbaje</strong>. The 2023 community dataset was collected and curated by{" "}
-            <strong className="text-cream">Lola Soleye</strong>
+            <strong className="text-content-primary">Ibraheem Agbaje</strong>. The 2023 community dataset was collected and curated by{" "}
+            <strong className="text-content-primary">Lola Soleye</strong>
             . Questions, corrections, or partnership inquiries can be directed via LinkedIn.
           </p>
         </div>

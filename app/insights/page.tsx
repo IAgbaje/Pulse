@@ -207,25 +207,25 @@ export default async function InsightsPage() {
   }));
 
   return (
-    <div className="pt-16">
+    <div className="page-enter">
       {/* Hero */}
       <div className="max-w-content mx-auto px-6 pt-16 pb-8">
-        <h1 className="text-3xl font-semibold text-cream mb-2">What the data reveals</h1>
-        <p className="text-sm text-cream-60">
+        <h1 className="display text-display-lg text-content-primary mb-2">What the data reveals</h1>
+        <p className="text-sm text-content-secondary">
           Key findings from {data.length} compensation records. Every number below states which
           slice of the data it comes from. Nothing is shown with fewer than {MIN_SEGMENT_RECORDS} records.
         </p>
       </div>
 
       {/* Composition: who has answered so far */}
-      <div className="border-t border-[rgba(200,150,42,0.10)] bg-bg-surface">
+      <div className="border-t border-gold bg-surface-base">
         <div className="max-w-content mx-auto px-6 py-12">
           <div className="mb-8">
             <p className="label-caps text-gold mb-2">Who&apos;s in the data</p>
-            <h2 className="text-xl font-semibold text-cream mb-1">
+            <h2 className="text-xl font-semibold text-content-primary mb-1">
               {current.length} people shared their {LATEST_YEAR} salary
             </h2>
-            <p className="text-sm text-cream-60 max-w-2xl">
+            <p className="text-sm text-content-secondary max-w-2xl">
               Every chart reflects whoever answered. If one group is over-represented, the headline
               numbers tilt with it. These breakdowns show what&apos;s in the data so you can read
               every other number in context.
@@ -265,10 +265,10 @@ export default async function InsightsPage() {
 
           {/* Progress vs target: where the dataset needs help next */}
           <div className="surface-card mt-6">
-            <p className="text-sm font-semibold text-cream mb-1">
+            <p className="text-sm font-semibold text-content-primary mb-1">
               Where the data needs you next
             </p>
-            <p className="text-xs text-cream-40 mb-5">
+            <p className="text-xs text-content-tertiary mb-5">
               How many {LATEST_YEAR} submissions we have in each function. We need at least
               {" "}{FUNCTION_TARGET} in a function before we can publish reliable pay-by-level numbers for it.
             </p>
@@ -279,15 +279,15 @@ export default async function InsightsPage() {
                 return (
                   <div key={fn}>
                     <div className="flex items-center justify-between mb-1 text-xs">
-                      <span className={met ? "text-cream" : "text-cream-60"}>{fn}</span>
-                      <span className="text-cream-40 tabular-nums whitespace-nowrap">
+                      <span className={met ? "text-content-primary" : "text-content-secondary"}>{fn}</span>
+                      <span className="text-content-tertiary tabular-nums whitespace-nowrap">
                         {count}/{FUNCTION_TARGET}
-                        {met && <span className="ml-2 text-gold">target met</span>}
+                        {met && <span className="ml-2 text-content-accent">target met</span>}
                       </span>
                     </div>
-                    <div className="h-1.5 rounded-full bg-[rgba(200,150,42,0.08)] overflow-hidden">
+                    <div className="h-1.5 rounded-full bg-surface-gold overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-gold transition-all duration-500"
+                        className="h-full rounded-full bg-gold-500 transition-all duration-slow ease-decel"
                         style={{ width: `${pct}%`, opacity: met ? 1 : 0.4 + (pct / 100) * 0.6 }}
                       />
                     </div>
@@ -300,7 +300,7 @@ export default async function InsightsPage() {
       </div>
 
       {/* Insight cards */}
-      <div className="border-t border-[rgba(200,150,42,0.10)]">
+      <div className="border-t border-gold">
         <div className="max-w-content mx-auto px-6 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {insightCards.map((card, i) => (
@@ -314,15 +314,15 @@ export default async function InsightsPage() {
       <div className="max-w-content mx-auto px-6 pb-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="surface-card">
-            <p className="text-sm font-semibold text-cream mb-1">Salary by level and negotiation status</p>
-            <p className="text-xs text-cream-40 mb-4">
+            <p className="text-sm font-semibold text-content-primary mb-1">Salary by level and negotiation status</p>
+            <p className="text-xs text-content-tertiary mb-4">
               All years combined. Rough picture only. Levels shown only where both groups have at least {MIN_SEGMENT_RECORDS} records.
             </p>
             <NegotiationChart data={data} />
           </div>
           <div className="surface-card">
-            <p className="text-sm font-semibold text-cream mb-1">Compensation by work arrangement</p>
-            <p className="text-xs text-cream-40 mb-4">
+            <p className="text-sm font-semibold text-content-primary mb-1">Compensation by work arrangement</p>
+            <p className="text-xs text-content-tertiary mb-4">
               All years combined. Rough picture only. Median monthly gross by work setup.
             </p>
             <IndustryChart data={workChartData} />
@@ -331,28 +331,28 @@ export default async function InsightsPage() {
       </div>
 
       {/* Benefits section */}
-      <div className="border-t border-[rgba(200,150,42,0.10)] bg-bg-surface">
+      <div className="border-t border-gold bg-surface-base">
         <div className="max-w-content mx-auto px-6 py-12">
-          <h2 className="text-xl font-semibold text-cream mb-1">Beyond the paycheck</h2>
-          <p className="text-sm text-cream-60 mb-8">
+          <h2 className="display text-display-md text-content-primary mb-1">Beyond the paycheck</h2>
+          <p className="text-sm text-content-secondary mb-8">
             Non-cash benefits reported in the {LATEST_YEAR} dataset, from health cover to stock options.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
             <div className="surface-card">
-              <p className="text-sm font-semibold text-cream mb-1">Most common benefits</p>
-              <p className="text-xs text-cream-40 mb-5">% of {LATEST_YEAR} respondents who listed each benefit</p>
+              <p className="text-sm font-semibold text-content-primary mb-1">Most common benefits</p>
+              <p className="text-xs text-content-tertiary mb-5">% of {LATEST_YEAR} respondents who listed each benefit</p>
               <BenefitsChart data={benefits} totalRecords={current.length} />
             </div>
             <div className="space-y-4">
               <div className="gold-card">
                 <p className="label-caps mb-1">What to look for in an offer</p>
-                <p className="text-sm text-cream-60 leading-relaxed">
+                <p className="text-sm text-content-secondary leading-relaxed">
                   Health insurance (HMO) and pension contributions are the baseline expectation at most Nigerian tech companies. Stock options and ESOP grants are rarer but materially valuable, especially at early-stage startups. Always ask whether the equity vests, over what period, and at what valuation.
                 </p>
               </div>
               <div className="gold-card">
                 <p className="label-caps mb-1">The hidden value of allowances</p>
-                <p className="text-sm text-cream-60 leading-relaxed">
+                <p className="text-sm text-content-secondary leading-relaxed">
                   Data allowances, transport stipends, and 13th-month bonuses don&apos;t appear in your monthly gross, but they compound over a year. A ₦400K gross role with a data allowance, transport, and 13th month can outperform a ₦450K offer with nothing else attached.
                 </p>
               </div>
@@ -363,10 +363,10 @@ export default async function InsightsPage() {
 
       {/* Trend section */}
       {trend.length > 1 && (
-        <div className="border-t border-[rgba(200,150,42,0.10)]">
+        <div className="border-t border-gold">
           <div className="max-w-content mx-auto px-6 py-12">
-            <h2 className="text-xl font-semibold text-cream mb-2">Compensation over time</h2>
-            <p className="text-sm text-cream-60 mb-6">
+            <h2 className="display text-display-md text-content-primary mb-2">Compensation over time</h2>
+            <p className="text-sm text-content-secondary mb-6">
               Each dataset year, shown separately. These are nominal naira figures. They are not
               adjusted for inflation or devaluation, and should not be compared as if the naira held
               its value between snapshots.
@@ -375,8 +375,8 @@ export default async function InsightsPage() {
               {trend.map((t) => (
                 <div key={t.year} className="gold-card flex-1 min-w-[140px]">
                   <p className="label-caps mb-1">{t.year}</p>
-                  <p className="font-display text-3xl text-gold">{formatCurrency(t.median)}</p>
-                  <p className="text-xs text-cream-40 mt-1">{t.count} records</p>
+                  <p className="display num text-display-sm text-content-accent">{formatCurrency(t.median)}</p>
+                  <p className="text-xs text-content-tertiary mt-1">{t.count} records</p>
                 </div>
               ))}
             </div>

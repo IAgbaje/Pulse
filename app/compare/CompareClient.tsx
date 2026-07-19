@@ -90,8 +90,8 @@ const resultCopy: Record<Exclude<ResultState, "insufficient" | null>, { headline
 const PLATFORMS = [
   {
     name: "WhatsApp",
-    color: "#25D366",
-    bg: "rgba(37,211,102,0.10)",
+    color: "var(--brand-whatsapp)",
+    bg: "var(--brand-whatsapp-bg)",
     buildUrl: (text: string) => `https://wa.me/?text=${encodeURIComponent(text)}`,
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -101,8 +101,8 @@ const PLATFORMS = [
   },
   {
     name: "X / Twitter",
-    color: "#e7e7e7",
-    bg: "rgba(231,231,231,0.08)",
+    color: "var(--brand-x)",
+    bg: "var(--brand-x-bg)",
     buildUrl: (text: string) => `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`,
     icon: (
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -112,8 +112,8 @@ const PLATFORMS = [
   },
   {
     name: "LinkedIn",
-    color: "#0A66C2",
-    bg: "rgba(10,102,194,0.12)",
+    color: "var(--brand-linkedin)",
+    bg: "var(--brand-linkedin-bg)",
     buildUrl: (_: string, url: string) =>
       `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
     icon: (
@@ -124,8 +124,8 @@ const PLATFORMS = [
   },
   {
     name: "Facebook",
-    color: "#1877F2",
-    bg: "rgba(24,119,242,0.12)",
+    color: "var(--brand-facebook)",
+    bg: "var(--brand-facebook-bg)",
     buildUrl: (_: string, url: string) =>
       `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
     icon: (
@@ -226,17 +226,17 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
   const shareText = `I just benchmarked my salary on Pulse, Nigeria's anonymous compensation index. I'm at the ${percentileRank}th percentile for ${segmentLabel}. Check where you stand 👉`;
 
   return (
-    <div className="pt-16">
+    <div className="page-enter">
       {/* Hero */}
-      <div className="max-w-reading mx-auto px-6 pt-16 pb-10">
-        <h1 className="text-3xl font-semibold text-cream mb-2">Where do you stand?</h1>
-        <p className="text-sm text-cream-60 leading-relaxed">
+      <div className="max-w-read mx-auto px-6 pt-16 pb-10">
+        <h1 className="display text-display-lg text-content-primary mb-2">Where do you stand?</h1>
+        <p className="text-sm text-content-secondary leading-relaxed">
           Enter your monthly gross salary to see where you rank among{" "}
-          <span className="text-cream">{totalCount}</span> anonymized compensation records. No account needed.
+          <span className="text-content-primary">{totalCount}</span> anonymized compensation records. No account needed.
         </p>
       </div>
 
-      <div className="max-w-reading mx-auto px-6 pb-20">
+      <div className="max-w-read mx-auto px-6 pb-20">
         {/* Input form */}
         {!submitted && (
           <form onSubmit={handleCompare} className="surface-card space-y-5">
@@ -292,11 +292,11 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
                   type="checkbox"
                   checked={includeHistorical}
                   onChange={(e) => setIncludeHistorical(e.target.checked)}
-                  className="mt-0.5 accent-[#C8962A]"
+                  className="mt-0.5 accent-gold-500"
                 />
-                <span className="text-xs text-cream-60 leading-relaxed">
+                <span className="text-xs text-content-secondary leading-relaxed">
                   Include 2023 historical records.{" "}
-                  <span className="text-cream-40">
+                  <span className="text-content-tertiary">
                     By default you&apos;re benchmarked against {LATEST_YEAR} data only. 2023
                     salaries predate major naira devaluation and can understate today&apos;s market.
                   </span>
@@ -307,9 +307,9 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
             {/* Salary: Option B prefix box */}
             <div>
               <label className="label-caps mb-2 block">Monthly gross salary</label>
-              <div className="flex rounded-lg border border-[rgba(200,150,42,0.15)] focus-within:border-[rgba(200,150,42,0.40)] focus-within:shadow-[0_0_0_2px_rgba(200,150,42,0.10)] overflow-hidden transition-all duration-150">
+              <div className="flex rounded-lg border border-gold-hover focus-within:border-gold-active focus-within:shadow-[0_0_0_2px_var(--border-gold)] overflow-hidden transition-all duration-150">
                 {/* Currency prefix */}
-                <div className="flex items-center justify-center px-4 bg-[rgba(200,150,42,0.06)] border-r border-[rgba(200,150,42,0.15)] text-cream-60 text-sm font-semibold select-none flex-shrink-0 min-w-[48px]">
+                <div className="flex items-center justify-center px-4 bg-surface-gold border-r border-gold-hover text-content-secondary text-sm font-semibold select-none flex-shrink-0 min-w-[48px]">
                   {currencySymbol}
                 </div>
                 {/* Input */}
@@ -319,22 +319,21 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
                   value={salaryDisplay}
                   onChange={handleSalaryChange}
                   placeholder="650,000"
-                  style={{ background: "var(--bg-input)" }}
                   // 16px on mobile to suppress iOS Safari auto-zoom on focus.
-                  className="flex-1 px-3 py-3 text-base sm:text-sm text-cream focus:outline-none placeholder:text-cream-30 font-body min-h-[44px]"
+                  className="flex-1 px-3 py-3 text-base sm:text-sm text-content-primary placeholder:text-content-tertiary font-body min-h-[44px] bg-surface-sunken"
                   required
                 />
               </div>
               {salaryDigits && !salaryValid && (
-                <p className="text-xs text-[#F87171] mt-1.5">Enter a valid amount</p>
+                <p className="text-xs text-danger mt-1.5">Enter a valid amount</p>
               )}
               {salaryValid && parsedSalary !== null && (
-                <p className="text-xs text-cream-40 mt-1.5">
+                <p className="text-xs text-content-tertiary mt-1.5">
                   {formatCurrency(parsedSalary, currency)} monthly gross
                 </p>
               )}
               {currency !== "NGN" && (
-                <p className="text-xs text-cream-30 mt-1.5">
+                <p className="text-xs text-content-tertiary mt-1.5">
                   Note: {CURRENCIES.find(c => c.value === currency)?.label} data is limited, so results may not be statistically significant yet.
                 </p>
               )}
@@ -343,12 +342,12 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
             <button
               type="submit"
               disabled={!salaryValid}
-              className="w-full bg-gold hover:bg-gold-hover disabled:opacity-40 disabled:cursor-not-allowed text-bg-primary font-semibold text-sm tracking-[0.05em] px-8 py-3.5 rounded-md transition-colors"
+              className="w-full bg-gold-500 hover:bg-gold-400 disabled:opacity-40 disabled:cursor-not-allowed text-content-on-gold font-semibold text-sm tracking-[0.05em] px-8 py-3.5 rounded-md transition-colors"
             >
               Compare my salary
             </button>
 
-            <p className="text-xs text-cream-30 text-center">
+            <p className="text-xs text-content-tertiary text-center">
               Your number is never stored or shared. This runs entirely in your browser.
             </p>
           </form>
@@ -360,15 +359,15 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
             {/* Context bar */}
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs text-cream-40 label-caps mb-0.5">Comparing against</p>
-                <p className="text-sm text-cream font-medium">{segmentLabel}</p>
-                <p className="text-xs text-cream-40">
+                <p className="text-xs text-content-tertiary label-caps mb-0.5">Comparing against</p>
+                <p className="text-sm text-content-primary font-medium">{segmentLabel}</p>
+                <p className="text-xs text-content-tertiary">
                   {segment?.count ?? 0} {CURRENCIES.find(c => c.value === currency)?.label ?? currency} records with gross data ·{" "}
                   {includeHistorical ? "all years (2023 + " + LATEST_YEAR + ")" : `${LATEST_YEAR} dataset`}
                   {segmentLoading && " · loading…"}
                 </p>
               </div>
-              <button onClick={handleReset} className="text-xs text-gold hover:underline">
+              <button onClick={handleReset} className="text-xs text-content-accent hover:underline">
                 Compare again
               </button>
             </div>
@@ -376,8 +375,8 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
             {/* Insufficient */}
             {resultState === "insufficient" && (
               <div className="surface-card text-center py-10">
-                <p className="text-cream font-semibold mb-2">Not enough data for this segment</p>
-                <p className="text-sm text-cream-60 mb-4">
+                <p className="text-content-primary font-semibold mb-2">Not enough data for this segment</p>
+                <p className="text-sm text-content-secondary mb-4">
                   We have {segment?.count ?? 0} {currency} record{(segment?.count ?? 0) !== 1 ? "s" : ""} for this combination. We need at least {MIN_SEGMENT_RECORDS} for a reliable percentile.
                   {currency !== "NGN" && " As more professionals contribute in this currency, the picture will sharpen."}
                 </p>
@@ -385,12 +384,12 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
                   {!includeHistorical && (
                     <button
                       onClick={() => setIncludeHistorical(true)}
-                      className="text-gold text-sm hover:underline"
+                      className="text-content-accent text-sm hover:underline"
                     >
                       Include 2023 historical records
                     </button>
                   )}
-                  <button onClick={handleReset} className="text-gold text-sm hover:underline">
+                  <button onClick={handleReset} className="text-content-accent text-sm hover:underline">
                     Adjust filters
                   </button>
                 </div>
@@ -403,8 +402,8 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
                 {/* Gauge */}
                 <div className="surface-card">
                   <div className="mb-6">
-                    <p className="text-xs text-cream-40 label-caps mb-1">Your salary</p>
-                    <p className="font-display text-4xl text-gold">
+                    <p className="text-xs text-content-tertiary label-caps mb-1">Your salary</p>
+                    <p className="display num text-display-xl text-content-accent">
                       {formatCurrency(parsedSalary, currency)}
                     </p>
                   </div>
@@ -419,8 +418,8 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
 
                 {/* Result copy */}
                 <div className="gold-card">
-                  <p className="text-cream font-semibold mb-2">{resultCopy[resultState].headline}</p>
-                  <p className="text-sm text-cream-60 leading-relaxed">{resultCopy[resultState].body}</p>
+                  <p className="text-content-primary font-semibold mb-2">{resultCopy[resultState].headline}</p>
+                  <p className="text-sm text-content-secondary leading-relaxed">{resultCopy[resultState].body}</p>
                 </div>
 
                 {/* Benchmarks */}
@@ -431,8 +430,8 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
                     { label: "75th percentile", value: stats.p75 },
                   ].map(({ label, value }) => (
                     <div key={label} className="surface-card text-center py-4">
-                      <p className="font-display text-xl text-cream">{formatCurrency(value, currency)}</p>
-                      <p className="text-xs text-cream-40 mt-1">{label}</p>
+                      <p className="display num text-display-sm text-content-primary">{formatCurrency(value, currency)}</p>
+                      <p className="text-xs text-content-tertiary mt-1">{label}</p>
                     </div>
                   ))}
                 </div>
@@ -440,8 +439,8 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
                 {/* Share + Contribute */}
                 <div className="surface-card space-y-5">
                   <div>
-                    <p className="text-sm font-semibold text-cream mb-1">Share your result</p>
-                    <p className="text-xs text-cream-60 mb-4 leading-relaxed">
+                    <p className="text-sm font-semibold text-content-primary mb-1">Share your result</p>
+                    <p className="text-xs text-content-secondary mb-4 leading-relaxed">
                       Every share brings in more data, and helps someone else walk into their next negotiation better informed.
                     </p>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -452,7 +451,7 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={() => track("share_click", { platform: platform.name })}
-                          className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-md border border-[rgba(200,150,42,0.15)] text-xs font-medium transition-all hover:border-[rgba(200,150,42,0.30)]"
+                          className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-md border border-gold-hover text-xs font-medium transition-all hover:border-gold-active"
                           style={{ color: platform.color, background: platform.bg }}
                         >
                           {platform.icon}
@@ -462,9 +461,9 @@ export default function CompareClient({ totalCount, industries }: CompareClientP
                     </div>
                   </div>
 
-                  <div className="border-t border-[rgba(200,150,42,0.10)] pt-5">
-                    <p className="text-sm font-semibold text-cream mb-1">Add your data</p>
-                    <p className="text-xs text-cream-60 mb-3 leading-relaxed">
+                  <div className="border-t border-gold pt-5">
+                    <p className="text-sm font-semibold text-content-primary mb-1">Add your data</p>
+                    <p className="text-xs text-content-secondary mb-3 leading-relaxed">
                       This comparison only works because others shared their numbers. It takes four minutes and stays completely anonymous.
                     </p>
                     <PulseFormTrigger variant="primary" />

@@ -92,11 +92,11 @@ function EditableField({
 
   if (!editing) {
     return (
-      <div className="flex justify-between py-1.5 border-b border-[rgba(200,150,42,0.08)] group">
-        <span className="text-cream-40 text-xs">{field.label}</span>
+      <div className="flex justify-between py-1.5 border-b border-subtle group">
+        <span className="text-content-tertiary text-xs">{field.label}</span>
         <button
           onClick={() => { setDraft(String(value ?? "")); setEditing(true); }}
-          className="text-cream text-xs text-right max-w-[60%] hover:text-gold transition-colors cursor-pointer group-hover:underline decoration-dotted underline-offset-2"
+          className="text-content-primary text-xs text-right max-w-[60%] hover:text-content-accent transition-colors duration-fast ease-standard cursor-pointer group-hover:underline decoration-dotted underline-offset-2"
           title="Click to edit"
         >
           {displayValue}
@@ -107,14 +107,14 @@ function EditableField({
 
   if (field.type === "select" && field.options) {
     return (
-      <div className="flex justify-between items-center py-1 border-b border-gold/30">
-        <span className="text-gold text-xs font-medium">{field.label}</span>
+      <div className="flex justify-between items-center py-1 border-b border-gold-hover">
+        <span className="text-content-accent text-xs font-medium">{field.label}</span>
         <select
           ref={inputRef as React.RefObject<HTMLSelectElement>}
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           onBlur={commit}
-          className="bg-bg-primary border border-gold/40 rounded px-2 py-1 text-cream text-xs outline-none max-w-[60%]"
+          className="bg-surface-sunken border border-gold-active rounded-sm px-2 py-1 text-content-primary text-xs max-w-[60%]"
         >
           <option value="">–</option>
           {field.options.map((o) => <option key={o} value={o}>{o}</option>)}
@@ -124,8 +124,8 @@ function EditableField({
   }
 
   return (
-    <div className="flex justify-between items-center py-1 border-b border-gold/30">
-      <span className="text-gold text-xs font-medium">{field.label}</span>
+    <div className="flex justify-between items-center py-1 border-b border-gold-hover">
+      <span className="text-content-accent text-xs font-medium">{field.label}</span>
       <input
         ref={inputRef as React.RefObject<HTMLInputElement>}
         type={field.type === "number" ? "number" : "text"}
@@ -133,7 +133,7 @@ function EditableField({
         onChange={(e) => setDraft(e.target.value)}
         onBlur={commit}
         onKeyDown={(e) => { if (e.key === "Enter") commit(); if (e.key === "Escape") setEditing(false); }}
-        className="bg-bg-primary border border-gold/40 rounded px-2 py-1 text-cream text-xs outline-none max-w-[60%] text-right"
+        className="bg-surface-sunken border border-gold-active rounded-sm px-2 py-1 text-content-primary text-xs max-w-[60%] text-right num"
       />
     </div>
   );
@@ -209,24 +209,24 @@ function SubmissionCard({
   });
 
   return (
-    <div className={`surface-card mb-3 ${sub.duplicate_flag ? "border-l-2 border-l-red-500" : ""}`}>
+    <div className={`surface-card mb-3 ${sub.duplicate_flag ? "border-l-2 border-l-danger" : ""}`}>
       <div className="flex items-start justify-between mb-2">
         <div>
-          <p className="text-cream font-semibold text-sm">
+          <p className="text-content-primary font-semibold text-sm">
             {local.function} · {local.role_level.split(" (")[0]}
-            {local.company_name && <span className="text-gold ml-2">@ {local.company_name}</span>}
+            {local.company_name && <span className="text-content-accent ml-2">@ {local.company_name}</span>}
           </p>
-          <p className="text-cream-40 text-xs mt-0.5">
+          <p className="text-content-tertiary text-xs mt-0.5">
             {date} · {sub.company_path ? "Company path" : "Anonymous path"}
-            {sub.duplicate_flag && <span className="text-red-400 ml-2">⚠ Possible duplicate</span>}
+            {sub.duplicate_flag && <span className="text-danger-bright ml-2">⚠ Possible duplicate</span>}
           </p>
         </div>
-        <p className="text-gold font-display text-lg">
+        <p className="text-content-accent font-body font-bold num text-lg">
           {formatMoney(local.monthly_gross, local.currency)}
         </p>
       </div>
 
-      <div className="flex gap-3 text-xs text-cream-60 mb-3">
+      <div className="flex gap-3 text-xs text-content-secondary mb-3">
         <span>{local.location}{local.location_state ? `, ${local.location_state}` : ""}{local.location_country ? ` (${local.location_country})` : ""}</span>
         <span>·</span>
         <span>{local.work_arrangement}</span>
@@ -235,7 +235,7 @@ function SubmissionCard({
 
       <button
         onClick={() => setExpanded(!expanded)}
-        className="text-xs text-gold hover:underline mb-3"
+        className="text-xs text-content-accent hover:underline mb-3"
       >
         {expanded ? "Hide details" : "Show details · click any value to edit"}
       </button>
@@ -255,25 +255,25 @@ function SubmissionCard({
               />
             );
           })}
-          <div className="flex justify-between py-1.5 border-b border-[rgba(200,150,42,0.08)]">
-            <span className="text-cream-40 text-xs">Gender</span>
-            <span className="text-cream text-xs">{local.gender}</span>
+          <div className="flex justify-between py-1.5 border-b border-subtle">
+            <span className="text-content-tertiary text-xs">Gender</span>
+            <span className="text-content-primary text-xs">{local.gender}</span>
           </div>
-          <div className="flex justify-between py-1.5 border-b border-[rgba(200,150,42,0.08)]">
-            <span className="text-cream-40 text-xs">Age range</span>
-            <span className="text-cream text-xs">{local.age_range}</span>
+          <div className="flex justify-between py-1.5 border-b border-subtle">
+            <span className="text-content-tertiary text-xs">Age range</span>
+            <span className="text-content-primary text-xs">{local.age_range}</span>
           </div>
-          <div className="flex justify-between py-1.5 border-b border-[rgba(200,150,42,0.08)]">
-            <span className="text-cream-40 text-xs">Satisfaction</span>
-            <span className="text-cream text-xs">{local.satisfaction ? `${local.satisfaction}/5` : "–"}</span>
+          <div className="flex justify-between py-1.5 border-b border-subtle">
+            <span className="text-content-tertiary text-xs">Satisfaction</span>
+            <span className="text-content-primary text-xs">{local.satisfaction ? `${local.satisfaction}/5` : "–"}</span>
           </div>
-          <div className="flex justify-between py-1.5 border-b border-[rgba(200,150,42,0.08)]">
-            <span className="text-cream-40 text-xs">Benefits</span>
-            <span className="text-cream text-xs text-right max-w-[60%]">{local.benefits?.join(", ") ?? "–"}</span>
+          <div className="flex justify-between py-1.5 border-b border-subtle">
+            <span className="text-content-tertiary text-xs">Benefits</span>
+            <span className="text-content-primary text-xs text-right max-w-[60%]">{local.benefits?.join(", ") ?? "–"}</span>
           </div>
           <div className="flex justify-between py-1.5">
-            <span className="text-cream-40 text-xs">ID</span>
-            <span className="text-cream-40 text-[10px] font-mono">{sub.id}</span>
+            <span className="text-content-tertiary text-xs">ID</span>
+            <span className="text-content-tertiary text-[10px] font-mono num">{sub.id}</span>
           </div>
 
           {hasEdits && (
@@ -281,19 +281,23 @@ function SubmissionCard({
               <button
                 onClick={saveEdits}
                 disabled={saving}
-                className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-1.5 rounded transition-colors disabled:opacity-50"
+                className="bg-info hover:bg-info-bright text-navy-950 text-xs font-semibold px-4 py-1.5 rounded-sm transition-colors duration-fast ease-standard disabled:opacity-50"
               >
                 {saving ? "Saving…" : `Save ${Object.keys(pendingEdits).length} edit${Object.keys(pendingEdits).length > 1 ? "s" : ""}`}
               </button>
               <button
                 onClick={() => { setPendingEdits({}); setLocal(sub); setSaveMsg(""); }}
-                className="text-xs text-cream-40 hover:text-cream"
+                className="text-xs text-content-tertiary hover:text-content-primary"
               >
                 Discard
               </button>
             </div>
           )}
-          {saveMsg && <p className="text-xs text-green-400 mt-2">{saveMsg}</p>}
+          {saveMsg && (
+            <p className={`text-xs mt-2 ${saveMsg.startsWith("Error") ? "text-danger-bright" : "text-success-bright"}`}>
+              {saveMsg}
+            </p>
+          )}
         </div>
       )}
 
@@ -302,14 +306,14 @@ function SubmissionCard({
           <button
             onClick={() => act("approve")}
             disabled={acting}
-            className="bg-green-600 hover:bg-green-700 text-white text-xs font-semibold px-4 py-1.5 rounded transition-colors disabled:opacity-50"
+            className="bg-success hover:bg-success-bright text-navy-950 text-xs font-semibold px-4 py-1.5 rounded-sm transition-colors duration-fast ease-standard disabled:opacity-50"
           >
             {hasEdits ? "Save & Approve" : "Approve"}
           </button>
           <button
             onClick={() => act("reject")}
             disabled={acting}
-            className="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-4 py-1.5 rounded transition-colors disabled:opacity-50"
+            className="bg-danger hover:bg-danger-bright text-navy-950 text-xs font-semibold px-4 py-1.5 rounded-sm transition-colors duration-fast ease-standard disabled:opacity-50"
           >
             Reject
           </button>
@@ -359,21 +363,21 @@ export default function AdminPage() {
 
   if (!authenticated) {
     return (
-      <div className="pt-16 min-h-screen">
+      <div className="min-h-screen">
         <div className="max-w-sm mx-auto px-6 pt-24">
-          <h1 className="text-xl font-semibold text-cream mb-4">Admin</h1>
-          {error && <p className="text-red-400 text-sm mb-3">{error}</p>}
+          <h1 className="text-xl font-semibold text-content-primary mb-4">Admin</h1>
+          {error && <p className="text-danger-bright text-sm mb-3">{error}</p>}
           <input
             type="password"
             placeholder="Admin token"
             value={token}
             onChange={(e) => setToken(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && token && setAuthenticated(true)}
-            className="w-full bg-bg-primary border border-[rgba(200,150,42,0.25)] rounded px-3 py-2 text-cream text-sm mb-3 outline-none focus:border-gold"
+            className="w-full bg-surface-sunken border border-gold-hover rounded-sm px-3 py-2 text-content-primary text-sm mb-3 focus:border-gold-active placeholder:text-content-tertiary transition-colors duration-fast ease-standard"
           />
           <button
             onClick={() => token && setAuthenticated(true)}
-            className="bg-gold hover:bg-gold-hover text-bg-primary font-semibold text-sm px-6 py-2 rounded transition-colors w-full"
+            className="bg-gold-500 hover:bg-gold-400 text-content-on-gold font-semibold text-sm px-6 py-2 rounded-sm transition-colors duration-fast ease-standard w-full"
           >
             Sign in
           </button>
@@ -383,19 +387,19 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="pt-16 min-h-screen">
+    <div className="min-h-screen">
       <div className="max-w-2xl mx-auto px-6 py-10">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-xl font-semibold text-cream">Submission Review</h1>
+          <h1 className="text-xl font-semibold text-content-primary">Submission Review</h1>
           <div className="flex gap-2">
             {["pending", "approved", "rejected"].map((s) => (
               <button
                 key={s}
                 onClick={() => setStatusFilter(s)}
-                className={`text-xs px-3 py-1.5 rounded font-medium transition-colors ${
+                className={`text-xs px-3 py-1.5 rounded-sm font-medium transition-colors duration-fast ease-standard ${
                   statusFilter === s
-                    ? "bg-gold text-bg-primary"
-                    : "border border-[rgba(200,150,42,0.25)] text-cream-60 hover:text-cream"
+                    ? "bg-gold-500 text-content-on-gold"
+                    : "border border-gold-hover text-content-secondary hover:text-content-primary"
                 }`}
               >
                 {s.charAt(0).toUpperCase() + s.slice(1)}
@@ -409,13 +413,13 @@ export default function AdminPage() {
           placeholder="Search by company name…"
           value={companySearch}
           onChange={(e) => setCompanySearch(e.target.value)}
-          className="w-full bg-bg-primary border border-[rgba(200,150,42,0.25)] rounded px-3 py-2 text-cream text-sm mb-4 outline-none focus:border-gold placeholder:text-cream-40"
+          className="w-full bg-surface-sunken border border-gold-hover rounded-sm px-3 py-2 text-content-primary text-sm mb-4 focus:border-gold-active placeholder:text-content-tertiary transition-colors duration-fast ease-standard"
         />
 
-        {loading && <p className="text-cream-40 text-sm">Loading…</p>}
+        {loading && <p className="text-content-tertiary text-sm">Loading…</p>}
         {!loading && submissions.length === 0 && (
           <div className="surface-card text-center py-10">
-            <p className="text-cream-40 text-sm">No {statusFilter} submissions.</p>
+            <p className="text-content-tertiary text-sm">No {statusFilter} submissions.</p>
           </div>
         )}
         {submissions.map((sub) => (

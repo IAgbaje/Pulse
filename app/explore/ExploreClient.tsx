@@ -121,21 +121,19 @@ export default function ExploreClient({ totalCount, filterOptions, initial }: Ex
   const { aggregate: agg, byLevel, byIndustry, buckets, recent } = data;
 
   return (
-    <>
-      <div className="pt-16">
-        <FilterBar
-          filters={filterConfigs}
-          totalCount={totalCount}
-          filteredCount={agg.count}
-          onReset={reset}
-        />
-      </div>
+    <div className="page-enter">
+      <FilterBar
+        filters={filterConfigs}
+        totalCount={totalCount}
+        filteredCount={agg.count}
+        onReset={reset}
+      />
 
       <div className="max-w-content mx-auto px-6 py-10 space-y-10">
 
         <div>
-          <h1 className="text-2xl font-semibold text-cream">Salary explorer</h1>
-          <p className="text-sm text-cream-60 mt-1">
+          <h1 className="display text-display-lg text-content-primary">Salary explorer</h1>
+          <p className="text-sm text-content-secondary mt-1">
             Search by company, role, or function. Use filters to narrow results.
           </p>
           <div className="mt-3">
@@ -144,30 +142,30 @@ export default function ExploreClient({ totalCount, filterOptions, initial }: Ex
               placeholder="Search roles, companies, or functions... e.g. &quot;Product Manager&quot; or &quot;Fintech&quot;"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
-              className="w-full bg-bg-primary border border-[rgba(200,150,42,0.25)] rounded-lg px-4 py-2.5 text-cream text-sm outline-none focus:border-gold placeholder:text-cream-40 transition-colors"
+              className="w-full bg-surface-canvas border border-gold-hover rounded-lg px-4 py-2.5 text-content-primary text-sm focus:border-gold-active placeholder:text-content-tertiary transition-colors"
             />
           </div>
           {year === "" && (
-            <p className="text-xs text-gold/80 mt-1">
+            <p className="text-xs text-content-accent mt-1">
               Viewing all years pooled. 2023 and {LATEST_YEAR} salaries come from very different
               economic conditions, so treat pooled statistics with caution.
             </p>
           )}
           {agg.countWithGross < agg.count && (
-            <p className="text-xs text-cream-40 mt-1">
+            <p className="text-xs text-content-tertiary mt-1">
               ₦ statistics from {agg.countWithGross} NGN records with gross data · {agg.count - agg.countWithGross} additional records (net-only or diaspora) shown in the table.
             </p>
           )}
-          {loading && <p className="text-xs text-cream-40 mt-1">Updating…</p>}
+          {loading && <p className="text-xs text-content-tertiary mt-1">Updating…</p>}
         </div>
 
         {agg.countWithGross < MIN_SEGMENT_RECORDS ? (
           <div className="surface-card text-center py-10">
-            <p className="text-cream font-semibold mb-2">Not enough data for this filter</p>
-            <p className="text-sm text-cream-60 mb-4">
+            <p className="text-content-primary font-semibold mb-2">Not enough data for this filter</p>
+            <p className="text-sm text-content-secondary mb-4">
               {agg.countWithGross} NGN record{agg.countWithGross !== 1 ? "s" : ""} with gross salary found. We need at least {MIN_SEGMENT_RECORDS} for reliable stats.
             </p>
-            <button onClick={reset} className="text-gold text-sm hover:underline">Reset filters</button>
+            <button onClick={reset} className="text-content-accent text-sm hover:underline">Reset filters</button>
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -180,8 +178,8 @@ export default function ExploreClient({ totalCount, filterOptions, initial }: Ex
 
         {agg.countWithGross >= MIN_SEGMENT_RECORDS && (
           <div className="surface-card">
-            <p className="text-sm font-semibold text-cream mb-1">Salary distribution</p>
-            <p className="text-xs text-cream-40 mb-4">Monthly gross (₦ NGN records only)</p>
+            <p className="text-sm font-semibold text-content-primary mb-1">Salary distribution</p>
+            <p className="text-xs text-content-tertiary mb-4">Monthly gross (₦ NGN records only)</p>
             <DistributionChart aggregate={agg} buckets={buckets} />
           </div>
         )}
@@ -192,14 +190,14 @@ export default function ExploreClient({ totalCount, filterOptions, initial }: Ex
         </div>
 
         <div>
-          <h2 className="text-lg font-semibold text-cream mb-1">Latest contributions</h2>
-          <p className="text-sm text-cream-60 mb-4">
+          <h2 className="display text-display-md text-content-primary mb-1">Latest contributions</h2>
+          <p className="text-sm text-content-secondary mb-4">
             The most recent anonymized submissions to the index. Details that could identify a
             single respondent are suppressed.
           </p>
           <RecentSubmissions data={recent} />
         </div>
       </div>
-    </>
+    </div>
   );
 }

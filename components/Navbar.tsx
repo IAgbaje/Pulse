@@ -13,16 +13,29 @@ const navLinks = [
   { href: "/contribute", label: "Contribute" },
 ];
 
+/* EKG heartbeat mark — static glyph, per design-system Navbar spec.
+   Distinct from components/EKGLine.tsx (the animated hero trace). */
+function EKGMark({ size = 28 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      strokeWidth={1.75}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="stroke-gold-400 shrink-0"
+      aria-hidden="true"
+    >
+      <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+    </svg>
+  );
+}
+
 export default function Navbar() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -30,28 +43,30 @@ export default function Navbar() {
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
-          scrolled
-            ? "bg-bg-primary border-b border-[rgba(200,150,42,0.12)]"
-            : "bg-transparent"
-        }`}
-      >
-        <div className="max-w-content mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="font-display text-2xl text-cream tracking-widest hover:text-gold transition-colors">
-            PULSE
+      <nav className="sticky top-0 z-50 h-16 bg-surface-canvas border-b border-subtle">
+        <div className="max-w-content mx-auto px-6 h-full flex items-center justify-between">
+          <Link
+            href="/"
+            className="group flex items-center gap-2"
+            aria-label="Pulse home"
+          >
+            <EKGMark />
+            {/* Wordmark below the 2rem display-scale floor — Karla, not Bebas */}
+            <span className="font-body font-bold uppercase tracking-wide text-lg text-content-primary group-hover:text-content-accent transition-colors duration-fast ease-standard">
+              PULSE
+            </span>
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navLinks.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
-                className={`text-sm font-body transition-colors relative ${
+                className={`font-body text-sm tracking-wide pb-0.5 border-b-2 transition-colors duration-fast ease-standard ${
                   pathname === href
-                    ? "text-cream after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-[1px] after:bg-gold"
-                    : "text-cream-60 hover:text-cream"
+                    ? "text-content-accent font-bold border-gold-400"
+                    : "text-content-secondary font-normal border-transparent hover:text-content-primary"
                 }`}
               >
                 {label}
@@ -60,9 +75,9 @@ export default function Navbar() {
             <PulseFormTrigger variant="nav" />
           </div>
 
-          {/* Mobile hamburger: 44px hit target for thumbs */}
+          {/* Mobile hamburger: 44px hit target for thumbs (p-3 + 22px icon) */}
           <button
-            className="md:hidden text-cream-60 hover:text-cream transition-colors p-3 -mr-2"
+            className="md:hidden text-content-secondary hover:text-content-primary transition-colors duration-fast ease-standard p-3 -mr-2"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
           >
@@ -73,24 +88,29 @@ export default function Navbar() {
 
       {/* Mobile overlay */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-[60] bg-bg-primary flex flex-col items-center justify-center">
+        <div className="fixed inset-0 z-[60] bg-surface-canvas flex flex-col items-center justify-center">
           <button
-            className="absolute top-3 right-3 text-cream-60 hover:text-cream transition-colors p-3"
+            className="absolute top-3 right-3 text-content-secondary hover:text-content-primary transition-colors duration-fast ease-standard p-3"
             onClick={() => setMobileOpen(false)}
             aria-label="Close menu"
           >
             <X size={24} />
           </button>
           <div className="flex flex-col items-center gap-8">
-            <Link href="/" className="font-display text-3xl text-cream tracking-widest">
-              PULSE
+            <Link href="/" className="group flex items-center gap-2">
+              <EKGMark size={32} />
+              <span className="font-body font-bold uppercase tracking-wide text-2xl text-content-primary group-hover:text-content-accent transition-colors duration-fast ease-standard">
+                PULSE
+              </span>
             </Link>
             {navLinks.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
-                className={`text-xl font-body transition-colors ${
-                  pathname === href ? "text-gold" : "text-cream-60 hover:text-cream"
+                className={`font-body text-xl transition-colors duration-fast ease-standard ${
+                  pathname === href
+                    ? "text-content-accent font-bold"
+                    : "text-content-secondary hover:text-content-primary"
                 }`}
               >
                 {label}

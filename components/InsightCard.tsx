@@ -35,10 +35,12 @@ export default function InsightCard({ stat, title, body, basis, index = 0 }: Ins
       transition={{ duration: 0.3, delay: (index % 2) * 0.08 }}
       className="surface-card flex flex-col gap-3"
     >
-      {basis && <p className="label-caps">{basis}</p>}
-      <p className="font-display text-5xl text-gold tracking-wide">{stat}</p>
-      <p className="text-base font-semibold text-cream font-body">{title}</p>
-      <p className="text-sm text-cream-60 leading-relaxed font-body">{body}</p>
+      {basis && (
+        <p className="font-body text-xs font-bold uppercase tracking-caps text-content-tertiary">{basis}</p>
+      )}
+      <p className="display num text-display-md text-content-accent">{stat}</p>
+      <p className="font-body text-base font-semibold text-content-primary">{title}</p>
+      <p className="font-body text-sm leading-relaxed text-content-secondary">{body}</p>
     </motion.div>
   );
 }

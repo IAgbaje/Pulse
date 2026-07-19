@@ -54,7 +54,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${bebasNeue.variable} ${karla.variable}`}>
-      <body className="bg-bg-primary text-cream font-body antialiased">
+      <body className="bg-surface-canvas text-content-primary font-body antialiased">
         <Navbar />
         <main>{children}</main>
         <Footer />

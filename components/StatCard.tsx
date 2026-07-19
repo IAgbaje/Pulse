@@ -1,13 +1,27 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Button from "@/components/ui/Button";
+import Skeleton from "@/components/ui/Skeleton";
+
+type StatCardVariant = "compact" | "large" | "default" | "hero" | "count";
+type StatCardState = "success" | "partial" | "loading" | "error" | "empty";
 
 interface StatCardProps {
   label: string;
   value: string | number;
   subtitle?: string;
-  variant?: "compact" | "large";
+  variant?: StatCardVariant;
   animate?: boolean;
+  /** Backing sample size — rendered as "· N records · YEAR" per the n+year rule. */
+  sampleSize?: number;
+  year?: number | string;
+  delta?: string;
+  deltaDirection?: "up" | "down";
+  /** Defaults to "success" — existing callers are unaffected. */
+  state?: StatCardState;
+  errorMessage?: string;
+  onRetry?: () => void;
 }
 
 function useCountUp(target: number, animate: boolean, duration = 1500) {
@@ -54,11 +68,24 @@ function formatCompactNaira(value: number): string {
   return `₦${value.toLocaleString()}`;
 }
 
-export default function StatCard({ label, value, subtitle, variant = "compact", animate = true }: StatCardProps) {
+export default function StatCard({
+  label,
+  value,
+  subtitle,
+  variant = "compact",
+  animate = true,
+  sampleSize,
+  year,
+  delta,
+  deltaDirection,
+  state = "success",
+  errorMessage,
+  onRetry,
+}: StatCardProps) {
   const [inView, setInView] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const numeric = parseNumericValue(value);
-  const shouldAnimate = animate && numeric !== null && inView;
+  const shouldAnimate = animate && numeric !== null && inView && state === "success";
   const animatedNum = useCountUp(numeric ?? 0, shouldAnimate);
 
   useEffect(() => {
@@ -82,21 +109,109 @@ export default function StatCard({ label, value, subtitle, variant = "compact", 
       : animatedNum.toLocaleString()
     : value;
 
-  if (variant === "large") {
+  const isHero = variant === "large" || variant === "hero";
+  const isCount = variant === "count";
+
+  if (state === "loading") {
     return (
-      <div ref={ref} className="gold-card">
-        <p className="label-caps mb-2">{label}</p>
-        <p className="font-display text-4xl text-gold tabular-nums">{displayValue}</p>
-        {subtitle && <p className="text-xs text-cream-40 mt-1">{subtitle}</p>}
+      <div
+        ref={ref}
+        aria-busy="true"
+        aria-label={`Loading ${label}`}
+        className="flex min-h-[132px] flex-col gap-1 rounded-md border border-subtle bg-surface-base p-5"
+      >
+        <Skeleton height={10} width="40%" />
+        <Skeleton height={34} width="65%" className="mt-3 mb-1" />
+        <Skeleton height={12} width="80%" />
       </div>
     );
   }
 
+  if (state === "empty") {
+    return (
+      <div
+        ref={ref}
+        className="flex min-h-[132px] flex-col items-center justify-center gap-1 rounded-md border border-dashed border-subtle bg-transparent p-5 text-center"
+      >
+        <p className="font-body text-lg font-bold text-content-primary">No records yet</p>
+        <p className="text-xs text-content-secondary">Contribute to unlock this cut.</p>
+      </div>
+    );
+  }
+
+  const containerClass = [
+    "relative flex min-h-[132px] flex-col gap-1 overflow-hidden rounded-md border p-5",
+    "transition-colors duration-fast ease-standard",
+    state === "error"
+      ? "border-danger bg-danger-bg"
+      : isHero
+      ? "border-gold bg-surface-gold"
+      : "border-subtle bg-surface-base",
+  ].join(" ");
+
+  const valueColorClass =
+    state === "error"
+      ? "text-danger-bright"
+      : state === "partial"
+      ? "text-warning-bright"
+      : isCount
+      ? "text-content-primary"
+      : "text-content-accent";
+
   return (
-    <div ref={ref} className="surface-card">
-      <p className="label-caps mb-3">{label}</p>
-      <p className="font-display text-3xl text-gold tabular-nums">{displayValue}</p>
-      {subtitle && <p className="text-sm text-cream-60 mt-1">{subtitle}</p>}
+    <div ref={ref} className={containerClass} role={state === "error" ? "alert" : undefined}>
+      <p
+        className={[
+          "font-body text-xs font-bold uppercase tracking-caps",
+          state === "error" ? "text-danger-bright" : "text-content-tertiary",
+        ].join(" ")}
+      >
+        {label}
+      </p>
+
+      {state === "error" ? (
+        <p className="mt-2 font-body text-lg text-danger-bright">
+          {errorMessage ?? "Couldn't load this figure."}
+        </p>
+      ) : (
+        <p className={["display num mt-2", isHero ? "text-display-md" : "text-display-sm", valueColorClass].join(" ")}>
+          {displayValue}
+        </p>
+      )}
+
+      {subtitle && state !== "error" && (
+        <p className="text-xs text-content-secondary">
+          {subtitle}
+          {sampleSize != null && (
+            <span className="num text-content-tertiary">
+              {" "}· {sampleSize} records{year != null ? <> · {year}</> : null}
+            </span>
+          )}
+        </p>
+      )}
+
+      {delta && numeric !== 0 && state !== "error" && (
+        <span
+          className={[
+            "num mt-2 inline-flex w-fit items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold",
+            deltaDirection === "up" ? "bg-success-bg text-success-bright" : "bg-danger-bg text-danger-bright",
+          ].join(" ")}
+        >
+          {delta}
+        </span>
+      )}
+
+      {state === "error" && onRetry && (
+        <Button
+          type="button"
+          variant="secondary"
+          size="sm"
+          onClick={onRetry}
+          className="mt-2 h-auto w-fit border-danger px-2.5 py-1 text-xs text-danger-bright hover:border-danger"
+        >
+          Retry
+        </Button>
+      )}
     </div>
   );
 }

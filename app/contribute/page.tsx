@@ -38,21 +38,21 @@ export default async function ContributePage({
       {submitted ? (
         <ContributeSuccess />
       ) : (
-        <div className="max-w-reading mx-auto px-6 pt-16 pb-12 text-center">
-          <p className="label-caps text-gold mb-4">{data.length} data points and counting</p>
-          <h1 className="text-3xl md:text-4xl font-semibold text-cream mb-4 text-balance leading-snug">
+        <div className="max-w-read mx-auto px-6 pt-16 pb-12 text-center">
+          <p className="label-caps text-content-accent mb-4">{data.length} data points and counting</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-content-primary mb-4 text-balance leading-snug">
             The index is only as good as what people put in.
           </h1>
-          <p className="text-sm text-cream-60 leading-relaxed max-w-md mx-auto">
+          <p className="text-sm text-content-secondary leading-relaxed max-w-md mx-auto">
             Every salary shared makes the next negotiation sharper. You&apos;ve already used this data. Now it&apos;s your turn.
           </p>
         </div>
       )}
 
       {/* Body */}
-      <div className="max-w-reading mx-auto px-6 pb-16 space-y-8">
+      <div className="max-w-read mx-auto px-6 pb-16 space-y-8">
         {/* Why it matters */}
-        <div className="space-y-4 text-sm text-cream-60 leading-relaxed">
+        <div className="space-y-4 text-sm text-content-secondary leading-relaxed">
           <p>
             Nigerian tech salaries have been invisible for too long: buried in DMs, hushed in offices, whispered between trusted friends. Pulse exists to change that. The professionals who have contributed to this index are the reason anyone can benchmark, compare, or negotiate with real numbers instead of guesswork.
           </p>
@@ -72,8 +72,8 @@ export default async function ContributePage({
         {/* Trust signals */}
         <ul className="space-y-2 max-w-xs mx-auto">
           {trustSignals.map((signal) => (
-            <li key={signal} className="flex items-start gap-2 text-xs text-cream-40">
-              <span className="text-gold mt-0.5 flex-shrink-0">✓</span>
+            <li key={signal} className="flex items-start gap-2 text-xs text-content-tertiary">
+              <span className="text-content-accent mt-0.5 flex-shrink-0">✓</span>
               <span>{signal}</span>
             </li>
           ))}
@@ -81,8 +81,8 @@ export default async function ContributePage({
 
         {/* Per-function progress */}
         <div className="surface-card">
-          <p className="text-sm font-semibold text-cream mb-1">Where the dataset needs you most</p>
-          <p className="text-xs text-cream-40 mb-5">
+          <p className="text-sm font-bold text-content-primary mb-1">Where the dataset needs you most</p>
+          <p className="text-xs text-content-tertiary mb-5">
             {LATEST_YEAR} submissions per function. Each function needs at least {FUNCTION_TARGET} records
             before reliable level-by-level breakdowns can be published.
           </p>
@@ -93,15 +93,15 @@ export default async function ContributePage({
               return (
                 <div key={fn}>
                   <div className="flex items-center justify-between mb-1 text-xs">
-                    <span className={met ? "text-cream" : "text-cream-60"}>{fn}</span>
-                    <span className="text-cream-40 tabular-nums">
+                    <span className={met ? "text-content-primary" : "text-content-secondary"}>{fn}</span>
+                    <span className="num text-content-tertiary">
                       {count}/{FUNCTION_TARGET}
-                      {met && <span className="ml-2 text-gold">target met</span>}
+                      {met && <span className="ml-2 text-content-accent">target met</span>}
                     </span>
                   </div>
-                  <div className="h-1.5 rounded-full bg-[rgba(200,150,42,0.08)] overflow-hidden">
+                  <div className="h-1.5 rounded-full bg-[var(--accent-fill-tint)] overflow-hidden">
                     <div
-                      className="h-full rounded-full bg-gold transition-all duration-500"
+                      className="h-full rounded-full bg-gold-500 transition-all duration-slow ease-decel"
                       style={{ width: `${pct}%`, opacity: met ? 1 : 0.4 + (pct / 100) * 0.6 }}
                     />
                   </div>
@@ -113,7 +113,7 @@ export default async function ContributePage({
 
         {/* What we collect */}
         <div className="surface-card">
-          <p className="text-sm font-semibold text-cream mb-4">What the form asks</p>
+          <p className="text-sm font-bold text-content-primary mb-4">What the form asks</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {[
               "Role level and function",
@@ -125,13 +125,13 @@ export default async function ContributePage({
               "Benefits received",
               "Gender (for future equity analysis)",
             ].map((item) => (
-              <div key={item} className="flex items-center gap-2 text-xs text-cream-60">
-                <span className="w-1.5 h-1.5 rounded-full bg-gold/60 flex-shrink-0" />
+              <div key={item} className="flex items-center gap-2 text-xs text-content-secondary">
+                <span className="w-1.5 h-1.5 rounded-full bg-gold-500/60 flex-shrink-0" />
                 {item}
               </div>
             ))}
           </div>
-          <p className="text-xs text-cream-30 mt-4">
+          <p className="text-xs text-content-tertiary mt-4">
             Company names are shown publicly alongside salary data to add credibility.
             Your identity stays completely anonymous — no name, email, or personally identifying information is collected.
           </p>

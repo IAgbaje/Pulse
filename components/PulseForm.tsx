@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { track } from "@vercel/analytics";
+import Button from "@/components/ui/Button";
 import {
   FUNCTION_OPTIONS,
   LEVEL_OPTIONS,
@@ -146,6 +147,13 @@ function parseCurrency(formatted: string): string {
   return formatted.replace(/[^0-9]/g, "");
 }
 
+// Currency-symbol prefix for the compensation fields, per Input spec (₦
+// prefix inside the field). Falls back to ₦ since NGN is the default.
+function currencySymbol(code: string): string {
+  const opt = CURRENCY_OPTIONS.find((c) => c.value === code);
+  return opt ? opt.label.split(" ")[0] : "₦";
+}
+
 const STEP_DESCRIPTIONS: Record<string, string> = {
   role: "Tell us about what you do — this helps us group salaries by function and seniority.",
   location: "Where you work affects compensation benchmarks significantly.",
@@ -190,14 +198,14 @@ function Select({
 }) {
   return (
     <div className="space-y-1.5 text-left">
-      <label className="text-xs text-cream-60">
+      <label className="text-xs font-bold tracking-wide text-content-secondary">
         {label}
-        {required && <span className="text-gold ml-0.5">*</span>}
+        {required && <span className="ml-0.5 text-danger-bright">*</span>}
       </label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full bg-charcoal border border-[rgba(200,150,42,0.15)] rounded-lg px-3 py-2.5 text-sm text-cream focus:outline-none focus:border-gold/40 transition-colors appearance-none"
+        className="num h-11 w-full appearance-none rounded-md border bg-surface-sunken px-3 text-sm text-content-primary transition-colors duration-fast ease-standard hover:border-strong focus:border-gold-400 focus:outline-none"
         style={{ colorScheme: "dark" }}
       >
         <option value="">{placeholder ?? "Select..."}</option>
@@ -222,6 +230,7 @@ function TextInput({
   required,
   placeholder,
   inputMode,
+  prefix,
 }: {
   label: string;
   value: string;
@@ -229,21 +238,28 @@ function TextInput({
   required?: boolean;
   placeholder?: string;
   inputMode?: "text" | "numeric";
+  /** Currency-style prefix rendered inside the field, e.g. "₦" */
+  prefix?: string;
 }) {
   return (
     <div className="space-y-1.5 text-left">
-      <label className="text-xs text-cream-60">
+      <label className="text-xs font-bold tracking-wide text-content-secondary">
         {label}
-        {required && <span className="text-gold ml-0.5">*</span>}
+        {required && <span className="ml-0.5 text-danger-bright">*</span>}
       </label>
-      <input
-        type="text"
-        inputMode={inputMode}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-        className="w-full bg-charcoal border border-[rgba(200,150,42,0.15)] rounded-lg px-3 py-2.5 text-sm text-cream placeholder:text-cream-30 focus:outline-none focus:border-gold/40 transition-colors"
-      />
+      <div className="flex h-11 items-center gap-2 rounded-md border bg-surface-sunken px-3 transition-colors duration-fast ease-standard hover:border-strong focus-within:border-gold-400">
+        {prefix && (
+          <span className="text-sm font-bold text-content-tertiary whitespace-nowrap">{prefix}</span>
+        )}
+        <input
+          type="text"
+          inputMode={inputMode}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
+          className="num flex-1 bg-transparent text-sm text-content-primary placeholder:text-content-hint focus:outline-none"
+        />
+      </div>
     </div>
   );
 }
@@ -261,9 +277,9 @@ function YesNo({
 }) {
   return (
     <div className="space-y-1.5 text-left">
-      <label className="text-xs text-cream-60">
+      <label className="text-xs font-bold tracking-wide text-content-secondary">
         {label}
-        {required && <span className="text-gold ml-0.5">*</span>}
+        {required && <span className="ml-0.5 text-danger-bright">*</span>}
       </label>
       <div className="flex gap-2">
         {[true, false].map((opt) => (
@@ -271,10 +287,10 @@ function YesNo({
             key={String(opt)}
             type="button"
             onClick={() => onChange(opt)}
-            className={`flex-1 py-2.5 rounded-lg text-sm border transition-colors ${
+            className={`flex-1 rounded-md border py-2.5 text-sm font-bold transition-colors duration-fast ease-standard ${
               value === opt
-                ? "border-gold/60 bg-gold/10 text-gold"
-                : "border-[rgba(200,150,42,0.15)] bg-charcoal text-cream-60 hover:border-gold/30"
+                ? "border-gold-active bg-surface-gold text-content-accent"
+                : "bg-surface-sunken text-content-secondary hover:border-strong"
             }`}
           >
             {opt ? "Yes" : "No"}
@@ -298,9 +314,9 @@ function StarRating({
 }) {
   return (
     <div className="space-y-1.5 text-left">
-      <label className="text-xs text-cream-60">
+      <label className="text-xs font-bold tracking-wide text-content-secondary">
         {label}
-        {required && <span className="text-gold ml-0.5">*</span>}
+        {required && <span className="ml-0.5 text-danger-bright">*</span>}
       </label>
       <div className="flex gap-1">
         {[1, 2, 3, 4, 5].map((star) => (
@@ -308,8 +324,8 @@ function StarRating({
             key={star}
             type="button"
             onClick={() => onChange(star)}
-            className={`text-2xl transition-colors ${
-              star <= value ? "text-gold" : "text-cream-30 hover:text-gold/50"
+            className={`text-2xl transition-colors duration-fast ease-standard ${
+              star <= value ? "text-content-accent" : "text-content-hint hover:text-gold-400/50"
             }`}
           >
             ★
@@ -340,17 +356,17 @@ function Pills({
   };
   return (
     <div className="space-y-1.5 text-left">
-      <label className="text-xs text-cream-60">{label}</label>
+      <label className="text-xs font-bold tracking-wide text-content-secondary">{label}</label>
       <div className="flex flex-wrap gap-2">
         {options.map((opt) => (
           <button
             key={opt}
             type="button"
             onClick={() => toggle(opt)}
-            className={`px-3 py-1.5 rounded-full text-xs border transition-colors ${
+            className={`rounded-full border px-3 py-1.5 text-xs font-bold tracking-wide transition-colors duration-fast ease-standard ${
               selected.includes(opt)
-                ? "border-gold/60 bg-gold/10 text-gold"
-                : "border-[rgba(200,150,42,0.15)] bg-charcoal text-cream-60 hover:border-gold/30"
+                ? "border-gold-active bg-surface-gold text-content-accent"
+                : "bg-surface-sunken text-content-secondary hover:border-strong"
             }`}
           >
             {opt}
@@ -361,13 +377,31 @@ function Pills({
   );
 }
 
-function ProgressBar({ progress }: { progress: number }) {
+// Step progress indicator — per Stepper spec: gold done/active segments,
+// border-default upcoming, "Step X of Y" caption (never a smooth % bar).
+function StepIndicator({ current, total }: { current: number; total: number }) {
   return (
-    <div className="w-full h-1 rounded-full bg-[rgba(200,150,42,0.08)] overflow-hidden">
-      <div
-        className="h-full rounded-full bg-gold transition-all duration-500 ease-out"
-        style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
-      />
+    <div
+      className="space-y-2"
+      role="progressbar"
+      aria-valuenow={current + 1}
+      aria-valuemin={1}
+      aria-valuemax={total}
+      aria-label={`Step ${current + 1} of ${total}`}
+    >
+      <div className="flex items-center gap-1.5">
+        {Array.from({ length: total }).map((_, i) => (
+          <div
+            key={i}
+            className={`h-1 flex-1 rounded-full transition-colors duration-slow ease-decel ${
+              i <= current ? "bg-gold-500" : "bg-[var(--border-default)]"
+            }`}
+          />
+        ))}
+      </div>
+      <p className="num text-xs text-content-tertiary">
+        Step {current + 1} of {total}
+      </p>
     </div>
   );
 }
@@ -419,9 +453,9 @@ function CompanySearch({
   }, [onChange]);
 
   return (
-    <div className="space-y-1.5 relative">
-      <label className="text-xs text-cream-60">
-        Company name<span className="text-gold ml-0.5">*</span>
+    <div className="relative space-y-1.5">
+      <label className="text-xs font-bold tracking-wide text-content-secondary">
+        Company name<span className="ml-0.5 text-danger-bright">*</span>
       </label>
       <div className="relative">
         <input
@@ -440,40 +474,40 @@ function CompanySearch({
             }, 200);
           }}
           placeholder="Start typing a company name..."
-          className="w-full bg-charcoal border border-[rgba(200,150,42,0.15)] rounded-lg px-3 py-2.5 text-sm text-cream placeholder:text-cream-30 focus:outline-none focus:border-gold/40 transition-colors"
+          className="num h-11 w-full rounded-md border bg-surface-sunken px-3 text-sm text-content-primary placeholder:text-content-hint transition-colors duration-fast ease-standard hover:border-strong focus:border-gold-400 focus:outline-none"
         />
         {loading && (
           <div className="absolute right-3 top-1/2 -translate-y-1/2">
-            <div className="w-4 h-4 border-2 border-gold/30 border-t-gold rounded-full animate-spin" />
+            <div className="h-4 w-4 animate-btn-spin rounded-full border-2 border-gold-400/30 border-t-gold-400" />
           </div>
         )}
       </div>
       {open && results.length > 0 && (
-        <div className="absolute z-50 top-full left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-lg border border-[rgba(200,150,42,0.15)] bg-bg-surface shadow-lg">
+        <div className="absolute top-full z-50 left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-md border bg-surface-base shadow-2">
           {results.map((r) => (
             <button
               key={r.name}
               type="button"
               onMouseDown={(e) => e.preventDefault()}
               onClick={() => commitValue(r.name)}
-              className={`w-full text-left px-3 py-2.5 text-sm hover:bg-gold/10 flex items-center justify-between transition-colors ${
-                r.known ? "text-cream" : "text-cream-60 border-t border-[rgba(200,150,42,0.08)]"
+              className={`flex w-full items-center justify-between px-3 py-2.5 text-left text-sm transition-colors duration-fast ease-standard hover:bg-surface-gold ${
+                r.known ? "text-content-primary" : "border-t border-subtle text-content-secondary"
               }`}
             >
               <span>{r.name}</span>
               {r.industry && (
-                <span className="text-xs text-cream-40 ml-2">{r.industry}</span>
+                <span className="ml-2 text-xs text-content-tertiary">{r.industry}</span>
               )}
               {!r.known && (
-                <span className="text-xs text-gold/60 ml-2">+ Add new</span>
+                <span className="ml-2 text-xs text-content-accent/60">+ Add new</span>
               )}
             </button>
           ))}
         </div>
       )}
       {value && (
-        <p className="text-xs text-cream-40 mt-1">
-          Selected: <span className="text-cream">{value}</span>
+        <p className="mt-1 text-xs text-content-tertiary">
+          Selected: <span className="text-content-primary">{value}</span>
         </p>
       )}
     </div>
@@ -591,35 +625,47 @@ function FormModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto">
-      <div className="min-h-full flex items-start justify-center py-8 px-4">
-        <div
-          className="fixed inset-0 bg-black/70 backdrop-blur-sm"
+    <div className="fixed inset-0 z-50">
+      {/* Scrim: --scrim + --scrim-blur, per Modal spec */}
+      <div
+        className="fixed inset-0 bg-scrim backdrop-blur-[var(--scrim-blur)]"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      {/* Panel: centered via top/left 50% + the modal-in keyframe's own
+          translate(-50%,-50%) end state (fill-mode "both" keeps it pinned
+          after the animation completes). */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        className="animate-modal-in fixed left-1/2 top-1/2 z-10 w-[calc(100%-2rem)] max-w-lg max-h-[85vh] overflow-y-auto rounded-md border border-strong bg-surface-raised shadow-3"
+      >
+        <button
           onClick={onClose}
-        />
-        <div className="relative w-full max-w-lg rounded-2xl border border-[rgba(200,150,42,0.15)] bg-bg-surface shadow-2xl">
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 text-cream-40 hover:text-cream transition-colors z-10"
-            aria-label="Close"
-          >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-          </button>
-          <div className="p-6 sm:p-8">{children}</div>
-        </div>
+          className="absolute top-4 right-4 z-10 text-content-tertiary hover:text-content-primary transition-colors duration-fast ease-standard"
+          aria-label="Close"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </button>
+        <div className="p-6 sm:p-8">{children}</div>
       </div>
     </div>
   );
 }
 
 // ─── Trigger Button ──────────────────────────────────────────────────────────
-
+// Nav + primary: gold fill + text-content-on-gold (never cream-on-gold),
+// hover gold-400. Ghost has no equivalent in ui/Button's variant set (its
+// "secondary"/"ghost" are neutral, not gold-outlined), so it stays a
+// tokenized style map rather than a Button swap.
 const TRIGGER_STYLES: Record<string, string> = {
-  primary: "bg-gold hover:bg-gold-hover text-bg-primary font-body font-semibold text-sm tracking-[0.05em] px-6 py-3 rounded-md transition-colors",
-  ghost: "border border-[rgba(200,150,42,0.25)] text-gold hover:bg-[rgba(200,150,42,0.08)] font-body font-medium text-sm px-5 py-2.5 rounded-md transition-colors",
-  nav: "bg-gold hover:bg-gold-hover text-bg-primary font-body font-semibold text-xs tracking-[0.05em] px-4 py-2 rounded-md transition-colors",
+  primary:
+    "bg-gold-500 hover:bg-gold-400 text-content-on-gold font-body font-bold text-sm tracking-wide px-6 py-3 rounded-md transition-colors duration-fast ease-standard",
+  ghost:
+    "border border-gold hover:bg-surface-gold text-content-accent font-body font-medium text-sm px-5 py-2.5 rounded-md transition-colors duration-fast ease-standard",
+  nav: "bg-gold-500 hover:bg-gold-400 text-content-on-gold font-body font-bold text-xs tracking-wide px-4 py-2 rounded-md transition-colors duration-fast ease-standard",
 };
 
 export function PulseFormTrigger({
@@ -724,7 +770,6 @@ function PulseFormContent({ onComplete }: { onComplete?: () => void }) {
   const steps = getSteps(form);
   const step = steps[currentStep];
   const isLastStep = currentStep === steps.length - 1;
-  const progress = ((currentStep + 1) / steps.length) * 100;
 
   const next = () => {
     if (!step || !canAdvance(step.key, form)) return;
@@ -857,20 +902,32 @@ function PulseFormContent({ onComplete }: { onComplete?: () => void }) {
 
   if (submitted) {
     return (
-      <div className="text-center py-12 space-y-4">
-        <div className="text-4xl">✓</div>
-        <h2 className="text-xl font-semibold text-cream">Thank you!</h2>
-        <p className="text-sm text-cream-60 max-w-sm mx-auto">
+      <div className="count-up space-y-4 py-12 text-center">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-success bg-success-bg">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-success-bright"
+            aria-hidden="true"
+          >
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>
+        <h2 className="text-xl font-bold text-content-primary">Thank you!</h2>
+        <p className="mx-auto max-w-sm text-sm text-content-secondary">
           Your submission is pending review. Once approved, it will appear in the
           dataset and improve salary benchmarks for everyone.
         </p>
         {onComplete && (
-          <button
-            onClick={onComplete}
-            className="mt-4 px-4 py-2 rounded-lg text-sm text-gold border border-gold/30 hover:bg-gold/10 transition-colors"
-          >
+          <Button variant="ghost" onClick={onComplete} className="mt-4">
             Close
-          </button>
+          </Button>
         )}
       </div>
     );
@@ -881,11 +938,11 @@ function PulseFormContent({ onComplete }: { onComplete?: () => void }) {
   return (
     <div>
       {/* Progress */}
-      <div className="mb-6 space-y-2">
-        <ProgressBar progress={progress} />
+      <div className="mb-6 space-y-3">
+        <StepIndicator current={currentStep} total={steps.length} />
         <div className="text-left">
-          <p className="text-sm font-semibold text-cream">{step?.label}</p>
-          <p className="text-xs text-cream-40 mt-0.5">
+          <p className="text-sm font-bold text-content-primary">{step?.label}</p>
+          <p className="mt-0.5 text-xs text-content-tertiary">
             {step ? STEP_DESCRIPTIONS[step.key] : ""}
           </p>
         </div>
@@ -902,8 +959,10 @@ function PulseFormContent({ onComplete }: { onComplete?: () => void }) {
         />
       </div>
 
-      {/* Step content */}
-      <div className="space-y-4">
+      {/* Step content — page-enter recipe (dur-slow/ease-decel) replays per
+          step via the key, matching the "duration-slow ease-decel" step
+          transition rule. */}
+      <div className="page-enter space-y-4" key={step?.key}>
         {step?.key === "role" && (
           <>
             <Select label="Function" value={form.function} onChange={(v) => set("function", v)} options={FUNCTION_OPTIONS} required />
@@ -966,7 +1025,7 @@ function PulseFormContent({ onComplete }: { onComplete?: () => void }) {
 
         {step?.key === "path" && (
           <div className="space-y-3">
-            <p className="text-sm text-cream mb-4">
+            <p className="mb-4 text-sm text-content-primary">
               Would you like to name your employer? Company names are shown publicly
               alongside salary data to add credibility — but <strong>your identity
               stays completely anonymous</strong>. There&apos;s no way to trace a data
@@ -975,24 +1034,39 @@ function PulseFormContent({ onComplete }: { onComplete?: () => void }) {
             {[
               { value: "company" as const, label: "Yes, I'll name my employer", desc: "Shorter form — company name covers many validation fields" },
               { value: "anonymous" as const, label: "No, keep it anonymous", desc: "A few more questions to help us validate your data" },
-            ].map((opt) => (
-              <button
-                key={opt.value}
-                type="button"
-                onClick={() => {
-                  set("path", opt.value);
-                  track("form_path_chosen", { path: opt.value });
-                }}
-                className={`w-full text-left p-4 rounded-lg border transition-colors ${
-                  form.path === opt.value
-                    ? "border-gold/60 bg-gold/10"
-                    : "border-[rgba(200,150,42,0.15)] bg-charcoal hover:border-gold/30"
-                }`}
-              >
-                <p className="text-sm font-medium text-cream">{opt.label}</p>
-                <p className="text-xs text-cream-40 mt-1">{opt.desc}</p>
-              </button>
-            ))}
+            ].map((opt) => {
+              const selected = form.path === opt.value;
+              return (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => {
+                    set("path", opt.value);
+                    track("form_path_chosen", { path: opt.value });
+                  }}
+                  className={`flex w-full items-start gap-3 rounded-md border p-4 text-left transition-colors duration-fast ease-standard ${
+                    selected
+                      ? "border-gold-active bg-surface-gold"
+                      : "border-subtle bg-surface-base hover:border-gold-hover"
+                  }`}
+                >
+                  <span
+                    className={`mt-0.5 flex h-[18px] w-[18px] flex-shrink-0 items-center justify-center rounded-full ${
+                      selected ? "bg-gold-400" : "border-2 border-strong"
+                    }`}
+                    aria-hidden="true"
+                  >
+                    {selected && <span className="h-1.5 w-1.5 rounded-full bg-surface-canvas" />}
+                  </span>
+                  <span>
+                    <p className={`text-sm font-bold ${selected ? "text-content-accent" : "text-content-primary"}`}>
+                      {opt.label}
+                    </p>
+                    <p className="mt-0.5 text-xs text-content-secondary">{opt.desc}</p>
+                  </span>
+                </button>
+              );
+            })}
           </div>
         )}
 
@@ -1042,6 +1116,7 @@ function PulseFormContent({ onComplete }: { onComplete?: () => void }) {
               required
               placeholder="e.g. 800,000"
               inputMode="numeric"
+              prefix={currencySymbol(form.currency)}
             />
             <TextInput
               label="Monthly net salary (take-home after tax)"
@@ -1049,6 +1124,7 @@ function PulseFormContent({ onComplete }: { onComplete?: () => void }) {
               onChange={(v) => set("monthly_net", parseCurrency(v))}
               placeholder="Optional"
               inputMode="numeric"
+              prefix={currencySymbol(form.currency)}
             />
           </>
         )}
@@ -1108,9 +1184,10 @@ function PulseFormContent({ onComplete }: { onComplete?: () => void }) {
         )}
       </div>
 
-      {/* Error */}
+      {/* Error — kept as text-danger-bright per validation-copy rule rather
+          than InlineAlert, whose message tier defaults to content-secondary. */}
       {error && (
-        <div className="mt-4 p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-sm text-red-400">
+        <div className="mt-4 rounded-sm border-l-[3px] border-danger bg-danger-bg p-3 text-sm text-danger-bright">
           {error}
         </div>
       )}
@@ -1118,26 +1195,24 @@ function PulseFormContent({ onComplete }: { onComplete?: () => void }) {
       {/* Navigation */}
       <div className="flex gap-3 mt-8">
         {currentStep > 0 && (
-          <button
-            type="button"
-            onClick={back}
-            className="px-4 py-2.5 rounded-lg text-sm text-cream-60 border border-[rgba(200,150,42,0.15)] hover:border-gold/30 transition-colors"
-          >
+          <Button type="button" variant="secondary" onClick={back}>
             Back
-          </button>
+          </Button>
         )}
-        <button
+        <Button
           type="button"
+          variant="primary"
           onClick={next}
           disabled={!step || !canAdvance(step.key, form) || submitting}
-          className="flex-1 py-2.5 rounded-lg text-sm font-medium bg-gold text-charcoal hover:bg-gold/90 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          loading={submitting}
+          className="flex-1"
         >
           {submitting
             ? "Submitting..."
             : isLastStep
               ? "Submit"
               : "Continue"}
-        </button>
+        </Button>
       </div>
     </div>
   );

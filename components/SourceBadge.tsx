@@ -1,19 +1,23 @@
+import Badge, { type BadgeVariant } from "@/components/ui/Badge";
+
 interface SourceBadgeProps {
   source: string;
   label: string;
 }
 
+// Thin adapter over ui/Badge — keeps the pre-migration {source, label} call
+// contract (see components/RecentSubmissions.tsx) while mapping onto the
+// design system's data-source badge variants.
+function variantForSource(source: string): BadgeVariant {
+  if (source === "pulse_2026") return "pulse";
+  if (source.startsWith("community")) return "community";
+  return "historical";
+}
+
 export default function SourceBadge({ source, label }: SourceBadgeProps) {
-  const isPulse = source === "pulse_2026";
   return (
-    <span
-      className={`inline-block text-[10px] font-semibold tracking-[0.1em] uppercase px-2 py-0.5 rounded-full ${
-        isPulse
-          ? "bg-gold text-bg-primary"
-          : "border border-[rgba(200,150,42,0.35)] text-gold/70"
-      }`}
-    >
+    <Badge variant={variantForSource(source)} dot={false}>
       {label}
-    </span>
+    </Badge>
   );
 }

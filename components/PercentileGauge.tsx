@@ -21,50 +21,60 @@ export default function PercentileGauge({ p25, median, p75, userValue, percentil
   const medianPct = toPercent(median);
   const p75Pct = toPercent(p75);
   const userPct = toPercent(userValue);
+  const belowP25 = userValue < p25;
 
   return (
-    <div className="space-y-3">
+    <div
+      className="space-y-3"
+      role="group"
+      aria-label={`You are at the ${percentileRank}th percentile: ${formatCurrency(userValue)} against a median of ${formatCurrency(median)}`}
+    >
       {/* Bar */}
-      <div className="relative h-3 rounded-full bg-[rgba(200,150,42,0.08)] overflow-visible">
+      <div className="relative h-3 overflow-visible rounded-full bg-gradient-to-r from-content-secondary/10 to-gold-500/25">
         {/* IQR fill */}
         <div
-          className="absolute h-full rounded-full bg-[rgba(200,150,42,0.20)]"
+          className="absolute h-full rounded-full bg-gold-500/25"
           style={{ left: `${p25Pct}%`, width: `${p75Pct - p25Pct}%` }}
+          aria-hidden="true"
         />
         {/* Median tick */}
         <div
-          className="absolute top-1/2 -translate-y-1/2 w-0.5 h-5 bg-gold/60 rounded"
+          className="absolute top-1/2 h-5 w-0.5 -translate-y-1/2 rounded bg-gold-400/60"
           style={{ left: `${medianPct}%` }}
+          aria-hidden="true"
         />
         {/* User marker */}
         <div
-          className="absolute top-1/2 -translate-y-1/2 w-0 h-0 -translate-x-1/2"
+          className="absolute top-1/2 h-0 w-0 -translate-x-1/2 -translate-y-1/2"
           style={{ left: `${userPct}%` }}
+          aria-hidden="true"
         >
-          <div className="w-4 h-4 rounded-full bg-gold border-2 border-bg-primary shadow-lg shadow-gold/30" />
+          <div className="h-4 w-4 rounded-full border-2 border-surface-canvas bg-gold-400 shadow-lg shadow-gold/30" />
         </div>
       </div>
 
       {/* Labels */}
-      <div className="flex justify-between text-xs text-cream-40">
+      <div className="flex justify-between text-xs text-content-tertiary">
         <div>
-          <span className="block text-cream-60">{formatCurrency(p25)}</span>
+          <span className="num block text-content-secondary">{formatCurrency(p25)}</span>
           <span>25th</span>
         </div>
         <div className="text-center">
-          <span className="block text-cream-60">{formatCurrency(median)}</span>
+          <span className="num block text-content-secondary">{formatCurrency(median)}</span>
           <span>Median</span>
         </div>
         <div className="text-right">
-          <span className="block text-cream-60">{formatCurrency(p75)}</span>
+          <span className="num block text-content-secondary">{formatCurrency(p75)}</span>
           <span>75th</span>
         </div>
       </div>
 
       {/* Rank badge */}
-      <div className="text-center mt-4">
-        <span className="font-display text-5xl text-gold">{percentileRank}th</span>
-        <span className="block text-sm text-cream-60 mt-1">percentile</span>
+      <div className="mt-4 text-center">
+        <span className={["display num text-display-lg", belowP25 ? "text-warning-bright" : "text-content-accent"].join(" ")}>
+          {percentileRank}th
+        </span>
+        <span className="mt-1 block text-sm text-content-secondary">percentile</span>
       </div>
     </div>
   );
